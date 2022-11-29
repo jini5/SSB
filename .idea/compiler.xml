@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="demoCalendar" target="1.8" />
+      <module name="demoChat" target="1.8" />
+      <module name="demoTodo" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
