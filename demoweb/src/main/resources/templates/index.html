@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>DT핀테크거래소</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- responsive-->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- awesome fontfamily -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<!-- body -->
+
+<body class="main-layout">
+    <!-- loader  -->
+    <div class="loader_bg">
+        <div class="loader"><img src="images/loading.gif" alt="" /></div>
+    </div>
+    <!-- end loader -->
+    <div id="mySidepanel" class="sidepanel" style="font-family: 'Jua', sans-serif;">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a class="active" href="/">홈으로</a>
+        <a href="/goSignup">가입하기</a>
+        <a href="/goLogin">로그인하기</a>
+        <a href="/goPay">충전하기</a>
+        <a href="/goMarket">거래하기</a>
+        <a href="/goHistory">거래내역</a>
+    </div>
+    <!-- header -->
+    <header  style="font-family: 'Jua', sans-serif;">
+        <!-- header inner -->
+        <div class="head-top">
+            <div class="container-fluid">
+                <div class="row d_flex">
+                    <div class="col-sm-3">
+                        <div class="logo">
+                            <a href="/">DT핀테크거래소</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <ul class="social_icon text_align_right d_none">
+                            <li> <a href="Javascript:void(0)"><i class="fa fa-facebook-f"></i></a></li>
+                            <li> <a href="Javascript:void(0)"><i class="fa fa-twitter"></i></a></li>
+                            <li> <a href="Javascript:void(0)"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li> <a href="Javascript:void(0)"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li> <a href="Javascript:void(0)"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4">
+                        <ul class="email text_align_right">
+                            <li class="d_none"><a href="Javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                            <li class="d_none"> <a href="Javascript:void(0)"><i class="fa fa-search" style="cursor: pointer;" aria-hidden="true"></i></a> </li>
+                            <li>
+                                <button class="openbtn" onclick="openNav()"><img src="images/menu_btn.png"></button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- end header -->
+    <!-- start slider section -->
+    <div id="top_section" class=" banner_main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="container-fluid">
+                                    <div class="carousel-caption relative">
+                                        <div class="row d_flex">
+                                            <div class="col-md-6">
+                                                <div class="con_img">
+                                                    <figure><img class="img_responsive" src="images/top_img.png" alt="#" /></figure>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" >
+                                                <div class="bluid" style="font-family: 'Jua', sans-serif;">
+                                                    <h1>가상자산,<br> 당신의 성공 전략</h1>
+                                                    <p>가장 간단하고 강력한 재테크에 참여하세요.</p>
+                                                    <a class="read_more" href="/goSignup">회원가입하기 </a>
+                                                    <div style="padding-top:25px;">
+
+                                                        <div class="tradingview-widget-container"  style="font-family: 'Jua', sans-serif;">
+                                                            <div class="tradingview-widget-container__widget"></div>
+                                                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+                                                                {
+                                                                    "width": "100%",
+                                                                    "height": 200,
+                                                                    "symbolsGroups": [
+                                                                    {
+                                                                        "name": "코인",
+                                                                        "symbols": [
+                                                                            {
+                                                                                "name": "UPBIT:BTCKRW",
+                                                                                "displayName": "비트코인"
+                                                                            },
+                                                                            {
+                                                                                "name": "UPBIT:XRPKRW",
+                                                                                "displayName": "리플"
+                                                                            },
+                                                                            {
+                                                                                "name": "UPBIT:ETHKRW",
+                                                                                "displayName": "이더리움"
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                    "showSymbolLogo": false,
+                                                                    "colorTheme": "dark",
+                                                                    "isTransparent": true,
+                                                                    "locale": "kr"
+                                                                }
+                                                            </script>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end slider section -->
+    <!-- wallet -->
+    <div class="wallet">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="tradingview-widget-container">
+                        <div id="tradingview_16c18"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                        <script type="text/javascript">
+                            new TradingView.widget(
+                                {
+                                    "autosize": true,
+                                    "symbol": "UPBIT:BTCKRW",
+                                    "interval": "5",
+                                    "timezone": "Asia/Seoul",
+                                    "theme": "dark",
+                                    "style": "1",
+                                    "locale": "kr",
+                                    "toolbar_bg": "#f1f3f6",
+                                    "enable_publishing": false,
+                                    "hide_top_toolbar": true,
+                                    "allow_symbol_change": true,
+                                    "container_id": "tradingview_16c18"
+                                }
+                            );
+                        </script>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="tradingview-widget-container">
+                        <div id="tradingview_16c19"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                        <script type="text/javascript">
+                            new TradingView.widget(
+                                {
+                                    "autosize": true,
+                                    "symbol": "UPBIT:ETHKRW",
+                                    "interval": "5",
+                                    "timezone": "Asia/Seoul",
+                                    "theme": "dark",
+                                    "style": "1",
+                                    "locale": "kr",
+                                    "toolbar_bg": "#f1f3f6",
+                                    "enable_publishing": false,
+                                    "hide_top_toolbar": true,
+                                    "allow_symbol_change": true,
+                                    "container_id": "tradingview_16c19"
+                                }
+                            );
+                        </script>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="tradingview-widget-container">
+                        <div id="tradingview_16c20"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                        <script type="text/javascript">
+                            new TradingView.widget(
+                                {
+                                    "autosize": true,
+                                    "symbol": "UPBIT:DOGEKRW",
+                                    "interval": "5",
+                                    "timezone": "Asia/Seoul",
+                                    "theme": "dark",
+                                    "style": "1",
+                                    "locale": "kr",
+                                    "toolbar_bg": "#f1f3f6",
+                                    "enable_publishing": false,
+                                    "hide_top_toolbar": true,
+                                    "allow_symbol_change": true,
+                                    "container_id": "tradingview_16c20"
+                                }
+                            );
+                        </script>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="tradingview-widget-container">
+                        <div id="tradingview_16c21"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                        <script type="text/javascript">
+                            new TradingView.widget(
+                                {
+                                    "autosize": true,
+                                    "symbol": "UPBIT:XRPKRW",
+                                    "interval": "5",
+                                    "timezone": "Asia/Seoul",
+                                    "theme": "dark",
+                                    "style": "1",
+                                    "locale": "kr",
+                                    "toolbar_bg": "#f1f3f6",
+                                    "enable_publishing": false,
+                                    "hide_top_toolbar": true,
+                                    "allow_symbol_change": true,
+                                    "container_id": "tradingview_16c21"
+                                }
+                            );
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end wallet -->
+    <!-- about -->
+    <div id="about" class="about" >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="about_border">
+                        <div class="row">
+                            <div class="col-md-6" style="font-family: 'Jua', sans-serif;">
+                                <div class="titlepage text_align_left">
+                                    <h2>DT핀테크거래소</h2>
+                                </div>
+                                <div class="about_text">
+                                    <p> 2022년 제작된 탄탄한 기반을 닦은 가상화폐 거래소 입니다. 당신의 가상자산을 가장 안전한 곳에 보관하세요.<br>
+                                        온라인 거래, 실시간 가상자산 자료를 제공하고 있습니다. <br><br>
+                                        가상자산은 가격 변동폭에 제한이 없으므로 원금손실 가능성이 있음을 특히 유의하시기 바랍니다.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="about_img">
+                                    <figure><img class="img_responsive" src="images/about2.png" alt="#" /></figure>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end about -->
+    <!-- graf -->
+    <div class="graf">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs md-tabs graf_tab" id="myTabMD" role="tablist" style="font-family: 'Jua', sans-serif;">
+                        <li>
+                            <a class="nav-link active"  id="home-tab-md" data-toggle="tab" href="#tab1" role="tab" aria-controls="home-md" aria-selected="true">비트코인(BTC)</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" id="profile-tab-md" data-toggle="tab" href="#tab2" role="tab" aria-controls="profile-md" aria-selected="false">이더리움(ETH)</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" id="contact-tab-md" data-toggle="tab" href="#tab3" role="tab" aria-controls="contact-md" aria-selected="false">리플(XRP)</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content card  graf_content" id="myTabContentMD">
+                        <div class="tab-pane fade show active padi" id="tab1" role="tabpanel" aria-labelledby="home-tab-md">
+                            <div class="row">
+                                <div class="col-md-2 col-sm-4">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-4">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-4">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-4">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-4">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-4">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="graf_bootom">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="growth text_align_center">
+                                            <figure>
+                                                <!-- TradingView Widget BEGIN -->
+                                                <div class="tradingview-widget-container">
+                                                    <div id="tradingview_461a5"></div>
+                                                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                                                    <script type="text/javascript">
+                                                        new TradingView.widget(
+                                                            {
+                                                                "height": 610,
+                                                                "width": "100%",
+                                                                "symbol": "UPBIT:BTCKRW",
+                                                                "interval": "5",
+                                                                "timezone": "Asia/Seoul",
+                                                                "theme": "dark",
+                                                                "style": "1",
+                                                                "locale": "kr",
+                                                                "toolbar_bg": "#f1f3f6",
+                                                                "enable_publishing": false,
+                                                                "allow_symbol_change": true,
+                                                                "studies": [
+                                                                    "BB@tv-basicstudies"
+                                                                ],
+                                                                "container_id": "tradingview_461a5"
+                                                            }
+                                                        );
+                                                    </script>
+                                                </div>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade padi" id="tab2" role="tabpanel" aria-labelledby="profile-tab-md">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="graf_bootom">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="growth text_align_center">
+                                            <figure>
+                                                <!-- TradingView Widget BEGIN -->
+                                                <div class="tradingview-widget-container">
+                                                    <div id="tradingview_461a6"></div>
+                                                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                                                    <script type="text/javascript">
+                                                        new TradingView.widget(
+                                                            {
+                                                                "height": 610,
+                                                                "width": "100%",
+                                                                "symbol": "UPBIT:ETHKRW",
+                                                                "interval": "5",
+                                                                "timezone": "Asia/Seoul",
+                                                                "theme": "dark",
+                                                                "style": "1",
+                                                                "locale": "kr",
+                                                                "toolbar_bg": "#f1f3f6",
+                                                                "enable_publishing": false,
+                                                                "allow_symbol_change": true,
+                                                                "studies": [
+                                                                    "BB@tv-basicstudies"
+                                                                ],
+                                                                "container_id": "tradingview_461a6"
+                                                            }
+                                                        );
+                                                    </script>
+                                                </div>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade padi" id="tab3" role="tabpanel" aria-labelledby="contact-tab-md">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="graf_bootom">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="growth text_align_center">
+                                            <figure>
+                                                <!-- TradingView Widget BEGIN -->
+                                                <div class="tradingview-widget-container">
+                                                    <div id="tradingview_461a7"></div>
+                                                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                                                    <script type="text/javascript">
+                                                        new TradingView.widget(
+                                                            {
+                                                                "height": 610,
+                                                                "width": "100%",
+                                                                "symbol": "UPBIT:XRPKRW",
+                                                                "interval": "5",
+                                                                "timezone": "Asia/Seoul",
+                                                                "theme": "dark",
+                                                                "style": "1",
+                                                                "locale": "kr",
+                                                                "toolbar_bg": "#f1f3f6",
+                                                                "enable_publishing": false,
+                                                                "allow_symbol_change": true,
+                                                                "studies": [
+                                                                    "BB@tv-basicstudies"
+                                                                ],
+                                                                "container_id": "tradingview_461a7"
+                                                            }
+                                                        );
+                                                    </script>
+                                                </div>
+                                            </figure>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade padi" id="tab4" role="tabpanel" aria-labelledby="contact-tab-md">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="graf_bootom">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="growth text_align_center">
+                                            <figure>
+                                                <h3 class="h3tota">Total Growth</h3>
+                                                <img class="img_responsive" src="images/graf1.jpg" alt="#" />
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="growth text_align_center">
+                                            <h3>LiveTrades <span style="color: #face34;" class="pa_ri">USD 123456.09</span></h3>
+                                            <figure><img class="img_responsive" src="images/graf2.jpg" alt="#" /></figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade padi" id="tab5" role="tabpanel" aria-labelledby="contact-tab-md">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                        <h4><span>USD</span> 123456.09 <br> Last Price </h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                        <h4>USD 123456.09 <br> Daily Change </h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                        <h4>USD 123456.09 <br> 24 Hour Low </h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                        <h4>USD 123456.09 <br> 24 Hour High </h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                        <h4>USD 123456.09 <br> Today Open </h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="usd text_align_center">
+                                        <h4>BTC 09876 <br> 24 hour volume </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="graf_bootom">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="growth text_align_center">
+                                            <figure>
+                                                <h3 class="h3tota">Total Growth</h3>
+                                                <img class="img_responsive" src="images/graf1.jpg" alt="#" />
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="growth text_align_center">
+                                            <h3>LiveTrades <span style="color: #face34;" class="pa_ri">USD 123456.09</span></h3>
+                                            <figure><img class="img_responsive" src="images/graf2.jpg" alt="#" /></figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end graf -->
+
+    <!-- contact -->
+    <div class="contact" style="font-family: 'Jua', sans-serif;padding-top: 60px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titlepage text_align_center">
+                        <h2>연락요청하기</h2>
+                    </div>
+                </div>
+                <div class=" col-md-10 offset-md-1">
+                    <form id="request" action="requestCall" method="post" class="main_form">
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <input class="contactus" placeholder="성명" type="type" name="name">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="contactus" placeholder="이메일" type="type" name="email">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="contactus" placeholder="전화번호" type="type" name="phone">
+                            </div>
+                            <div class="col-md-6">
+                                <textarea class="textarea" placeholder="메세지" type="type" name="message"></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <button class="send_btn">연락요청하기</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end contact -->
+    <!-- footer -->
+    <footer style="font-family: 'Jua', sans-serif;">
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a class="logo_bottom" href="/">DT핀테크거래소</a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                  <div class="Informa conta ">
+                     <h3>Contact Us</h3>
+                     <ul>
+                        <li> <a href="Javascript:void(0) "> <i class="fa fa-map-marker " aria-hidden="true "></i> Location
+                           </a>
+                        </li>
+                        <li> <a href="Javascript:void(0) "><i class="fa fa-phone " aria-hidden="true "></i> Call +01 1234567890
+                           </a>
+                        </li>
+                        <li> <a href="Javascript:void(0) "> <i class="fa fa-envelope " aria-hidden="true "></i> demo@gmail.com
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-md-3 col-sm-6">
+                        <div class="Informa helpful">
+                            <h3>Useful Link</h3>
+                            <ul>
+                                <li>https://judicious-crafter-477.notion.site/<br>7e1a4ca433ac4dc88<br>fe0b3a5eb42fe14
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                  <div class="Informa">
+                     <h3>Offices</h3>
+                     <ul>
+                        <li>서울특별시 강남구
+                        </li>
+                        <li>역삼동 826-21
+                        </li>
+                        <li>미왕빌딩 10층
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-md-3 col-sm-6 ">
+                  <div class="Informa ">
+                     <h3>구독하기</h3>
+                     <form class="newslatter_form" action="subscribe">
+                        <input class="ente " placeholder="이메일 입력하기" type="text " name="email">
+                        <button class="subs_btn ">구독</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <div class="copyright text_align_center ">
+               <div class="container ">
+                  <div class="row ">
+                     <div class="col-md-12 ">
+                        <p>© 2022 All Rights Reserved. Design by Sang-su</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      </footer>
+      <!-- end footer -->
+      <!-- Javascript files-->
+      <script src="js/jquery.min.js "></script>
+      <script src="js/bootstrap.bundle.min.js "></script>
+      <script src="js/jquery-3.0.0.min.js "></script>
+      <script src="js/custom.js "></script>
+   </body>
+</html>
