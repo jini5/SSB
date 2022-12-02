@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
-  <title>로그인</title>
+  <title>회원가입</title>
   <style>
     @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
     *{
@@ -19,7 +19,7 @@
     .container{
       background: #2d3e3f;
       width: 350px;
-      height: 250px;
+      height: 385px;
       padding-bottom: 20px;
       position: absolute;
       top:50%;
@@ -28,7 +28,6 @@
       margin: auto;
       padding: 70px 50px 20px 50px;
     }
-
 
     .fl{
       float: left;
@@ -108,18 +107,43 @@
 <body>
 <!-- Body of Form starts -->
 <div class="container">
-  <form method="post" autocomplete="on">
+  <form method="post" autocomplete="on" action="signup">
 
     <div class="box">
-      <h1 style="font-size: 35px;color: white;">로그인</h1>
+      <h1 style="font-size: 35px;color: white;">회원가입</h1>
     </div>
+
+    <!--name-->
+    <div class="box">
+      <label for="firstName" class="fl fontLabel"> 이름: </label>
+      <div class="new iconBox">
+        <i class="fa fa-user" aria-hidden="true"></i>
+      </div>
+      <div class="fr">
+        <input type="text" name="firstName" placeholder="이름.."
+               class="textBox" autofocus="on" required>
+      </div>
+      <div class="clr"></div>
+    </div>
+    <!--name-->
+
+    <!---Phone No.------>
+    <div class="box">
+      <label for="phone" class="fl fontLabel"> 핸드폰번호: </label>
+      <div class="fl iconBox"><i class="fa fa-phone-square" aria-hidden="true"></i></div>
+      <div class="fr">
+        <input type="text" required name="phone" maxlength="11" placeholder="핸드폰번호.." class="textBox">
+      </div>
+      <div class="clr"></div>
+    </div>
+    <!---Phone No.---->
 
     <!---Email ID---->
     <div class="box">
-      <label for="id" class="fl fontLabel"> 아이디: </label>
+      <label for="email" class="fl fontLabel"> 이메일: </label>
       <div class="fl iconBox"><i class="fa fa-envelope" aria-hidden="true"></i></div>
       <div class="fr">
-        <input type="id" required name="id" placeholder="아이디.." class="textBox">
+        <input type="email" required name="email" placeholder="이메일.." class="textBox">
       </div>
       <div class="clr"></div>
     </div>
@@ -136,10 +160,24 @@
     </div>
     <!---Password---->
 
+    <!---Gender----->
+    <div class="box radio">
+      <label for="gender" class="fl fontLabel"> 성별: </label>
+      <input type="radio" name="gender" value="Male" required> 남성 &nbsp; &nbsp; &nbsp; &nbsp;
+      <input type="radio" name="gender" value="Female" required> 여성
+    </div>
+    <!---Gender--->
+
+    <!--Terms and Conditions------>
+    <div class="box terms">
+      <input type="checkbox" name="Terms" required> &nbsp; 약관에 동의합니다.
+    </div>
+    <!--Terms and Conditions------>
+
     <!---Submit Button------>
     <div class="box" style="background: #2d3e3f">
-      <input type="Submit" name="Submit" class="submit" value="로그인하기">
-      <input type="button" onclick="location.href='/'" style="margin-right: 30px;" class="submit" value="돌아가기">
+      <input type="Submit" name="Submit" class="submit" value="등록하기">
+      <input type="button"  onclick="location.href='/'" style="margin-right: 30px;" class="submit" value="돌아가기">
     </div>
     <!---Submit Button----->
   </form>

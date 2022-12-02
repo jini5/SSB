@@ -16,6 +16,7 @@ public class TodoController {
     TodoService ts;
 
 
+
     @GetMapping("/list")
     public ArrayList<String> list(){
         return ts.selectTodo();

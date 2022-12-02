@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css' rel='stylesheet' />
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.js'></script>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+          locale: 'ko',
+          editable: false,
+          eventClick: function(event) {
+              let title=prompt("타이틀을 입력 해주세요.");
+              let date=event.event.startStr;
+
+              if(title!=''&&title!=null){
+              putSchedule(title,date);
+                }
+          },
+          dateClick: function(date, jsEvent, view) {
+              let title=prompt("타이틀을 입력 해주세요.");
+              let dateOut=date.dateStr;
+
+
+              if(title!=''&&title!=null){
+              putSchedule(title,dateOut);
+              }
+          }
+      });
+      requestSchedule();
+
+        function requestSchedule(){
+            let httpRequest = new XMLHttpRequest();
+            /* httpRequest의 readyState가 변화했을때 함수 실행 */
+            httpRequest.onreadystatechange = () => {
+                /* readyState가 Done이고 응답 값이 200일 때, response 가져옴 */
+                if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                    if (httpRequest.status === 200) {
+                        const result = httpRequest.response;
+
+                         calendar.removeAllEvents();
+
+
+                        for(var i=0;i<result.length;i++){
+                            calendar.addEvent(result[i]);
+                        }
+
+
+
+                        calendar.render();
+                    } else {
+                        alert('서버에러!');
+                    }
+                }
+            };
+            /* Get 방식으로 name 파라미터와 함께 요청 */
+            httpRequest.open('GET', '/all/schedule');
+            /* Response Type을 Json으로 사전 정의 */
+            httpRequest.responseType = "json";
+            /* 정의된 서버에 요청을 전송 */
+            httpRequest.send();
+        }
+
+        function putSchedule(title,date){
+            let httpRequest = new XMLHttpRequest();
+            /* httpRequest의 readyState가 변화했을때 함수 실행 */
+            httpRequest.onreadystatechange = () => {
+                /* readyState가 Done이고 응답 값이 200일 때, response 가져옴 */
+                if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                    if (httpRequest.status === 200) {
+                        const result = httpRequest.response;
+                        calendar.removeAllEvents();
+
+                        for(var i=0;i<result.length;i++){
+                            calendar.addEvent(result[i]);
+                        }
+
+                        calendar.render();
+
+                    } else {
+                        alert('서버에러!');
+                    }
+                }
+            };
+            /* Get 방식으로 name 파라미터와 함께 요청 */
+            httpRequest.open('GET', '/put/schedule?title='+title+'&date='+date);
+            /* Response Type을 Json으로 사전 정의 */
+            httpRequest.responseType = "json";
+            /* 정의된 서버에 요청을 전송 */
+            httpRequest.send();
+        }
+
+
+    });
+
+  </script>
+</head>
+<body>
+<div style="display:flex;">
+    <div style="width:33%;    height: 100px;"></div>
+    <div style="height:800px;width:33%;text-align: center;">
+
+        <div id='calendar'></div>
+    </div>
+    <div  style="width:33%;    height: 100px;"></div>
+</div>
+</body>
+</html>

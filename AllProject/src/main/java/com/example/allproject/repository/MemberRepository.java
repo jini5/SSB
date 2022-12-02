@@ -1,6 +1,6 @@
-package com.example.demopr1.member.repository;
+package com.example.allproject.repository;
 
-import com.example.demopr1.member.mapper.MemberMapper;
+import com.example.allproject.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,12 +14,12 @@ public class MemberRepository {
 
 
     public int signup(HashMap<String,String> params){
-
+        System.out.println("repo param"+params);
         return mapper.signup(params);
     }
 
     public HashMap<String, String> login(String params){
-
+        System.out.println("repo param"+params);
         return mapper.login(params);
     }
 

@@ -29,7 +29,7 @@
         <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/demoTodo" />
+            <option value="$PROJECT_DIR$/demotodo" />
           </set>
         </option>
       </GradleProjectSettings>

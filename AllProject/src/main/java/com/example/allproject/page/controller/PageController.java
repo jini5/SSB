@@ -1,4 +1,4 @@
-package com.example.demopr1.page.controller;
+package com.example.allproject.page.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +13,6 @@ public class PageController {
         return "index";
     }
 
-    @GetMapping("/goMain")
-    public String goMain(){
-        return "memberpage";
-    }
 
     @GetMapping("/goSignUp")
     public String goSignUp(HttpSession session){
@@ -25,7 +21,6 @@ public class PageController {
         }
         return "signup";
     }
-
     @GetMapping("/goLogin")
     public String goLogin(HttpSession session){
         if(session.getAttribute("SESSION_NAME")!=null){
@@ -34,44 +29,21 @@ public class PageController {
         return "login";
     }
 
-    @GetMapping("/goLogout")
-    public String goLogout(HttpSession session){
-        session.setAttribute("SESSION_NAME",null);
-        return "index";
-    }
-
-    @GetMapping("/goMemberPage")
+    @GetMapping("/goMember")
     public String goMember(HttpSession session){
         if(session.getAttribute("SESSION_NAME")==null){
-            return "signup";
+            return "login";
         }
         else{
             return "memberpage";
         }
     }
 
-    @GetMapping("/goTodo")
-    public String goTodo(){
-        return "todo";
-    }
-
-    @GetMapping("/gochat")
-    public String goChat(){
-        return "chat";
-    }
-
-    @GetMapping("/nickname")
-    public String goNickName(){
-        return "nickname";
-    }
-
-    @GetMapping("/chatting")
-    public String goChatting(){
-        return "chatting";
+    @GetMapping("/goLogout")
+    public String goLogout(HttpSession session){
+        session.setAttribute("SESSION_NAME",null);
+        return "index";
     }
 
 
 }
-
-
-

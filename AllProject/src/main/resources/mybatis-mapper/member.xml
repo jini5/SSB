@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.demopr1.MemberMapper">
+<mapper namespace="com.example.allproject.mapper.MemberMapper">
+
 
     <insert id="signup" parameterType="HashMap">
         INSERT INTO
-            memberlist
+            member
         values
-            (#{id}, #{password}, #{phone}, #{email},  #{name});
+            (#{firstName}, #{phone}, #{email}, #{password}, #{gender});
     </insert>
 
     <select id="login" parameterType="String" resultType="HashMap">
         SELECT * FROM
             member
         WHERE
-            id=#{id};
+            email=#{email};
 
     </select>
+
+
 
 
 </mapper>
