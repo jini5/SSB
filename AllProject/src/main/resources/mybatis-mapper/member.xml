@@ -6,9 +6,9 @@
 
     <insert id="signup" parameterType="HashMap">
         INSERT INTO
-            member
+            memberlist
         values
-            (#{firstName}, #{phone}, #{email}, #{password}, #{gender});
+            (#{id}, #{password}, #{phone}, #{email}, #{name});
     </insert>
 
     <select id="login" parameterType="String" resultType="HashMap">

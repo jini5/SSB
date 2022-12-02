@@ -113,19 +113,30 @@
       <h1 style="font-size: 35px;color: white;">회원가입</h1>
     </div>
 
-    <!--name-->
+    <!--id-->
     <div class="box">
-      <label for="firstName" class="fl fontLabel"> 이름: </label>
+      <label for="id" class="fl fontLabel"> 아이디: </label>
       <div class="new iconBox">
         <i class="fa fa-user" aria-hidden="true"></i>
       </div>
       <div class="fr">
-        <input type="text" name="firstName" placeholder="이름.."
+        <input type="text" name="id" placeholder="아이디.."
                class="textBox" autofocus="on" required>
       </div>
       <div class="clr"></div>
     </div>
-    <!--name-->
+    <!--id-->
+
+    <!---Password------>
+    <div class="box">
+      <label for="password" class="fl fontLabel"> 비밀번호 </label>
+      <div class="fl iconBox"><i class="fa fa-key" aria-hidden="true"></i></div>
+      <div class="fr">
+        <input type="Password" required name="password" placeholder="비밀번호.." class="textBox">
+      </div>
+      <div class="clr"></div>
+    </div>
+    <!---Password---->
 
     <!---Phone No.------>
     <div class="box">
@@ -149,24 +160,20 @@
     </div>
     <!--Email ID----->
 
-    <!---Password------>
+    <!--name-->
     <div class="box">
-      <label for="password" class="fl fontLabel"> 비밀번호 </label>
-      <div class="fl iconBox"><i class="fa fa-key" aria-hidden="true"></i></div>
+      <label for="name" class="fl fontLabel"> 이름: </label>
+      <div class="new iconBox">
+        <i class="fa fa-user" aria-hidden="true"></i>
+      </div>
       <div class="fr">
-        <input type="Password" required name="password" placeholder="비밀번호.." class="textBox">
+        <input type="text" name="name" placeholder="이름.."
+               class="textBox" autofocus="on" required>
       </div>
       <div class="clr"></div>
     </div>
-    <!---Password---->
+    <!--name-->
 
-    <!---Gender----->
-    <div class="box radio">
-      <label for="gender" class="fl fontLabel"> 성별: </label>
-      <input type="radio" name="gender" value="Male" required> 남성 &nbsp; &nbsp; &nbsp; &nbsp;
-      <input type="radio" name="gender" value="Female" required> 여성
-    </div>
-    <!---Gender--->
 
     <!--Terms and Conditions------>
     <div class="box terms">
