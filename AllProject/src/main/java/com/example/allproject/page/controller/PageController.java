@@ -45,5 +45,13 @@ public class PageController {
         return "index";
     }
 
+    @GetMapping("/goTodo")
+    public String goTodo(HttpSession session){
+        if(session.getAttribute("SESSION_NAME")==null){
+            return "login";
+        }
+
+        return "todo";
+    }
 
 }

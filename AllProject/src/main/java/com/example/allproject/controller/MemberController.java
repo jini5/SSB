@@ -1,4 +1,4 @@
-package com.example.allproject.member.controller;
+package com.example.allproject.controller;
 
 import com.example.allproject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
