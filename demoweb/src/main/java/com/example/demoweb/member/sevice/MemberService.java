@@ -13,12 +13,14 @@ public class MemberService {
     @Autowired
     MemberRepository mr;
 
-    public int signup(HashMap<String, String> memberInfo){
+    public boolean signup(HashMap<String, String> memberInfo){
         try {
-            mr.signup(memberInfo);
-            return 1;
+            System.out.println(memberInfo.toString());
+            return mr.signup(memberInfo)>0;
+
         }catch (Exception e){
-            return -1;
+            e.printStackTrace();
+            return false;
         }
     }
 

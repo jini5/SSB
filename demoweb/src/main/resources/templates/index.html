@@ -40,7 +40,8 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <a class="active" href="/">홈으로</a>
         <a href="/goSignup">가입하기</a>
-        <a href="/goLogin">로그인하기</a>
+        <a th:if="${session.SESSION_INFO==null}" href="/goLogin">로그인하기</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goLogout">로그아웃하기</a>
         <a href="/goPay">충전하기</a>
         <a href="/goMarket">거래하기</a>
         <a href="/goHistory">거래내역</a>
@@ -104,7 +105,8 @@
                                                 <div class="bluid" style="font-family: 'Jua', sans-serif;">
                                                     <h1>가상자산,<br> 당신의 성공 전략</h1>
                                                     <p>가장 간단하고 강력한 재테크에 참여하세요.</p>
-                                                    <a class="read_more" href="/goSignup">회원가입하기 </a>
+                                                    <a th:if="${session.SESSION_INFO!=null}" class="read_more" href="/goPay">요금충전하기 </a>
+                                                    <a th:unless="${session.SESSION_INFO!=null}" class="read_more" href="/goSignup">회원가입하기 </a> <!--th:unless="${session.SESSION_INFO!=null}" == th:if="${session.SESSION_INFO==null}"-->
                                                     <div style="padding-top:25px;">
 
                                                         <div class="tradingview-widget-container"  style="font-family: 'Jua', sans-serif;">

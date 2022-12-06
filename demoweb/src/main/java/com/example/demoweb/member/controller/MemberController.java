@@ -20,7 +20,7 @@ public class MemberController {
 
     @PostMapping("/signup")
     public String signup(@RequestParam HashMap<String, String> memberInfo){
-        if(ms.signup(memberInfo)>0) {
+        if(ms.signup(memberInfo)) {
             return "index";
         }
         return"signup";
@@ -34,13 +34,13 @@ public class MemberController {
 
         if (memberDTO != null) { // 로그인이 되어있는 상태
             System.out.println("로그인이 되어있는 상태");
-            session.setAttribute("SESSION_NAME",memberDTO);
+            session.setAttribute("SESSION_INFO",memberDTO);
             return "index";
         }
         return "login";
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/goLogout")
     public String logout(HttpSession session){
         session.setAttribute("SESSION_INFO",null);
         return "index";
