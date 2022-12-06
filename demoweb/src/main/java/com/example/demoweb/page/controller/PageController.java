@@ -19,31 +19,41 @@ public class PageController {
 
     @GetMapping("/goSignup")
     public String goSignup() {
-        if (checkLoginStatus()) return "index";
+        if (checkLoginStatus()) {
+            return "index";
+        }
         return "signup";
     }
 
     @GetMapping("/goLogin")
     public String goLogin() {
-        if (checkLoginStatus()) return "index";
+        if (checkLoginStatus()) {
+            return "index";
+        }
         return "login";
     }
 
     @GetMapping("/goPay")
     public String goPay() {
-        if (!checkLoginStatus()) return "login";
+        if (!checkLoginStatus()) {
+            return "login";
+        }
         return "pay";
     }
 
     @GetMapping("/goHistory")
     public String goHistory() {
-        if (!checkLoginStatus()) return "login";
+        if (!checkLoginStatus()) {
+            return "login";
+        }
         return "history";
     }
 
     @GetMapping("/goMarket")
     public String goMarket() {
-        if (!checkLoginStatus()) return "login";
+        if (!checkLoginStatus()) {
+            return "login";
+        }
         return "market";
     }
 

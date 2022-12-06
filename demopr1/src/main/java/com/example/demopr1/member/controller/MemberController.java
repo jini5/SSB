@@ -38,5 +38,9 @@ public class MemberController {
         }
         return "login";
     }
-
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.setAttribute("SESSION_INFO",null);
+        return "index";
+    }
 }
