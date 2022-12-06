@@ -628,13 +628,16 @@
                     <form id="request" action="requestCall" method="post" class="main_form">
                         <div class="row">
                             <div class="col-md-6 ">
-                                <input class="contactus" placeholder="성명" type="type" name="name">
+                                <input th:if="${session.SESSION_INFO!=null}" class="contactus" placeholder="성명" th:value="${session.SESSION_INFO.getName()}" type="type" name="name">
+                                <input th:unless="${session.SESSION_INFO!=null}" class="contactus" placeholder="성명" type="type" name="name">
                             </div>
                             <div class="col-md-6">
-                                <input class="contactus" placeholder="이메일" type="type" name="email">
+                                <input th:if="${session.SESSION_INFO!=null}" class="contactus" placeholder="이메일" th:value="${session.SESSION_INFO.getEmail()}" type="type" name="email">
+                                <input th:unless="${session.SESSION_INFO!=null}" class="contactus" placeholder="이메일" type="type" name="email">
                             </div>
                             <div class="col-md-6">
-                                <input class="contactus" placeholder="전화번호" type="type" name="phone">
+                                <input th:if="${session.SESSION_INFO!=null}" class="contactus" placeholder="전화번호" th:value="${session.SESSION_INFO.getPhone()}" type="type" name="phone">
+                                <input th:unless="${session.SESSION_INFO!=null}" class="contactus" placeholder="전화번호" type="type" name="phone">
                             </div>
                             <div class="col-md-6">
                                 <textarea class="textarea" placeholder="메세지" type="type" name="message"></textarea>
@@ -699,8 +702,35 @@
                   <div class="Informa ">
                      <h3>구독하기</h3>
                      <form class="newslatter_form" action="subscribe">
-                        <input class="ente " placeholder="이메일 입력하기" type="text " name="email">
-                        <button class="subs_btn ">구독</button>
+                         <input class="ente " placeholder="이메일 입력하기" th:if="${session.SESSION_INFO!=null}" th:value="${session.SESSION_INFO.getEmail()}" type="text " name="email">
+                         <input class="ente " placeholder="이메일 입력하기" th:unless="${session.SESSION_INFO!=null}" type="text " name="email">
+                         <button class="subs_btn ">구독</button>
+                     </form>
+                  </div>
+               </div>
+                </div>
+                <div class="copyright text_align_center ">
+                    <div class="container ">
+                        <div class="row ">
+                            <div class="col-md-12 ">
+                                <p>© 2022 All Rights Reserved. Design by Sang-su</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end footer -->
+    <!-- Javascript files-->
+    <script src="js/jquery.min.js "></script>
+    <script src="js/bootstrap.bundle.min.js "></script>
+    <script src="js/jquery-3.0.0.min.js "></script>
+    <script src="js/custom.js "></script>
+</body>
+</html>
+
+<button class="subs_btn ">구독</button>
                      </form>
                   </div>
                </div>

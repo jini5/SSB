@@ -33,6 +33,12 @@ public class PageController {
         return "login";
     }
 
+    @GetMapping("/goLogout")
+    public String logout(HttpSession session){
+        session.setAttribute("SESSION_INFO",null);
+        return "index";
+    }
+
     @GetMapping("/goPay")
     public String goPay() {
         if (!checkLoginStatus()) {

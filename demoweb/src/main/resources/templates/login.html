@@ -51,8 +51,9 @@
     <div id="mySidepanel" class="sidepanel" style="font-family: 'Jua', sans-serif;">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <a href="/">홈으로</a>
-        <a href="/goSignup">가입하기</a>
-        <a class="active" href="/goLogin">로그인하기</a>
+        <a th:if="${session.SESSION_INFO==null}" href="/goSignup">가입하기</a>
+        <a th:if="${session.SESSION_INFO==null}" class="active" href="/goLogin">로그인하기</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/logout">로그아웃</a>
         <a href="/goPay">충전하기</a>
         <a href="/goMarket">거래하기</a>
         <a href="/goHistory">거래내역</a>
@@ -173,7 +174,8 @@
                         <div class="Informa ">
                             <h3>구독하기</h3>
                             <form class="newslatter_form" action="subscribe">
-                                <input class="ente " placeholder="이메일 입력하기" type="text " name="email">
+                                <input class="ente " placeholder="이메일 입력하기" th:if="${session.SESSION_INFO!=null}" th:value="${session.SESSION_INFO.getEmail()}" type="text " name="email">
+                                <input class="ente " placeholder="이메일 입력하기" th:unless="${session.SESSION_INFO!=null}" type="text " name="email">
                                 <button class="subs_btn ">구독</button>
                             </form>
                         </div>

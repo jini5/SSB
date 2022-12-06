@@ -39,8 +39,9 @@
     <div id="mySidepanel" class="sidepanel" style="font-family: 'Jua', sans-serif;">
         <<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <a href="/">홈으로</a>
-        <a href="/goSignup">가입하기</a>
-        <a href="/goLogin">로그인하기</a>
+        <a th:if="${session.SESSION_INFO==null}" href="/goSignup">가입하기</a>
+        <a th:if="${session.SESSION_INFO==null}" href="/goLogin">로그인하기</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/logout">로그아웃</a>
         <a href="/goPay">충전하기</a>
         <a href="/goMarket">거래하기</a>
         <a class="active" href="/goHistory">거래내역</a>
@@ -138,8 +139,30 @@
                         <div class="Informa ">
                             <h3>구독하기</h3>
                             <form class="newslatter_form" action="subscribe">
-                                <input class="ente " placeholder="이메일 입력하기" type="text " name="email">
+                                <input class="ente " placeholder="이메일 입력하기" th:if="${session.SESSION_INFO!=null}" th:value="${session.SESSION_INFO.getEmail()}" type="text " name="email">
+                                <input class="ente " placeholder="이메일 입력하기" th:unless="${session.SESSION_INFO!=null}" type="text " name="email">
                                 <button class="subs_btn ">구독</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright text_align_center ">
+                    <div class="container ">
+                        <div class="row ">
+                            <div class="col-md-12 ">
+                                <p>© 2022 All Rights Reserved. Design by Sang-su</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end footer -->
+</body>
+</html>
+
+<button class="subs_btn ">구독</button>
                             </form>
                         </div>
                     </div>

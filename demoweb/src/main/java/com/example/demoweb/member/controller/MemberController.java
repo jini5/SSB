@@ -40,11 +40,7 @@ public class MemberController {
         return "login";
     }
 
-    @GetMapping("/goLogout")
-    public String logout(HttpSession session){
-        session.setAttribute("SESSION_INFO",null);
-        return "index";
-    }
+
 
 
 }
