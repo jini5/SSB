@@ -6,17 +6,17 @@
 
     <insert id="signup" parameterType="HashMap">
         INSERT INTO
-            memberlist
+            member (email,password,name,phone,address,detail)
         values
-            (#{id}, #{password}, #{phone}, #{email}, #{name});
+            ((#{email}),(#{password}),(#{name}),(#{phone}),(#{address}),(#{addressDetail}));
     </insert>
 
-    <select id="login" parameterType="String" resultType="HashMap">
-        SELECT * FROM
-            member
+    <select id="login" parameterType="HashMap" resultType="HashMap">
+        select * from member
         WHERE
-            email=#{email};
-
+            email= #{email}
+          AND
+            password = #{password}
     </select>
 
 

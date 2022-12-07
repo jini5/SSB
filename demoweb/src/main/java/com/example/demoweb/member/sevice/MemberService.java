@@ -36,12 +36,12 @@ public class MemberService {
     }
 
 
-    public boolean charge(HashMap<String,String> chargeInfo, String email){
+    public boolean insertPoint(HashMap<String,String> chargeInfo, String email){
 
         boolean status = false;
         chargeInfo.put("email",email);
         try{
-            status= mr.charge(chargeInfo) > 0;
+            status= mr.insertPoint(chargeInfo) > 0;
         }catch (Exception e){
             e.printStackTrace();
         }finally {

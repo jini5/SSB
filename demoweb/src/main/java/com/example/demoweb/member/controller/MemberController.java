@@ -42,10 +42,10 @@ public class MemberController {
 
 
     @GetMapping("/point")
-    public String point(@RequestParam HashMap<String, String> chargeInfo, HttpSession session){
+    public String insertPoint(@RequestParam HashMap<String, String> chargeInfo, HttpSession session){
 
         MemberDto memberDTO = (MemberDto)session.getAttribute("SESSION_INFO");
-        if(ms.charge(chargeInfo,memberDTO.getEmail())){
+        if(ms.insertPoint(chargeInfo,memberDTO.getEmail())){
             System.out.println("충전 완료");
         }
 

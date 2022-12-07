@@ -3,6 +3,7 @@ package com.example.allproject.controller;
 import com.example.allproject.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,9 +20,8 @@ public class MemberController {
 
 
     @PostMapping("/signup")
-    public String signup(@RequestParam HashMap<String, String> params){
-        System.out.println("controller param"+params);
-        if(ms.signup(params)>0) {
+    public String signup(@RequestParam HashMap<String, String> memberInfo){
+        if(ms.signup(memberInfo)) {
             return "index";
         }
 

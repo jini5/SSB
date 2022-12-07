@@ -18,12 +18,27 @@
             password = #{password}
     </select>
 
-    <insert id="charge" parameterType="HashMap">
-        INSERT INTO
-            payment (email, amount, uid)
-        values
-            (#{email},#{amount},#{uid});
-    </insert>
+
+    <select id="hadBalance" resultType="int" >
+        SELECT
+            SUM(amount)
+        FROM
+            payment
+        WHERE
+            email=#{email}
+    </select>
+
+    <select id="havingBalance" parameterType="String" resultType="HashMap">
+
+        select
+            coinId
+             ,sum(amount) smount
+        from
+            buy
+        where email =#{email}  group by coinId
+
+    </select>
+
 
 
 </mapper>

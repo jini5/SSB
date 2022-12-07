@@ -38,7 +38,6 @@
     <!-- end loader -->
     <div id="mySidepanel" class="sidepanel" style="font-family: 'Jua', sans-serif;">
         <<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <a href="/">홈으로</a>
         <a th:if="${session.SESSION_INFO==null}" href="/goSignup">가입하기</a>
         <a th:if="${session.SESSION_INFO==null}" href="/goLogin">로그인하기</a>
         <a th:unless="${session.SESSION_INFO==null}" href="/goLogout">로그아웃</a>
@@ -69,7 +68,7 @@
                     </div>
                     <div class="col-sm-4">
                         <ul class="email text_align_right">
-                            <li class="d_none"><a href="/goUserInfo"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                            <li class="d_none"><a href="Javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                             <li class="d_none"> <a href="Javascript:void(0)"><i class="fa fa-search" style="cursor: pointer;" aria-hidden="true"></i></a> </li>
                             <li>
                                 <button class="openbtn" onclick="openNav()"><img src="images/menu_btn.png"></button>
@@ -82,8 +81,33 @@
     </header>
     <!-- end header -->
     <div class="contact"  style="font-family: 'Jua', sans-serif;">
-        <h1 style="text-align: center; font-size: 35px;">코인 거래내역</h1>
-        <div class="container">
+        <h1 style="text-align: center; font-size: 35px;"></h1>
+        <div class="container" id="balance">
+            <div class=" col-md-10 offset-md-1">
+                    <div class="row">
+                        <div class="col-md-6 ">
+                            <div class="contactus"  id="hadBalance"> </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="contactus"  id="havingBalance"> </div>
+                        </div>
+                    </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="contact"  style="font-family: 'Jua', sans-serif;">
+        <h1 style="text-align: center; font-size: 35px;">충전내역</h1>
+        <div class="container" id="pointHistory">
+
+
+
+        </div>
+    </div>
+    <div class="contact"  style="font-family: 'Jua', sans-serif;">
+        <h1 style="text-align: center; font-size: 35px;">거래내역</h1>
+        <div class="container" id="buyHistory">
 
 
 
@@ -139,9 +163,10 @@
                     <div class="col-md-3 col-sm-6 ">
                         <div class="Informa ">
                             <h3>구독하기</h3>
-                            <form class="newslatter_form" action="subscribe">
+                            <form class="newslatter_form" action="subscribe"method="post">
                                 <input class="ente " placeholder="이메일 입력하기" th:if="${session.SESSION_INFO!=null}" th:value="${session.SESSION_INFO.getEmail()}" type="text " name="email">
                                 <input class="ente " placeholder="이메일 입력하기" th:unless="${session.SESSION_INFO!=null}" type="text " name="email">
+                                <input  type="hidden" name="url" value="history">
                                 <button class="subs_btn ">구독</button>
                             </form>
                         </div>
@@ -165,5 +190,55 @@
       <script src="js/bootstrap.bundle.min.js "></script>
       <script src="js/jquery-3.0.0.min.js "></script>
       <script src="js/custom.js "></script>
+<script>
+
+        $( document ).ready(function() {
+
+            $.ajax({
+                url: "/buyList",
+                dataType: "json",
+                complete: function (res) {
+                    let resp=res.responseJSON;
+                    let str="<div class='row' style='font-size: 20px;'>";
+                    for(let i=0;i<resp.length;i++){
+                        str+= "코인명 - "+resp[i].name+" : 수량 - "+resp[i].amount+"개 ; 총 거래금액 : " + resp[i].total+"원,  구매일자 : "+resp[i].indate +"<br>";
+                    }
+
+                    str+="</div>";
+                    $("#buyHistory").html(str);
+                }
+            });
+
+            $.ajax({
+                url: "/pointList",
+                dataType: "json",
+                complete: function (res) {
+                    let resp=res.responseJSON;
+                    let str="<div class='row' style='font-size: 20px;'>";
+                    for(let i=0;i<resp.length;i++){
+                        str+= "충전금액 - "+resp[i].amount+"  충전일자 : "+resp[i].indate +"<br>";
+                    }
+
+                    str+="</div>";
+                    $("#pointHistory").html(str);
+                }
+            });
+
+            $.ajax({
+                url: "/hadBalance",
+                dataType: "json",
+                complete: function (resp) {
+                }
+            });
+            $.ajax({
+                url: "/havingBalance",
+                dataType: "json",
+                complete: function (resp) {
+                }
+            });
+
+
+        });
+</script>
    </body>
 </html>

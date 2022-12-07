@@ -99,20 +99,43 @@
 
             let amount=0;
             let answer=prompt(name+"는 현재 개당 "+price+"원 입니다, 몇개를 구매 하시겠습니까?");
+            if(answer!=''&&answer!=null) {
+                $.ajax({
+                    url: "/checkBalance",
+                    dataType: "json",
+                    data: {
+                        total: (answer * price)
+                    },
+                    complete: function (resp) {
+                        let result = resp.responseText;
+                        if (result == 'can') {
+                            $.ajax({
+                                type: "POST",
+                                url: "/buyCoin",
+                                data: {
+                                    price: price,
+                                    coinId: id,
+                                    name: name,
+                                    amount: answer,
+                                    total: (answer * price)
+                                },
+                                dataType: "json",
+                                complete: function () {
+                                    alert("구매를 완료 하였습니다.");
+                                }
+                            });
+                        } else if (result == 'cannot') {
+                            alert("잔액이 부족합니다.");
+                        } else if (result == 'login') {
+                            alert("로그인이 필요한 서비스 입니다..");
+                        }
+                    }
+                });
+            }
 
-            $.ajax({
-                url: "/buyCoin",
-                data: {
-                    price:price,
-                    id:id,
-                    name:name,
-                    answer:answer
-                },
-                dataType: "json",
-                success: function (dataDetail) {
-                    alert("구매를 완료 하였습니다.");
-                }
-            });
+
+
+
         }
 
     </script>
@@ -127,10 +150,10 @@
     <!-- end loader -->
     <div id="mySidepanel" class="sidepanel" style="font-family: 'Jua', sans-serif;">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <a href="/">홈으로</a>
+        <a class="active" href="/">홈으로</a>
         <a th:if="${session.SESSION_INFO==null}" href="/goSignup">가입하기</a>
-        <a th:if="${session.SESSION_INFO==null}" href="/goLogin">로그인하기</a>
-        <a th:unless="${session.SESSION_INFO==null}" href="/goLogout">로그아웃</a>
+        <a th:if="${session.SESSION_INFO==null}" class="active" href="/goLogin">로그인하기</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/logout">로그아웃</a>
         <a th:unless="${session.SESSION_INFO==null}" href="/goPay">충전하기</a>
         <a th:unless="${session.SESSION_INFO==null}" href="/goMarket">구매하기</a>
         <a th:unless="${session.SESSION_INFO==null}" href="/goSell">판매하기</a>
@@ -158,7 +181,7 @@
                     </div>
                     <div class="col-sm-4">
                         <ul class="email text_align_right">
-                            <li class="d_none"><a href="/goUserInfo"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                            <li class="d_none"><a href="Javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                             <li class="d_none"> <a href="Javascript:void(0)"><i class="fa fa-search" style="cursor: pointer;" aria-hidden="true"></i></a> </li>
                             <li>
                                 <button class="openbtn" onclick="openNav()"><img src="images/menu_btn.png"></button>
@@ -228,9 +251,10 @@
                     <div class="col-md-3 col-sm-6 ">
                         <div class="Informa ">
                             <h3>구독하기</h3>
-                            <form class="newslatter_form" action="subscribe">
+                            <form class="newslatter_form" action="subscribe" method="post">
                                 <input class="ente " placeholder="이메일 입력하기" th:if="${session.SESSION_INFO!=null}" th:value="${session.SESSION_INFO.getEmail()}" type="text " name="email">
                                 <input class="ente " placeholder="이메일 입력하기" th:unless="${session.SESSION_INFO!=null}" type="text " name="email">
+                                <input type="hidden" name="url" value="market">
                                 <button class="subs_btn ">구독</button>
                             </form>
                         </div>
