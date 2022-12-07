@@ -39,12 +39,13 @@
     <div id="mySidepanel" class="sidepanel" style="font-family: 'Jua', sans-serif;">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <a class="active" href="/">홈으로</a>
-        <a href="/goSignup">가입하기</a>
+        <a th:if="${session.SESSION_INFO==null}" href="/goSignup">가입하기</a>
         <a th:if="${session.SESSION_INFO==null}" href="/goLogin">로그인하기</a>
-        <a th:unless="${session.SESSION_INFO==null}" href="/goLogout">로그아웃하기</a>
-        <a href="/goPay">충전하기</a>
-        <a href="/goMarket">거래하기</a>
-        <a href="/goHistory">거래내역</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goLogout">로그아웃</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goPay">충전하기</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goMarket">구매하기</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goSell">판매하기</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goHistory">거래내역</a>
     </div>
     <!-- header -->
     <header  style="font-family: 'Jua', sans-serif;">
@@ -68,7 +69,7 @@
                     </div>
                     <div class="col-sm-4">
                         <ul class="email text_align_right">
-                            <li class="d_none"><a href="Javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                            <li class="d_none"><a href="/goUserInfo"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                             <li class="d_none"> <a href="Javascript:void(0)"><i class="fa fa-search" style="cursor: pointer;" aria-hidden="true"></i></a> </li>
                             <li>
                                 <button class="openbtn" onclick="openNav()"><img src="images/menu_btn.png"></button>
@@ -106,7 +107,7 @@
                                                     <h1>가상자산,<br> 당신의 성공 전략</h1>
                                                     <p>가장 간단하고 강력한 재테크에 참여하세요.</p>
                                                     <a th:if="${session.SESSION_INFO!=null}" class="read_more" href="/goPay">요금충전하기 </a>
-                                                    <a th:unless="${session.SESSION_INFO!=null}" class="read_more" href="/goSignup">회원가입하기 </a> <!--th:unless="${session.SESSION_INFO!=null}" == th:if="${session.SESSION_INFO==null}"-->
+                                                    <a th:unless="${session.SESSION_INFO!=null}" class="read_more" href="/goSignup">회원가입하기 </a>
                                                     <div style="padding-top:25px;">
 
                                                         <div class="tradingview-widget-container"  style="font-family: 'Jua', sans-serif;">
@@ -643,7 +644,7 @@
                                 <textarea class="textarea" placeholder="메세지" type="type" name="message"></textarea>
                             </div>
                             <div class="col-md-12">
-                                <button class="send_btn">연락요청하기</button>
+                                <button class="send_btn" >연락요청하기</button>
                             </div>
                         </div>
                     </form>
@@ -701,36 +702,10 @@
                <div class="col-md-3 col-sm-6 ">
                   <div class="Informa ">
                      <h3>구독하기</h3>
-                     <form class="newslatter_form" action="subscribe">
-                         <input class="ente " placeholder="이메일 입력하기" th:if="${session.SESSION_INFO!=null}" th:value="${session.SESSION_INFO.getEmail()}" type="text " name="email">
+                     <form class="newslatter_form" method="get" action="subscribe">
+                        <input class="ente " placeholder="이메일 입력하기" th:if="${session.SESSION_INFO!=null}" th:value="${session.SESSION_INFO.getEmail()}" type="text " name="email">
                          <input class="ente " placeholder="이메일 입력하기" th:unless="${session.SESSION_INFO!=null}" type="text " name="email">
                          <button class="subs_btn ">구독</button>
-                     </form>
-                  </div>
-               </div>
-                </div>
-                <div class="copyright text_align_center ">
-                    <div class="container ">
-                        <div class="row ">
-                            <div class="col-md-12 ">
-                                <p>© 2022 All Rights Reserved. Design by Sang-su</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- end footer -->
-    <!-- Javascript files-->
-    <script src="js/jquery.min.js "></script>
-    <script src="js/bootstrap.bundle.min.js "></script>
-    <script src="js/jquery-3.0.0.min.js "></script>
-    <script src="js/custom.js "></script>
-</body>
-</html>
-
-<button class="subs_btn ">구독</button>
                      </form>
                   </div>
                </div>

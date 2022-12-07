@@ -1,7 +1,7 @@
 package com.example.demoweb.member.sevice;
 
 
-import com.example.demoweb.member.DTO.MemberDTO;
+import com.example.demoweb.member.DTO.MemberDto;
 import com.example.demoweb.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,10 +25,10 @@ public class MemberService {
     }
 
 
-    public MemberDTO login(HashMap<String,String> memberInfo){
+    public MemberDto login(HashMap<String,String> memberInfo){
         try {
             HashMap<String,String> member = mr.login(memberInfo);
-            return new MemberDTO(member.get("email"),member.get("name"),member.get("phone"),member.get("address"),member.get("detail"));
+            return new MemberDto(member.get("email"),member.get("name"),member.get("phone"),member.get("address"),member.get("detail"));
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -36,6 +36,17 @@ public class MemberService {
     }
 
 
+    public boolean charge(HashMap<String,String> chargeInfo, String email){
 
+        boolean status = false;
+        chargeInfo.put("email",email);
+        try{
+            status= mr.charge(chargeInfo) > 0;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            return status;
+        }
+    }
 
 }

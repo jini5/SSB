@@ -43,10 +43,11 @@
         <a href="/">홈으로</a>
         <a th:if="${session.SESSION_INFO==null}" href="/goSignup">가입하기</a>
         <a th:if="${session.SESSION_INFO==null}" href="/goLogin">로그인하기</a>
-        <a th:unless="${session.SESSION_INFO==null}" href="/logout">로그아웃</a>
-        <a class="active" href="/goPay">충전하기</a>
-        <a href="/goMarket">거래하기</a>
-        <a href="/goHistory">거래내역</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goLogout">로그아웃</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goPay">충전하기</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goMarket">구매하기</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goSell">판매하기</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goHistory">거래내역</a>
     </div>
     <!-- header -->
     <header  style="font-family: 'Jua', sans-serif;">
@@ -70,7 +71,7 @@
                     </div>
                     <div class="col-sm-4">
                         <ul class="email text_align_right">
-                            <li class="d_none"><a href="Javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                            <li class="d_none"><a href="/goUserInfo"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                             <li class="d_none"> <a href="Javascript:void(0)"><i class="fa fa-search" style="cursor: pointer;" aria-hidden="true"></i></a> </li>
                             <li>
                                 <button class="openbtn" onclick="openNav()"><img src="images/menu_btn.png"></button>
@@ -173,27 +174,6 @@
             </div>
         </div>
     </footer>
-    <!-- end footer -->
-</body>
-</html>
-
-<button class="subs_btn ">구독</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="copyright text_align_center ">
-                    <div class="container ">
-                        <div class="row ">
-                            <div class="col-md-12 ">
-                                <p>© 2022 All Rights Reserved. Design by Sang-su</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- end footer -->
     <!-- Javascript files-->
@@ -231,7 +211,8 @@
                         type: "GET",
                         url: "/point", //충전 금액값을 보낼 url 설정
                         data: {
-                            "amount" : money
+                            "amount" : money,
+                            "uid":rsp.imp_uid
                         },
                     });
 

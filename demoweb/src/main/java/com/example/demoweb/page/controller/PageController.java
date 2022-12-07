@@ -3,7 +3,9 @@ package com.example.demoweb.page.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 
@@ -69,6 +71,15 @@ public class PageController {
         if (session.getAttribute("SESSION_INFO") != null) {
             return true;
         } else return false;
+    }
+
+
+    @GetMapping("/goUserInfo")
+    public String goUserInfo(){
+        if (!checkLoginStatus()) {
+            return "login";
+        }
+        return "userinfo";
     }
 
 

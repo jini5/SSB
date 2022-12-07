@@ -18,4 +18,12 @@
             password = #{password}
     </select>
 
+    <insert id="charge" parameterType="HashMap">
+        INSERT INTO
+            payment (email, amount, uid)
+        values
+            (#{email},#{amount},#{uid});
+    </insert>
+
+
 </mapper>

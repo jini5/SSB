@@ -53,10 +53,11 @@
         <a href="/">홈으로</a>
         <a th:if="${session.SESSION_INFO==null}" class="active" href="/goSignup">가입하기</a>
         <a th:if="${session.SESSION_INFO==null}" href="/goLogin">로그인하기</a>
-        <a th:unless="${session.SESSION_INFO==null}" href="/logout">로그아웃</a>
-        <a href="/goPay">충전하기</a>
-        <a href="/goMarket">거래하기</a>
-        <a href="/goHistory">거래내역</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goLogout">로그아웃</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goPay">충전하기</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goMarket">구매하기</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goSell">판매하기</a>
+        <a th:unless="${session.SESSION_INFO==null}" href="/goHistory">거래내역</a>
     </div>
     <!-- header -->
     <header  style="font-family: 'Jua', sans-serif;">
@@ -80,7 +81,7 @@
                     </div>
                     <div class="col-sm-4">
                         <ul class="email text_align_right">
-                            <li class="d_none"><a href="Javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                            <li class="d_none"><a href="/goUserInfo"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                             <li class="d_none"> <a href="Javascript:void(0)"><i class="fa fa-search" style="cursor: pointer;" aria-hidden="true"></i></a> </li>
                             <li>
                                 <button class="openbtn" onclick="openNav()"><img src="images/menu_btn.png"></button>
