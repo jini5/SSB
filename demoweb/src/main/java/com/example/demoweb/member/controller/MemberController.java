@@ -41,16 +41,7 @@ public class MemberController {
     }
 
 
-    @GetMapping("/point")
-    public String insertPoint(@RequestParam HashMap<String, String> chargeInfo, HttpSession session){
 
-        MemberDto memberDTO = (MemberDto)session.getAttribute("SESSION_INFO");
-        if(ms.insertPoint(chargeInfo,memberDTO.getEmail())){
-            System.out.println("충전 완료");
-        }
-
-        return "pay";
-    }
 
 
 

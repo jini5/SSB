@@ -21,9 +21,7 @@ public class MemberRepository {
         return mm.login(memberInfo);
     }
 
-    public int insertPoint(HashMap<String,String> chargeInfo){
-        return mm.insertPoint(chargeInfo);
-    }
+
 
 
 }

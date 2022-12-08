@@ -36,17 +36,6 @@ public class MemberService {
     }
 
 
-    public boolean insertPoint(HashMap<String,String> chargeInfo, String email){
 
-        boolean status = false;
-        chargeInfo.put("email",email);
-        try{
-            status= mr.insertPoint(chargeInfo) > 0;
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            return status;
-        }
-    }
 
 }

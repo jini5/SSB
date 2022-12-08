@@ -11,6 +11,6 @@ public interface MemberMapper {
 
     public HashMap<String, String> login(HashMap<String,String> memberInfo);
 
-    public int insertPoint(HashMap<String,String> chargeInfo);
+
 
 }
