@@ -4,7 +4,20 @@
 <mapper namespace="com.example.demoweb.mapper.CoinMapper">
 
     <select id="myCoin" resultType="HashMap" parameterType="HashMap">
-
+        SELECT
+            id
+             ,coinId
+             ,name
+             ,price
+             ,amount
+             ,total
+             ,DATE_FORMAT(indate,'%Y-%m-%d %H:%i') indate
+        FROM
+            buy
+        WHERE
+            email=#{email}
+        order by
+            indate DESC
     </select>
 
 
