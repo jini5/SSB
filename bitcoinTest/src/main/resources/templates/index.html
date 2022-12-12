@@ -39,13 +39,13 @@
     <div id="mySidepanel" class="sidepanel" style="font-family: 'Jua', sans-serif;">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <a class="active" href="/">홈으로</a>
-        <a th:if="${session.SESSION_INFO==null}" href="/goSignup">가입하기</a>
-        <a th:if="${session.SESSION_INFO==null}" href="/goLogin">로그인하기</a>
-        <a th:unless="${session.SESSION_INFO==null}" href="/goLogout">로그아웃</a>
-        <a th:unless="${session.SESSION_INFO==null}" href="/goPay">충전하기</a>
-        <a th:unless="${session.SESSION_INFO==null}" href="/goMarket">구매하기</a>
-        <a th:unless="${session.SESSION_INFO==null}" href="/goSell">판매하기</a>
-        <a th:unless="${session.SESSION_INFO==null}" href="/goHistory">거래내역</a>
+        <a th:if="${session.email==null}" href="/goSignup">가입하기</a>
+        <a th:if="${session.email==null}" href="/goLogin">로그인하기</a>
+        <a th:unless="${session.email==null}" href="/goLogout">로그아웃</a>
+        <a th:unless="${session.email==null}" href="/goPay">충전하기</a>
+        <a th:unless="${session.email==null}" href="/goMarket">구매하기</a>
+        <a th:unless="${session.email==null}" href="/goSell">판매하기</a>
+        <a th:unless="${session.email==null}" href="/goHistory">거래내역</a>
     </div>
     <!-- header -->
     <header  style="font-family: 'Jua', sans-serif;">
@@ -628,16 +628,16 @@
                     <form id="request" action="requestCall" method="post" class="main_form">
                         <div class="row">
                             <div class="col-md-6 ">
-                                <input th:if="${session.SESSION_INFO!=null}" class="contactus" placeholder="성명" th:value="${session.SESSION_INFO.getName()}" type="type" name="name">
-                                <input th:unless="${session.SESSION_INFO!=null}" class="contactus" placeholder="성명" type="type" name="name">
+                                <input th:if="${session.email!=null}" class="contactus" placeholder="성명" th:value="${session.name}" type="text" name="name">
+                                <input th:unless="${session.email!=null}" class="contactus" placeholder="성명" type="type" name="name">
                             </div>
                             <div class="col-md-6">
-                                <input th:if="${session.SESSION_INFO!=null}" class="contactus" placeholder="이메일" th:value="${session.SESSION_INFO.getEmail()}" type="type" name="email">
-                                <input th:unless="${session.SESSION_INFO!=null}" class="contactus" placeholder="이메일" type="type" name="email">
+                                <input th:if="${session.email!=null}" class="contactus" placeholder="이메일" th:value="${session.email}" type="text" name="email">
+                                <input th:unless="${session.email!=null}" class="contactus" placeholder="이메일" type="type" name="email">
                             </div>
                             <div class="col-md-6">
-                                <input th:if="${session.SESSION_INFO!=null}" class="contactus" placeholder="전화번호" th:value="${session.SESSION_INFO.getPhone()}" type="type" name="phone">
-                                <input th:unless="${session.SESSION_INFO!=null}" class="contactus" placeholder="전화번호" type="type" name="phone">
+                                <input th:if="${session.email!=null}" class="contactus" placeholder="전화번호" th:value="${session.phone}" type="text" name="phone">
+                                <input th:unless="${session.email!=null}" class="contactus" placeholder="전화번호" type="type" name="phone">
                             </div>
                             <div class="col-md-6">
                                 <textarea class="textarea" placeholder="메세지" type="type" name="message"></textarea>
@@ -702,8 +702,9 @@
                   <div class="Informa ">
                      <h3>구독하기</h3>
                      <form class="newslatter_form" action="subscribe" method="post">
-                         <input class="ente " placeholder="이메일 입력하기" th:if="${session.SESSION_INFO!=null}" th:value="${session.SESSION_INFO.getEmail()}" type="text " name="email">
-                         <input class="ente " placeholder="이메일 입력하기" th:unless="${session.SESSION_INFO!=null}" type="text " name="email">                         <input type="hidden" name="url" value="index">
+                         <input class="ente " placeholder="이메일 입력하기" th:if="${session.email!=null}" th:value="${session.email}" type="text" name="email">
+                         <input class="ente " placeholder="이메일 입력하기" th:unless="${session.email!=null}" type="text " name="email">
+                         <input type="hidden" name="url" value="index">
                         <button class="subs_btn ">구독</button>
                      </form>
                   </div>

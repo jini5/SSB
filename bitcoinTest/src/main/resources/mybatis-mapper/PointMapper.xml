@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.bitcointest.mapper.PointMapper">
+
+    <insert id="insertPoint" parameterType="HashMap">
+        INSERT INTO payment
+            (
+            email
+            ,amount
+            ,uid
+             )
+        VALUES
+            (
+            #{email}
+            ,#{amount}
+            ,#{uid}
+            )
+    </insert>
+
+    <select id="selectPoint" resultType="HashMap" parameterType="String">
+        SELECT
+            id
+             ,amount
+             ,DATE_FORMAT(indate,'%Y-%m-%d %H:%i') indate
+        FROM
+            payment
+        WHERE
+            email=#{email}
+        order by
+            indate DESC
+    </select>
+
+    <select id="checkBalance" parameterType="String" resultType="double">
+        select
+
+                IFNULL((select sum(amount) from payment where email=#{email}),0) -
+                IFNULL((select sum(total) from buy where email=#{email}),0)
+
+        from dual
+
+    </select>
+</mapper>
