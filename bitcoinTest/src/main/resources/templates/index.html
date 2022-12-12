@@ -69,7 +69,7 @@
                     </div>
                     <div class="col-sm-4">
                         <ul class="email text_align_right">
-                            <li class="d_none"><a href="Javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                            <li class="d_none"><a href="/goUserInfo"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                             <li class="d_none"> <a href="Javascript:void(0)"><i class="fa fa-search" style="cursor: pointer;" aria-hidden="true"></i></a> </li>
                             <li>
                                 <button class="openbtn" onclick="openNav()"><img src="images/menu_btn.png"></button>
@@ -106,7 +106,8 @@
                                                 <div class="bluid" style="font-family: 'Jua', sans-serif;">
                                                     <h1>가상자산,<br> 당신의 성공 전략</h1>
                                                     <p>가장 간단하고 강력한 재테크에 참여하세요.</p>
-                                                    <a class="read_more" href="/goSignup">회원가입하기 </a>
+                                                    <a th:if="${session.email!=null}" class="read_more" href="/goPay">요금충전하기 </a>
+                                                    <a th:unless="${session.email!=null}" class="read_more" href="/goSignup">회원가입하기 </a>
                                                     <div style="padding-top:25px;">
 
                                                         <div class="tradingview-widget-container"  style="font-family: 'Jua', sans-serif;">
