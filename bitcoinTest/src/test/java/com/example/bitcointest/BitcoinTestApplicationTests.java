@@ -1,0 +1,13 @@
+package com.example.bitcointest;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class BitcoinTestApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
