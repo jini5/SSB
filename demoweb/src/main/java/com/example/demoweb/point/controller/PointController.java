@@ -18,6 +18,8 @@ public class PointController {
     @Autowired
     PointService ps;
 
+
+
     @GetMapping("/point")
     public String insertPoint(@RequestParam HashMap<String, String> chargeInfo, HttpSession session){
 
@@ -29,13 +31,32 @@ public class PointController {
         return "pay";
     }
 
-    @GetMapping("/pointList")
-    public ArrayList<HashMap<String, Object>> pointList(HttpSession session){
+//    @GetMapping("/pointList")
+//    public ArrayList<HashMap<String, Object>> pointList(HttpSession session){
+//        if(session.getAttribute("email")!=null){
+//            String email = String.valueOf(session.getAttribute("email"));
+//            return ps.selectPoint(email);
+//        }
+//        return null;
+//    }
+
+
+    @GetMapping("/checkBalance")
+    public String checkBalance(HttpSession session,String total){
         if(session.getAttribute("email")!=null){
-            String email = String.valueOf(session.getAttribute("email"));
-            return ps.selectPoint(email);
+
+            String email=String.valueOf(session.getAttribute("email"));
+            double balance=ps.checkBalance(email);
+            double totalAmount=Double.valueOf(total);
+
+            if((balance-totalAmount)>0){
+                return "can";
+            }else{
+                return "cannot";
+            }
+        }else{
+            return "login";
         }
-        return null;
     }
 
 }

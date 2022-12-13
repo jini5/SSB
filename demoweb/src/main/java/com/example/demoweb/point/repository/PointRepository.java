@@ -23,5 +23,6 @@ public class PointRepository {
         return pm.selectPoint(email);
     }
 
+    public double checkBalance(String email){return pm.checkBalance(email);};
 
 }

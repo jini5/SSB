@@ -6,6 +6,7 @@ import com.example.demoweb.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @Service
@@ -33,6 +34,27 @@ public class MemberService {
             e.printStackTrace();
             return null;
         }
+    }
+
+
+    public int hadBalance(String email){
+        return mr.hadBalance(email);
+    }
+
+    public ArrayList<HashMap<String,Object>> havingBalance(String email){
+        return mr.havingBalance(email);
+    }
+
+    public int moneyBalance(String email){
+        return mr.moneyBalance(email);
+    }
+
+    public ArrayList<HashMap<String,Object>> MemberPoint(String email){
+        return mr.MemberPoint(email);
+    }
+
+    public ArrayList<HashMap<String,Object>> MemberCoin(String email){
+        return mr.MemberCoin(email);
     }
 
 

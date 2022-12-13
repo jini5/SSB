@@ -30,15 +30,36 @@
 
     <select id="havingBalance" parameterType="String" resultType="HashMap">
 
-        select
+        SELECT
             coinId
-             ,sum(amount) smount
-        from
+             ,IFNULL(SUM(amount),0) smount
+        FROM
             buy
-        where email =#{email}  group by coinId
+        WHERE email =#{email}  GROUP BY coinId
 
     </select>
 
+    <select id="getMemberCoinInfo" parameterType="String" resultType="HashMap">
+        SELECT NAME,
+               Avg(price),
+               Sum(answer)
+        FROM   coin
+        WHERE  email = #{email}
+        GROUP  BY NAME;
+    </select>
 
+    <select id="MemberPoint" parameterType="string" resultType="HashMap">
+        select *
+        from payment
+        WHERE email = #{email}
+
+    </select>
+
+    <select id="MemberCoin" parameterType="string" resultType="HashMap">
+        select *
+        from coin
+        where email = #{email}
+        order by indate
+    </select>
 
 </mapper>

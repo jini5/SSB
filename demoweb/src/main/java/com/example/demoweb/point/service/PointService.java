@@ -32,5 +32,6 @@ public class PointService {
         return pr.selectPoint(email);
     }
 
+    public double checkBalance(String email){return pr.checkBalance(email);};
 
 }
