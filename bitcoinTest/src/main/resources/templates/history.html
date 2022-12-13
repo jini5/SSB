@@ -25,221 +25,266 @@
     <!-- awesome fontfamily -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
 <!-- body -->
 
 <body class="main-layout inner_page">
-    <!-- loader  -->
-    <div class="loader_bg">
-        <div class="loader"><img src="images/loading.gif" alt="" /></div>
-    </div>
-    <!-- end loader -->
-    <div id="mySidepanel" class="sidepanel" style="font-family: 'Jua', sans-serif;">
-        <<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <a href="/">홈으로</a>
-        <a th:if="${session.email==null}" href="/goSignup">가입하기</a>
-        <a th:if="${session.email==null}" href="/goLogin">로그인하기</a>
-        <a th:unless="${session.email==null}" href="/goLogout">로그아웃</a>
-        <a th:unless="${session.email==null}" href="/goPay">충전하기</a>
-        <a th:unless="${session.email==null}" href="/goMarket">구매하기</a>
-        <a th:unless="${session.email==null}" href="/goSell">판매하기</a>
-        <a th:unless="${session.email==null}" href="/goHistory">거래내역</a>
-    </div>
-    <!-- header -->
-    <header  style="font-family: 'Jua', sans-serif;">
-        <!-- header inner -->
-        <div class="head-top">
-            <div class="container-fluid">
-                <div class="row d_flex">
-                    <div class="col-sm-3">
-                        <div class="logo">
-                            <a href="/">DT핀테크거래소</a>
-                        </div>
+<!-- loader  -->
+<div class="loader_bg">
+    <div class="loader"><img src="images/loading.gif" alt="" /></div>
+</div>
+<!-- end loader -->
+<div id="mySidepanel" class="sidepanel" style="font-family: 'Jua', sans-serif;">
+    <<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a href="/">홈으로</a>
+    <a th:if="${session.email==null}" href="/goSignup">가입하기</a>
+    <a th:if="${session.email==null}" href="/goLogin">로그인하기</a>
+    <a th:unless="${session.email==null}" href="/goLogout">로그아웃</a>
+    <a th:unless="${session.email==null}" href="/goPay">충전하기</a>
+    <a th:unless="${session.email==null}" href="/goMarket">구매하기</a>
+    <a th:unless="${session.email==null}" href="/goSell">판매하기</a>
+    <a th:unless="${session.email==null}" href="/goHistory">거래내역</a>
+</div>
+<!-- header -->
+<header  style="font-family: 'Jua', sans-serif;">
+    <!-- header inner -->
+    <div class="head-top">
+        <div class="container-fluid">
+            <div class="row d_flex">
+                <div class="col-sm-3">
+                    <div class="logo">
+                        <a href="/">DT핀테크거래소</a>
                     </div>
-                    <div class="col-sm-5">
-                        <ul class="social_icon text_align_right d_none">
-                            <li> <a href="Javascript:void(0)"><i class="fa fa-facebook-f"></i></a></li>
-                            <li> <a href="Javascript:void(0)"><i class="fa fa-twitter"></i></a></li>
-                            <li> <a href="Javascript:void(0)"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                            <li> <a href="Javascript:void(0)"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                            <li> <a href="Javascript:void(0)"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-                        </ul>
+                </div>
+                <div class="col-sm-5">
+                    <ul class="social_icon text_align_right d_none">
+                        <li> <a href="Javascript:void(0)"><i class="fa fa-facebook-f"></i></a></li>
+                        <li> <a href="Javascript:void(0)"><i class="fa fa-twitter"></i></a></li>
+                        <li> <a href="Javascript:void(0)"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        <li> <a href="Javascript:void(0)"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        <li> <a href="Javascript:void(0)"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4">
+                    <ul class="email text_align_right">
+                        <li class="d_none"><a href="Javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                        <li class="d_none"> <a href="Javascript:void(0)"><i class="fa fa-search" style="cursor: pointer;" aria-hidden="true"></i></a> </li>
+                        <li>
+                            <button class="openbtn" onclick="openNav()"><img src="images/menu_btn.png"></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- end header -->
+<div class="contact"  style="font-family: 'Jua', sans-serif;">
+    <h1 style="text-align: center; font-size: 35px;"></h1>
+    <div class="container" id="balance">
+        <div class=" col-md-10 offset-md-1">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class="contactus"  id="hadBalance">
+
                     </div>
-                    <div class="col-sm-4">
-                        <ul class="email text_align_right">
-                            <li class="d_none"><a href="Javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i></a></li>
-                            <li class="d_none"> <a href="Javascript:void(0)"><i class="fa fa-search" style="cursor: pointer;" aria-hidden="true"></i></a> </li>
-                            <li>
-                                <button class="openbtn" onclick="openNav()"><img src="images/menu_btn.png"></button>
+                </div>
+                <div class="col-md-6" style="display: inline-flex;">
+                    <h1 class="contactus"  id="havingBalance" >
+                        <h1 style='font-size: 30px;' >현재 자산 : </h1><h1 id="calp" style='font-size: 30px;    padding-top: 5px;' >0</h1><h1 style='font-size: 30px;    padding-top: 5px;' >원</h1>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<div class="contact"  style="font-family: 'Jua', sans-serif;">
+    <h1 style="text-align: center; font-size: 35px;">충전내역</h1><br>
+    <div class="container" id="pointHistory">
+
+
+
+    </div>
+</div>
+<div class="contact"  style="font-family: 'Jua', sans-serif;">
+    <h1 style="text-align: center; font-size: 35px;">거래내역</h1><br>
+    <div class="container" id="buyHistory">
+
+
+
+    </div>
+</div>
+<!-- footer -->
+<!-- footer -->
+<footer style="font-family: 'Jua', sans-serif;">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="logo_bottom" href="/">DT핀테크거래소</a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="Informa conta ">
+                        <h3>Contact Us</h3>
+                        <ul>
+                            <li> <a href="Javascript:void(0) "> <i class="fa fa-map-marker " aria-hidden="true "></i> Location
+                            </a>
+                            </li>
+                            <li> <a href="Javascript:void(0) "><i class="fa fa-phone " aria-hidden="true "></i> Call +01 1234567890
+                            </a>
+                            </li>
+                            <li> <a href="Javascript:void(0) "> <i class="fa fa-envelope " aria-hidden="true "></i> demo@gmail.com
+                            </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-    </header>
-    <!-- end header -->
-    <div class="contact"  style="font-family: 'Jua', sans-serif;">
-        <h1 style="text-align: center; font-size: 35px;"></h1>
-        <div class="container" id="balance">
-            <div class=" col-md-10 offset-md-1">
-                    <div class="row">
-                        <div class="col-md-6 ">
-                            <div class="contactus"  id="hadBalance"> </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="contactus"  id="havingBalance"> </div>
-                        </div>
-                    </div>
-            </div>
-
-
-        </div>
-    </div>
-    <div class="contact"  style="font-family: 'Jua', sans-serif;">
-        <h1 style="text-align: center; font-size: 35px;">충전내역</h1>
-        <div class="container" id="pointHistory">
-
-
-
-        </div>
-    </div>
-    <div class="contact"  style="font-family: 'Jua', sans-serif;">
-        <h1 style="text-align: center; font-size: 35px;">거래내역</h1>
-        <div class="container" id="buyHistory">
-
-
-
-        </div>
-    </div>
-    <!-- footer -->
-    <!-- footer -->
-    <footer style="font-family: 'Jua', sans-serif;">
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <a class="logo_bottom" href="/">DT핀테크거래소</a>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="Informa conta ">
-                            <h3>Contact Us</h3>
-                            <ul>
-                                <li> <a href="Javascript:void(0) "> <i class="fa fa-map-marker " aria-hidden="true "></i> Location
-                                </a>
-                                </li>
-                                <li> <a href="Javascript:void(0) "><i class="fa fa-phone " aria-hidden="true "></i> Call +01 1234567890
-                                </a>
-                                </li>
-                                <li> <a href="Javascript:void(0) "> <i class="fa fa-envelope " aria-hidden="true "></i> demo@gmail.com
-                                </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="Informa helpful">
-                            <h3>Useful Link</h3>
-                            <ul>
-                                <li>https://judicious-crafter-477.notion.site/<br>7e1a4ca433ac4dc88<br>fe0b3a5eb42fe14
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="Informa">
-                            <h3>Offices</h3>
-                            <ul>
-                                <li>서울특별시 강남구
-                                </li>
-                                <li>역삼동 826-21
-                                </li>
-                                <li>미왕빌딩 10층
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 ">
-                        <div class="Informa ">
-                            <h3>구독하기</h3>
-                            <form class="newslatter_form" action="subscribe"method="post">
-                                <input class="ente " placeholder="이메일 입력하기" th:if="${session.email!=null}" th:value="${session.email}" type="text" name="email">
-                                <input class="ente " placeholder="이메일 입력하기" th:unless="${session.email!=null}" type="text " name="email">
-                                <input  type="hidden" name="url" value="history">
-                                <button class="subs_btn ">구독</button>
-                            </form>
-                        </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="Informa helpful">
+                        <h3>Useful Link</h3>
+                        <ul>
+                            <li>https://judicious-crafter-477.notion.site/<br>7e1a4ca433ac4dc88<br>fe0b3a5eb42fe14
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="copyright text_align_center ">
-                    <div class="container ">
-                        <div class="row ">
-                            <div class="col-md-12 ">
-                                <p>© 2022 All Rights Reserved. Design by Sang-su</p>
-                            </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="Informa">
+                        <h3>Offices</h3>
+                        <ul>
+                            <li>서울특별시 강남구
+                            </li>
+                            <li>역삼동 826-21
+                            </li>
+                            <li>미왕빌딩 10층
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 ">
+                    <div class="Informa ">
+                        <h3>구독하기</h3>
+                        <form class="newslatter_form" action="subscribe"method="post">
+                            <input class="ente " placeholder="이메일 입력하기" th:if="${session.email!=null}" th:value="${session.email}" type="text" name="email">
+                            <input class="ente " placeholder="이메일 입력하기" th:unless="${session.email!=null}" type="text " name="email">
+                            <input  type="hidden" name="url" value="history">
+                            <button class="subs_btn ">구독</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright text_align_center ">
+                <div class="container ">
+                    <div class="row ">
+                        <div class="col-md-12 ">
+                            <p>© 2022 All Rights Reserved. Design by Sang-su</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
-      <!-- end footer -->
-      <!-- Javascript files-->
-      <script src="js/jquery.min.js "></script>
-      <script src="js/bootstrap.bundle.min.js "></script>
-      <script src="js/jquery-3.0.0.min.js "></script>
-      <script src="js/custom.js "></script>
+    </div>
+</footer>
+<!-- end footer -->
+<!-- Javascript files-->
+<script src="js/jquery.min.js "></script>
+<script src="js/bootstrap.bundle.min.js "></script>
+<script src="js/jquery-3.0.0.min.js "></script>
+<script src="js/custom.js "></script>
 <script>
 
-        $( document ).ready(function() {
+    $( document ).ready(function() {
 
-            $.ajax({
-                url: "/buyList",
-                dataType: "json",
-                complete: function (res) {
-                    let resp=res.responseJSON;
-                    let str="<div class='row' style='font-size: 20px;'>";
-                    for(let i=0;i<resp.length;i++){
-                        str+= "코인명 - "+resp[i].name+" : 수량 - "+resp[i].amount+"개 ; 총 거래금액 : " + resp[i].total+"원,  구매일자 : "+resp[i].indate +"<br>";
-                    }
-
-                    str+="</div>";
-                    $("#buyHistory").html(str);
+        $.ajax({
+            url: "/buyList",
+            dataType: "json",
+            complete: function (res) {
+                let resp=res.responseJSON;
+                let str="<div class='row' style='font-size: 20px;'>";
+                for(let i=0;i<resp.length;i++){
+                    str+= "코인명 - "+resp[i].name+" : 수량 - "+resp[i].amount+"개 ; 총 거래금액 : " + resp[i].total+"원,  구매일자 : "+resp[i].indate +"<br>";
                 }
-            });
 
-            $.ajax({
-                url: "/pointList",
-                dataType: "json",
-                complete: function (res) {
-                    let resp=res.responseJSON;
-                    let str="<div class='row' style='font-size: 20px;'>";
-                    for(let i=0;i<resp.length;i++){
-                        str+= "충전금액 - "+resp[i].amount+"  충전일자 : "+resp[i].indate +"<br>";
-                    }
-
-                    str+="</div>";
-                    $("#pointHistory").html(str);
-                }
-            });
-
-            $.ajax({
-                url: "/hadBalance",
-                dataType: "json",
-                complete: function (resp) {
-                }
-            });
-            $.ajax({
-                url: "/havingBalance",
-                dataType: "json",
-                complete: function (resp) {
-                }
-            });
-
-
+                str+="</div>";
+                $("#buyHistory").html(str);
+            }
         });
+
+        $.ajax({
+            url: "/pointList",
+            dataType: "json",
+            complete: function (res) {
+                let resp=res.responseJSON;
+                let str="<div class='row' style='font-size: 20px;'>";
+                for(let i=0;i<resp.length;i++){
+                    str+= "충전금액 - "+resp[i].amount+"  충전일자 : "+resp[i].indate +"<br>";
+                }
+
+                str+="</div>";
+                $("#pointHistory").html(str);
+            }
+        });
+
+        $.ajax({
+            url: "/hadBalance",
+            dataType: "json",
+            complete: function (res) {
+                let resp=res.responseText;
+
+                let str="<h1 class='row' style='font-size: 30px;'>과거 자산 : ";
+                str+= resp;
+
+
+                str+="원</h1>";
+                $("#hadBalance").html(str);
+            }
+        });
+        $.ajax({
+            url: "/havingBalance",
+            dataType: "json",
+            complete: function (res) {
+                let resp=res.responseJSON;
+                if(resp!=null){
+                    for(let i=0;i<resp.length;i++){
+
+                        let id=resp[i].coinId;
+
+                        setTimeout(function() {
+
+                            $.ajax({
+                                url: "https://api.coingecko.com/api/v3/simple/price?ids="+id+"&vs_currencies=krw",
+                                dataType: "json",
+                                success: function (data) {
+                                    let calPrice=data[id].krw * resp[i].smount;
+                                    let newCal=parseFloat($("#calp").html())+calPrice;
+                                    $("#calp").html(newCal);
+                                }
+                            });
+
+                        }, 200);
+
+
+                    }
+
+                    $.ajax({
+                        url: "/moneyBalance",
+                        dataType: "json",
+                        complete: function (res) {
+                            let resp=res.responseText;
+                            let newCal=parseFloat($("#calp").html())+parseFloat(resp);
+                            $("#calp").html(newCal);
+                        }
+                    });
+                }
+
+            }
+        });
+
+    });
 </script>
-   </body>
+</body>
 </html>
