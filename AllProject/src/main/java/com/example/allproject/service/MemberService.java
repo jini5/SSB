@@ -10,21 +10,14 @@ import java.util.HashMap;
 public class MemberService {
 
     @Autowired
-    MemberRepository mr;
+    MemberRepository repo;
 
-    public int signup(HashMap<String,String> params){
-        return mr.signup(params);
+
+    public int signup(HashMap<String,String> member){
+        return repo.signup(member);
     }
-
-    public String login(String email, String password){
-
-        try {
-            if(mr.login(email).get("password").equals(password)){
-                return mr.login(email).get("firstName");
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }return null;
+    public HashMap<String,Object> login(HashMap<String,String> member){
+        return repo.login(member);
     }
 
 }
