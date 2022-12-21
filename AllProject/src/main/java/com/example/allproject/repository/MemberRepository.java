@@ -12,16 +12,15 @@ public class MemberRepository {
     @Autowired
     MemberMapper mapper;
 
-
-    public int signup(HashMap<String,String> params){
-        System.out.println("repo param"+params);
-        return mapper.signup(params);
+    public int signup(HashMap<String,String> member){
+        return mapper.signup(member);
     }
 
-    public HashMap<String, String> login(String params){
-        System.out.println("repo param"+params);
-        return mapper.login(params);
+    public HashMap<String,Object> login(HashMap<String,String> member){
+        return mapper.login(member);
     }
+
+
 
 
 }
