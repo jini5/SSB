@@ -7,9 +7,9 @@ import java.util.HashMap;
 @Mapper
 public interface MemberMapper {
 
-    public int signup(HashMap<String,String> params);
+    public int signup(HashMap<String,String> member);
 
-    public HashMap<String,String> login(String params);
+    public HashMap<String,Object> login(HashMap<String,String> member);
 
 
 }

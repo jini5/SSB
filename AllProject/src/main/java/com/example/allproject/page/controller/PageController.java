@@ -14,44 +14,5 @@ public class PageController {
     }
 
 
-    @GetMapping("/goSignUp")
-    public String goSignUp(HttpSession session){
-        if(session.getAttribute("SESSION_NAME")!=null){
-            return "index";
-        }
-        return "signup";
-    }
-    @GetMapping("/goLogin")
-    public String goLogin(HttpSession session){
-        if(session.getAttribute("SESSION_NAME")!=null){
-            return "index";
-        }
-        return "login";
-    }
-
-    @GetMapping("/goMember")
-    public String goMember(HttpSession session){
-        if(session.getAttribute("SESSION_NAME")==null){
-            return "login";
-        }
-        else{
-            return "memberpage";
-        }
-    }
-
-    @GetMapping("/goLogout")
-    public String goLogout(HttpSession session){
-        session.setAttribute("SESSION_NAME",null);
-        return "index";
-    }
-
-    @GetMapping("/goTodo")
-    public String goTodo(HttpSession session){
-        if(session.getAttribute("SESSION_NAME")==null){
-            return "login";
-        }
-
-        return "todo";
-    }
 
 }

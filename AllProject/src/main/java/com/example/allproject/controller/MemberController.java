@@ -20,26 +20,24 @@ public class MemberController {
 
 
     @PostMapping("/signup")
-    public String signup(@RequestParam HashMap<String, String> memberInfo){
-        if(ms.signup(memberInfo)) {
-            return "index";
-        }
-
-        return"signup";
+    public String signup(@RequestParam HashMap<String,String> params){
+        ms.signup(params);
+        return "redirect:/";
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam HashMap<String, String> member, HttpSession session){
+    public String login(@RequestParam HashMap<String,String> params, HttpSession session){
+        HashMap<String,Object> verified=ms.login(params);
+        if(verified!=null) {
+            String email = String.valueOf(verified.get("email"));
+            session.setAttribute("email", email);
 
-
-        String name = ms.login(member.get("email"),member.get("password"));
-
-        if (name != null) { // 로그인이 되어있는 상태
-            System.out.println("로그인이 되어있는 상태");
-            session.setAttribute("SESSION_NAME",name);
-            return "index";
+            session.setAttribute("name", String.valueOf(verified.get("name")));
+            session.setAttribute("phone", String.valueOf(verified.get("phone")));
+            session.setAttribute("address", String.valueOf(verified.get("address")));
+            session.setAttribute("detail", String.valueOf(verified.get("detail")));
         }
-        return "login";
+        return "redirect:/";
     }
 
     @GetMapping("/logout")
