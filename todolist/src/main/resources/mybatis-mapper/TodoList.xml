@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.todolist.mapper.TodoListMapper">
+
+    <insert id ="insertTodo" parameterType="String">
+        INSERT INTO todolist
+            (todo)
+        values
+            (#{todo})
+
+    </insert>
+
+    <select id ="selectTodo" resultType="HashMap">
+        SELECT
+            id
+            ,todo
+        FROM
+            todolist
+
+    </select>
+
+
+    <delete id ="deleteTodo" parameterType="HashMap">
+        DELETE FROM
+            todolist
+        WHERE
+            id=#{id}
+
+    </delete>
+
+</mapper>
