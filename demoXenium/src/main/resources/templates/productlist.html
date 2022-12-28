@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<!-- Site title
+   ================================================== -->
+	<title>Xenium</title>
+
+	<!-- Bootstrap CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!-- Animate CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/animate.min.css">
+
+	<!-- Font Icons CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/ionicons.min.css">
+
+	<!-- Main CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Google web font 
+   ================================================== -->	
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap');
+</style>
+	<style>
+	
+ 	#prodButton {
+  position: fixed;
+  bottom: 50px;
+  right: 2%;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #83413e;
+  color: white;
+  cursor: pointer;
+  border-color: #83413e;
+  box-shadow: 0 0 40px 40px #83413e inset, 0 0 0 0 #9c9c9c;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+	}
+ 	#topButton {
+  position: fixed;
+  bottom: 120px;
+  right: 2%;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #83413e;
+  color: white;
+  cursor: pointer;
+  border-color: #83413e;
+  box-shadow: 0 0 40px 40px #83413e inset, 0 0 0 0 #9c9c9c;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+	}
+	
+.added {
+  box-shadow: 0 0 10px 0 #9c9c9c inset, 0 0 10px 4px #9c9c9c;
+}
+.prodName{
+    padding-bottom: 7px;
+    padding-top: 7px;
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 25px;
+    font-weight: 200;
+}
+
+
+@media only screen and (max-device-width: 480px) {
+    	#prodButton { 
+        right: 10px;
+        }
+    	#topButton { 
+        right: 10px;
+        }
+	    .imgframe > img {
+	    height: 115px;}
+		.imgframe{
+		width: 130px;
+		padding-right: 15px;
+		}
+		.postName{
+		    height: 46%;
+		    font-size: 15px;
+		    padding-top: 15%;
+		    font-family: 'Nanum Myeongjo';
+		}
+		.details{
+		display:none;
+		}
+		.plusminus{
+		width:100%;
+		}
+		.blog-thumb{
+		display:inline-flex;
+		    width: 100%;
+		    padding-bottom:0px;
+		}
+		.explanation{
+		 font-size: 12px;font-family: 'Nanum Myeongjo', serif;
+		}
+		.jsProdEx{
+		font-size:12px;
+		}
+		.exphone{
+			display:block;
+			font-size: 11px;
+		}
+		.exspan{
+		    margin-top: 20px;
+		}
+		.bumper{
+			display:none;
+		}
+		hr{
+			margin-top:0px;
+			margin-bottom:0px;
+		}
+		#pInfo{
+		height: 175px;
+		}
+	}
+	@media (min-device-width: 481px) {
+		.exphone{
+			display:block;
+			font-size: 17px;
+		}
+		.postName{
+			display:none;
+		}
+		.jsProdEx{
+		font-size:18px;
+		}
+		.plusminus{
+				width:100%;
+				}
+		.imgframe > img {
+			    height: 260px;}
+		.explanation{
+		 font-size: 20px;font-family: 'Nanum Myeongjo', serif;
+		}
+		.proline{
+			display:none;
+		}
+		#pInfo{
+		height: 430px;
+		}
+		
+		
+	 }
+	 .btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-xl {
+  width: 60px;
+  height: 60px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+	</style>
+
+	
+</head>
+<body>
+
+
+<!-- Preloader section
+================================================== -->
+<div class="preloader">
+	<div class="sk-spinner sk-spinner-pulse"></div>
+</div>
+
+
+<head th:replace="/common/navi.html"></head>
+<head th:replace="/common/navileft.html"></head>
+
+
+<!-- Portfolio section
+================================================== -->
+<section id="portfolio"  style="background-color: #fcf1e3;">
+   <div class="container">
+      <div class="row">
+
+         <div class="col-md-12 col-sm-12">
+            
+               <!-- iso section -->
+               <div class="iso-section wow fadeInUp" data-wow-delay="2.6s">
+
+
+				   <head th:replace="/common/iso.html"></head>
+
+                        
+
+               </div>
+               <!-- Blog section
+				================================================== -->
+
+				<hr>
+				<section id="blog" style="padding-top: 0rem;padding-bottom: 0rem;">
+				   <div class="container">
+				      <div class="row">
+				      	<p class="exphone">이미지를 클릭하시면 상세 설명을 보실 수 있습니다.</p>
+
+							<div id="list">
+
+							</div>
+
+
+				
+				      </div>
+				    </div>
+				 </section>
+
+					 <div class="custom-pagination">
+					 <div id="paging">
+
+					 </div>
+					 </div>
+				 <div class="custom-pagination">
+
+
+<!-- 
+					<button type="button" id="prodButton" onclick="openPocket()"><i class="fa fa-shopping-cart"></i></button> -->
+					<button type="button" id="topButton" class="btn btn-danger btn-circle btn-xl"onclick="#"><i class="fa fa-arrow-up"></i></button>
+					<button type="button" id="prodButton" class="btn btn-danger btn-circle btn-xl"onclick="openPocket()"><i class="fa fa-shopping-cart"></i></button>
+
+                            </div>
+                            <section>
+								<div class="container">
+									<div class="row">
+
+									</div>
+								</div>		
+							</section> 
+                            </c:if>
+                            <c:if test="${not empty message}">
+                            	<h3 style="padding-top:10%;" id="message"></h3>
+                            </c:if>
+         		</div>
+
+      </div>
+   </div>
+</section>
+<!-- Modal -->
+<div id="productInfo" class="modal fade" role="dialog"style="top: 10%;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="prodName"></h4>
+      </div>
+      <div class="modal-body" id="prodInfo">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="pocketInfo" class="modal fade" role="dialog" style="top: 10%; font-family: 'Nanum Myeongjo', serif; ">
+  <div class="modal-dialog" >
+		
+    <!-- Modal content-->
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="pocketTotal"></h4>
+      </div>
+      <div class="modal-body" id="pocketCon" style="padding: 35px;">
+      </div>
+      <div class="modal-footer" style="border-top: 0px">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='/buyPage';">구매하기</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<head th:replace="/common/footer.html"></head>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		window.onload = () => {
+			findAllPost();
+		}
+
+
+		// 게시글 리스트 조회
+		function findAllPost() {
+
+			const list = [[ ${product.list} ]];
+			if ( !list.length ) {
+				document.getElementById('list').innerHTML = '<td colspan="6"><div className="no_data_msg">검색된 결과가 없습니다.</div></td>';
+				drawPage();
+			}
+
+			const pagination = [[ ${product.pagination} ]];
+			const params = [[ ${product} ]];
+			let num = pagination.totalRecordCount - ((params.page - 1) * params.recordSize);
+			key=params.keyword;
+			drawList(list, num);
+			drawPage(pagination, params);
+		}
+
+
+		// 리스트 HTML draw
+		function drawList(list, num) {
+
+			let html = '';
+
+			list.forEach(row => {
+                let stays=row.status;
+
+                let chs;
+                if(stays=='판매대기'){
+                    chs='<p>판매 대기중입니다.</p>';
+                }else if(stays=='제품준비기간'){
+                    chs='<p>제품준비기간입니다.</p>';
+                }else if(stays=='판매가능'){
+                    chs='<p>판매중</p>';
+                }
+
+
+
+				html += `
+
+            <div class="wow fadeInUp col-md-3 col-sm-3" id="pInfo" data-wow-delay="1.0s" style="padding-left:0px;">
+           <div class="blog-thumb">
+
+            <a onclick="openInfoModal('${row.productName}','${row.id}')">
+            <div class="imgframe" style="cursor:pointer;">
+            ${row.thumb}
+            </div>
+            </a>
+            <div class="bumper" style="height:20px;"></div>
+            <div>
+            <input type="hidden" id="catemap${row.id}" value="${row.catename}">
+            <div class="postName" >${row.productName}</div>
+
+            `+
+
+                    chs
++
+                    `
+                 </div>
+                 <div class="post-format details">
+
+                  <p style="font-size: 15px;font-family: 'Nanum Myeongjo', serif;"><b>${row.price}원</b></p>
+                  <p style="font-family: 'Nanum Myeongjo', serif;">${row.summary}</p></div>
+
+<div class="post-format details" style="display:inline-flex;">
+                    <input type="hidden" id="prodInfo${row.id}" value='${row.content}'>
+                 </div>
+           </div>
+    </div>
+    <hr class="proline">
+
+
+
+        `;
+			})
+
+			document.getElementById('list').innerHTML = html;
+		}
+
+
+		// 페이지 HTML draw
+		function drawPage(pagination, params) {
+
+			if ( !pagination || !params ) {
+				document.querySelector('#paging').innerHTML = '';
+				throw new Error('Missing required parameters...');
+			}
+
+			let html = '';
+
+			// 첫 페이지, 이전 페이지
+			if (pagination.existPrevPage) {
+				html += `
+            <a href="javascript:void(0);" onclick="movePage(1)" class="page_bt first">첫 페이지</a>
+            <a href="javascript:void(0);" onclick="movePage(${pagination.startPage - 1})" class="page_bt prev">이전 페이지</a>
+        `;
+			}
+
+			// 페이지 번호
+			html += '<p>';
+			for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+				html += (i !== params.page)
+						? `<a href="javascript:void(0);" onclick="movePage(${i});">${i}</a>`
+						: `<span class="on">${i}</span>`
+			}
+			html += '</p>';
+
+			// 다음 페이지, 마지막 페이지
+			if (pagination.existNextPage) {
+				html += `
+            <a href="javascript:void(0);" onclick="movePage(${pagination.endPage + 1});" class="page_bt next">다음 페이지</a>
+            <a href="javascript:void(0);" onclick="movePage(${pagination.totalPageCount});" class="page_bt last">마지막 페이지</a>
+        `;
+			}
+
+			document.querySelector('#paging').innerHTML = html;
+		}
+
+
+		// 페이지 이동
+		function movePage(page) {
+			let queryParams;
+			let keyServer=[[ ${keyword} ]];
+
+			if(keyServer!=null){
+				queryParams = {
+					keyword:keyServer,
+					page: (page) ? page : 1,
+					recordSize: 10,
+					pageSize: 10
+				}
+			}else{
+				queryParams = {
+					page: (page) ? page : 1,
+					recordSize: 10,
+					pageSize: 10
+				}
+			}
+
+			location.href = location.pathname + '?' + new URLSearchParams(queryParams).toString();
+		}
+
+		/*]]>*/
+	</script>
+</th:block>
+<!-- Javascript 
+================================================== -->
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/isotope.js"></script>
+<script src="js/imagesloaded.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
+</html>

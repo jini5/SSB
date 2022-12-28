@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<!--
+
+Template 2082 Pure Mix
+
+http://www.tooplate.com/view/2082-pure-mix
+
+-->
+	<!-- <meta charset="utf-8"> -->
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge"> 
+	<meta name="viewport" content="width=device-width"> 
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<!-- Site title
+   ================================================== -->
+	<title>Xenium</title>
+
+	<!-- Bootstrap CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!-- Animate CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/animate.min.css">
+
+	<!-- Font Icons CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/ionicons.min.css">
+
+	<!-- Main CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Google web font 
+   ================================================== -->	
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+
+	var setCookie = function(name, value, exp) {
+		var date = new Date();
+		date.setTime(date.getTime() + exp*24*60*60*1000);
+		document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+	};
+		
+	var getCookie = function(name) {
+		var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+		return value? value[2] : null;
+	};
+	
+	$(function(){
+		
+		if(getCookie("popup")=='false'){
+			$('#popup').modal('hide');
+			$("#popup").css("display","none");
+		}
+		
+	});
+	var scroll = function(){
+	    
+	    var $nav = null,
+	        $cnt = null,
+	        moveCnt = null,
+	        moveIndex = 0,
+	        moveCntTop = 0,
+	        winH = 0,
+	        time = false; // 새로 만든 변수
+
+	    $(document).ready(function(){
+	        init();
+	        initEvent();
+	    });
+	    
+	    var init = function(){
+	        $cnt = $(".content");
+	        $nav = $(".header a");
+	    };
+	    
+	    var initEvent = function(){
+	        $("html ,body").scrollTop(0);
+	        winResize();
+	        $(window).resize(function(){
+	            winResize();
+	        });
+	        $nav.on("click", function(){
+	            moveIndex = $(this).parent("li").index();
+	            moving(moveIndex);
+	            return false;
+	        });
+	        $cnt.on("mousewheel", function(e){
+	            if(time === false){ // time 변수가 펄스일때만 휠 이벤트 실행
+	              wheel(e);
+	            }
+	        });
+
+	        $cnt.on("touchend", function(e){
+	            if(time === false){ // time 변수가 펄스일때만 휠 이벤트 실행
+	            	if(moveIndex < 3){
+		                moveIndex += 1;
+		                moving(moveIndex);
+		            }else{
+		                moveIndex = 0;
+		                moving(moveIndex);
+		            };
+	            }
+	        });
+	    };
+	        
+	    var winResize = function(){
+	        winH = $(window).height();
+	        $cnt.children("div").height(winH);
+	        $("html ,body").scrollTop(moveIndex.scrollTop);
+	    };
+	    
+	    
+	    var wheel = function(e){
+	        if(e.originalEvent.wheelDelta < 0){
+	            if(moveIndex < 3){
+	                moveIndex += 1;
+	                moving(moveIndex);
+	            };
+	        }else{
+	            if(moveIndex > 0){
+	                moveIndex -= 1;
+	                moving(moveIndex);
+	            };
+	        };
+	    };
+	    
+	    var moving = function(index){
+	        time = true // 휠 이벤트가 실행 동시에 true로 변경
+	        moveCnt = $cnt.children("div").eq(index);
+	        moveCntTop = moveCnt.offset().top;
+	        $("html ,body").stop().animate({
+	            scrollTop: moveCntTop
+	        }, 1000, function(){
+	          time = false; // 휠 이벤트가 끝나면 false로 변경
+	        });
+	        $nav.parent("li").eq(index).addClass("on").siblings().removeClass("on");
+	    };
+	    
+	};
+
+	scroll();
+	</script>
+	<style>
+	*{margin:0;padding:0}
+html, body{overflow-y:hidden}
+ul, ol{list-style:none}
+.header{position:fixed;z-index:10;top:0;width:100%}
+.header ul:after{content:"";display:block;clear:both}
+.header ul li{float:left;border-left:1px solid rgba(255, 255, 255, 0);box-sizing:border-box;width:25%}
+.header ul li:first-child{border-left:none}
+.header ul li a{display:block;height:60px;text-align:center;line-height:60px;font-size:20px;text-decoration:none;background-color:#000;color:#fff}
+.header ul li.on a{background-color:#fff;color:#000}
+.content{}
+.content div{position:relative}
+.content div p{position:absolute;top:50%;margin-top:-40px;text-align:center;width:100%;font-size:80px;font-weight:bold;color:#fff}
+
+@viewport {
+   width: device-width;
+   zoom:1;
+}
+
+@media (max-width : 749px)  {
+
+    #menuUp {display:block;}
+    #left {display:none;}
+    #header{padding-left: 0px;}
+    #portfolio{padding-left: 0px;}
+    #contact{padding-left: 0px;}
+    #isoindex{padding-top: 25%;}
+    .content .cnt01{ background-attachment: scroll;background: url("../images/m1.jpg") no-repeat center center fixed;-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+.content .cnt02{ background-attachment: scroll;background: url("../images/m2.jpg") no-repeat center center fixed;-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+.content .cnt03{ background-attachment: scroll;background: url("../images/m3.jpg") no-repeat center center fixed; -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;}
+.content .cnt04{ background-attachment: scroll;background: url("../images/m4.jpg") no-repeat center center fixed;-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+}
+
+@media (min-width : 751px) {
+
+    #menuUp {display:none;}
+    #left {display:block;}
+    #header{padding-left: 200px;}
+    /* #portfolio{padding-left: 200px;} */
+    #contact{padding-left: 200px;}
+    #isoindex{padding-top: 4%;}
+    .content .cnt01{ background: url("../images/t2.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+.content .cnt02{ background: url("../images/t3.jpg") no-repeat center center fixed;
+-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+.content .cnt03{ background: url("../images/t4.jpg") no-repeat center center fixed; 
+-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;}
+.content .cnt04{ background: url("../images/t1.jpg") no-repeat center center fixed;
+-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+}
+
+@media screen and (orientation:landscape) {
+     #left{display:none;}
+}
+@media screen and (orientation: landscape) {
+     #left{display:block;}
+}
+	</style>
+</head>
+<body>
+
+
+<!-- Preloader section
+================================================== -->
+<div class="preloader">
+	<div class="sk-spinner sk-spinner-pulse"></div>
+</div>
+
+<head th:replace="/common/naviIndex.html"></head>
+<head th:replace="/common/navileftindex.html"></head>
+
+<!-- Portfolio section
+================================================== -->
+<section id="portfolio" style="padding:0; background: transparent;">
+   <div class="container">
+      <div class="row">
+
+		  <head th:replace="/common/isoindex.html"></head>
+            
+           
+
+	  </div>
+
+   </div>
+</section>
+
+<div class="content">
+			    <div class="cnt01"></div>
+			    <div class="cnt02"></div>
+			    <div class="cnt03"></div>
+			    <div class="cnt04"></div>
+			</div>
+
+
+
+<!-- Javascript 
+================================================== -->
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/isotope.js"></script> 
+<script src="js/imagesloaded.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/custom.js"></script>
+
+
+</body>
+</html>

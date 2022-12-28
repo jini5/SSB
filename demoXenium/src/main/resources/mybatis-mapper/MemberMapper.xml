@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demoxenium.mapper.MemberMapper">
+
+    <insert id="signup" parameterType="com.example.demoxenium.member.dto.Member">
+        INSERT INTO customer
+
+        (ID
+        ,PW
+        ,NAME
+        ,POSTCODE
+        ,PHONE
+        ,ADDRESS
+        ,ADDRESSDETAIL
+        ,EMAIL
+        ,GENDER
+        ,SNS
+        ,BIRTH)
+
+        VALUES
+
+        (#{id}
+        ,#{pw}
+        ,#{name}
+        ,#{postcode}
+        ,#{phone}
+        ,#{address}
+        ,#{addressDetail}
+        ,#{email}
+        ,#{gender}
+        ,#{sns}
+        ,#{birth})
+    </insert>
+
+    <select id="login" parameterType="com.example.demoxenium.member.dto.Member" resultType="com.example.demoxenium.member.dto.Member">
+        SELECT
+        id,pw,name,postcode,phone,address,addressdetail,email,gender,sns,birth FROM CUSTOMER
+        WHERE
+            ID=#{id}
+          AND
+            PW=#{pw}
+          AND
+            ISMEM='Y'
+    </select>
+
+    <select id="selectCart" parameterType="String" resultType="HashMap">
+        SELECT id,userid,productid,amount,indate,
+               ( SELECT CATENAME FROM CATEGORY WHERE ID=(SELECT CATEID FROM CATEMAP WHERE ETCTABLE='PRODUCT' AND ETCID=A.PRODUCTID)) catename
+        FROM
+            CART A
+        WHERE
+            USERID=#{userid}
+    </select>
+
+    <select id="selectUserCart" parameterType="String" resultType="HashMap">
+        SELECT A.ID AS pid,A.PRODUCTNAME productName,A.THUMB thumb,A.PRICE price,B.ID AS cid,B.AMOUNT amount,B.INDATE indate,
+               ( SELECT CATENAME FROM CATEGORY WHERE ID=(SELECT CATEID FROM CATEMAP WHERE ETCTABLE='PRODUCT' AND ETCID=A.ID)) catename
+        FROM PRODUCT A
+           ,CART B
+        WHERE
+            A.ID=B.PRODUCTID AND
+            B.USERID=#{userid}
+    </select>
+    <update id="updateCartAmount" parameterType="Map">
+        UPDATE CART SET
+            AMOUNT=#{amount}
+        where
+            USERID=#{userid} and PRODUCTID=#{productid}
+
+    </update>
+    <insert id="insertCart" parameterType="Map">
+        INSERT INTO CART
+            (USERID,PRODUCTID,AMOUNT)
+        VALUES
+            (#{userid},#{productid},#{amount})
+    </insert>
+    <delete id="deleteCart" parameterType="Map">
+        DELETE
+        FROM CART
+        WHERE
+            USERID=#{userid}
+          AND
+            PRODUCTID=#{id}
+    </delete>
+
+    <delete id="deleteCartAll" parameterType="String">
+        DELETE
+        FROM CART
+        WHERE
+            USERID=#{userid}
+    </delete>
+
+    <select id="selectAvailAmount" resultType="int" parameterType="Map">
+        SELECT nvl(AMOUNT,0) amount FROM PRODUCT A
+        WHERE
+            STATUS='판매가능'
+          AND
+            ID=#{id}
+    </select>
+    <insert id="insertOrderBook" parameterType="HashMap">
+        INSERT INTO ORDERBOOK
+        (USERID,NAME,PHONE,POSTCODE,ADDRESS,ADDRESSDETAIL)
+        VALUES
+        (#{userid},#{name},#{phone},#{postcode},#{address},#{addressDetail})
+        <selectKey resultType="int" keyProperty="preid" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="insertOrderDetail" parameterType="HashMap">
+        INSERT INTO ORDERDETAIL
+            (ORDERID,USERID,PRODUCTID,AMOUNT,PRICE)
+        VALUES
+            (#{id},#{userid},#{pid},#{amount},#{price})
+    </insert>
+
+    <update id="updateAmountProduct" parameterType="HashMap">
+        UPDATE PRODUCT SET
+            AMOUNT=AMOUNT-#{amount}
+        WHERE ID=#{id}
+    </update>
+
+    <select id="selectOrderBook" parameterType="String" resultType="HashMap">
+        SELECT id,userid,name,phone,postcode,address,addressdetail,memo,taxagree,indate,status FROM ORDERBOOK
+        WHERE USERID=#{userid}
+        ORDER BY INDATE DESC
+    </select>
+
+    <select id="selectOrderDetail" parameterType="HashMap" resultType="HashMap">
+        SELECT orderid,userid,
+
+               productid,
+               (SELECT PRODUCTNAME FROM PRODUCT WHERE ID=PRODUCTID) name,
+               amount,price,indate FROM ORDERDETAIL
+        WHERE USERID=#{userid} AND ORDERID=#{id}
+        ORDER BY INDATE DESC
+    </select>
+</mapper>

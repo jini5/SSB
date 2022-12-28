@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<!--
+
+Template 2082 Pure Mix
+
+http://www.tooplate.com/view/2082-pure-mix
+
+-->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<!-- Site title
+   ================================================== -->
+	<title>Xenium</title>
+
+	<!-- Bootstrap CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!-- Animate CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/animate.min.css">
+
+	<!-- Font Icons CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/ionicons.min.css">
+
+	<!-- Main CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://use.typekit.net/wru2kon.css">
+	<!-- Google web font 
+   ================================================== -->	
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css'>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+  <script>
+  function testForm(){
+
+	  var id=$("#id").val();
+	  var pw=$("#pw").val();
+	  var pwcon=$("#pwcon").val();
+	  var name=$("#name").val();
+	  var phone=$("#phone").val();
+	  var address=$("#address").val();
+	  var addressDetail=$("#addressDetail").val();
+	  var email=$("#email").val();
+	  var gender=$("#gender").val();
+	  var sns=$("#sns").val();
+	  var birth=$("#birth").val();
+	  var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+      
+	  
+	  if (!$('input.checkbox_check').is(':checked')) {
+		  $("#warning").text("이용약관에 동의는 필수입니다.");
+		  return false;
+	  }
+	  
+	  if(id.length<6 || id.length > 16){
+		  $("#warning").text("ID 값은 7자 이상 15자 이하로 해주세요.");
+		  return false;
+	  }
+	  
+	  if(pw.length<6 || pw.length > 16){
+		  $("#warning").text("비밀번호 값은 7자 이상 15자 이하로 해주세요.");
+		  return false;
+	  }
+	  
+	  if(pw!=pwcon){
+		  $("#warning").text("비밀번호와 확인값이 일치하지 않습니다.");
+		  return false;
+	  }
+
+	  if(address==''){
+		  $("#warning").text("주소 값이 없습니다.");
+		  return false;
+	  }
+
+	  if(addressDetail==''){
+		  $("#warning").text("세부주소 값이 없습니다.");
+		  return false;
+	  }
+	  
+	  if(phone==''){
+		  $("#warning").text("연락처 값이 없습니다.");
+		  return false;
+	  }
+	  
+	  if(email==''){
+		  $("#warning").text("이메일 값이 없습니다.");
+		  return false;
+	  }
+
+	  if(!isEmail(email)){
+		  $("#warning").text("이메일 형식에 맞지 앖습니다.");
+		  return false;
+	  }
+	  if (!regPhone.test(phone) === true) {
+		  $("#warning").text("올바른 전화번호형식이 아닙니다.");
+		  return false;
+      }else{
+		  var regNumber = /[^0-9]/g;
+		  phone = phone.replace(regNumber, "");
+	  }
+	  
+	  if(birth!=''){
+		  if(!isNumeric(birth)){
+			  $("#warning").text("생년월일은 숫자만 입력해주세요");
+			  return false; 
+		  }
+	  }
+	  
+	  return true;
+  }
+  function isNumeric(str) {
+	  if (typeof str != "string") return false // we only process strings!  
+	  return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+	         !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+	}
+
+  function isEmail(email) {
+	  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	  return regex.test(email);
+	}
+  
+  function searchAddress(){
+
+		new daum.Postcode({
+	            oncomplete: function(data) {
+	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var addr = ''; // 주소 변수
+	                var extraAddr = ''; // 참고항목 변수
+
+	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                    addr = data.roadAddress;
+	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                    addr = data.jibunAddress;
+	                }
+
+	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+	                if(data.userSelectedType === 'R'){
+	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                        extraAddr += data.bname;
+	                    }
+	                    // 건물명이 있고, 공동주택일 경우 추가한다.
+	                    if(data.buildingName !== '' && data.apartment === 'Y'){
+	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                    }
+	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                    if(extraAddr !== ''){
+	                        extraAddr = ' (' + extraAddr + ')';
+	                    }
+	                    // 조합된 참고항목을 해당 필드에 넣는다.
+	                    document.getElementById("address").value = extraAddr;
+	                    document.getElementById("postcode").value = data.zonecode;
+	                
+	                } else {
+	                    document.getElementById("address").value = '';
+	                }
+
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                //document.getElementById('cstmrZipcode').value = data.zonecode;
+	                document.getElementById("address").value = addr;
+                    document.getElementById("postcode").value = data.zonecode;
+	                // 커서를 상세주소 필드로 이동한다.
+	                document.getElementById("address").focus();
+	            }
+	        }).open();
+		
+	}
+  </script>
+  <style>
+  
+@media (max-width : 749px)  {
+#imgs{
+	display:none;
+}
+}  
+@media (min-width : 750px)  {
+#imgs{
+	display:block;
+}
+}
+
+  </style>
+</head>
+<body>
+
+
+<!-- Preloader section
+================================================== -->
+<div class="preloader">
+
+	<div class="sk-spinner sk-spinner-pulse"></div>
+
+</div>
+
+
+<!-- Navigation section
+================================================== -->
+
+<head th:replace="/common/navi.html"></head>
+<head th:replace="/common/navileft.html"></head>
+
+<!-- Portfolio section
+================================================== -->
+<section id="portfolio"style="background-color: #fcf1e3;padding-left: 0px;">
+   <div class="container">
+      <div class="row">
+
+         <div class="col-md-12 col-sm-12">
+            
+              
+			<!-- iso section -->
+               <div class="iso-section wow fadeInUp" data-wow-delay="2.6s">
+				   <head th:replace="/common/iso.html"></head>
+               </div>
+               
+          <section id="contact" style="padding-top: 4rem;padding-left: 0px;">
+   			<div class="container">
+               <div class="row">
+                 <div id="imgs" class="wow fadeInUp col-md-6 col-sm-6" data-wow-delay="1.6s"style="padding-right: 0px;">
+                 			
+                        <img src="../images/aboutusup.jpg" alt="" style="width: 68%;">
+                        <img src="../images/aboutusdown.jpg" alt="" style="width: 68%;">
+					
+				</div>
+				<div class="wow fadeInUp col-md-5 col-sm-6" data-wow-delay="1.6s" style="padding-left: 0px;">
+						<div style="font-family: acumin-pro, sans-serif;font-weight: 700;font-style: italic;font-size:45px;text-align: left;padding-top: 60px;color:#83413e;">
+						Who we are
+						</div><br><br>
+						
+						
+						<div style="font-family: 'Noto Serif KR', serif;font-weight: 200;font-size:20px;text-align: left;padding-top: 20px;padding-left: 35px;">
+						&nbsp; "We Brew & Bake For Your Rest."
+						</div>
+						
+						<br><br>
+						<div style="font-family: 'Noto Serif KR', serif;font-weight: 100;font-size:14px;text-align: left;padding-top: 0px; padding-left: 20px;">
+						좋아하는 일을 오랫동안 하고 싶은 사람들.<br>
+						그 진심을 알아봐주는 손님들
+						<br><br>
+						오래토록 질리지 않는 평법한 가게를 꾸려가고픈,<br>
+						지니엄은 사람이 있는 곳입니다.
+						<br><br>
+						<br>
+						</div>
+						<div style="font-family: acumin-pro, sans-serif;font-weight: 700;font-style: italic;font-size:45px;text-align: left;padding-top: 40px;color:#83413e;">
+						What we do
+						</div><br>
+						
+						<div style="font-family: 'Noto Serif KR', serif;font-weight: 100;font-size:14px;text-align: left;padding-top: 20px; padding-left: 20px;">
+						산꼭대기 동네에서 커피를 볶고<br>
+						쿠키를 구으며 행복하게 일하고 있습니다.
+						</div>
+						<br>
+						<div style="font-family: 'Nanum Gothic Coding', monospace; font-weight: 100;font-size:20px;text-align: left;padding-top: 15px; padding-left: 10px;color:#83413e;">
+						Coffee
+						</div><br>
+						
+						<div style="font-family: 'Noto Serif KR', serif;font-weight: 100;font-size:14px;text-align: left;padding-top: 8px; padding-left: 20px;">
+						"커피 한 잔 할래?"<br>
+						이 사랑스러운 질문으로 우리는 많은 말을 대신합니다.<br><br>
+						
+						'잠깐 쉴까?','당신과 함께 시간을 보내고 싶어요.'<br><br>
+						
+						그만큼 일상적이며 특별한 아이러니는 바로 커피입니다.<br>
+						지니엄은 Ethiopia의 특별한 커피를 로스팅 합니다.<br>
+						그리고 그 커피가 여러분의 일상이 되는 일을 하고 있습니다.<br><br>
+						</div>
+						<div style="font-family: 'Nanum Gothic Coding', monospace; font-weight: 100;font-size:20px;text-align: left;padding-top: 15px; padding-left: 10px;color:#83413e;">
+						Cookie
+						</div>
+						<br>
+						<div style="font-family: 'Noto Serif KR', serif;font-weight: 100;font-size:14px;text-align: left;padding-top: 8px; padding-left: 20px;">
+						무심코 먹었다가<br>
+						맛있어서 놀라는 쿠키를 만들고 있습니다.<br>
+						맛있으면서도 건강한 쿠키를 만들기 위해<br>
+						건강한 재료를 사용합니다.<br>
+						건강한 재료를 정직하게 사용합니다.<br>
+						그리고 이 작업을 매일같이 정성껏 반복합니다.<br><br><br>
+						
+						여러분의 쉼에 즐거운 도움이 되길 바라는 마음을<br>
+						지니엄의 작은 쿠키 하나와 커피 한 잔에	담았습니다.
+						</div><br><br><br>
+						<div style="font-family: acumin-pro, sans-serif;font-weight: 100;font-size:20px;text-align: right;padding-top: 10px;color:#83413e;">
+						XENIUM est. 2017
+						</div>
+						<div style="font-family: 'Noto Serif KR', serif;font-weight: 100;font-size:12px;text-align: right;padding-top: 10px;">
+						Xenium. Latin. Noun. An offering from host to guest.
+						</div>
+				
+				</div>
+		</div></div></section>
+
+         </div>
+
+      </div>
+   </div>
+</section>
+
+
+<head th:replace="/common/footer.html"></head>
+
+
+<!-- Javascript 
+================================================== -->
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/isotope.js"></script>
+<script src="js/imagesloaded.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
+</html>

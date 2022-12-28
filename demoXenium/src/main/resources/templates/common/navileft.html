@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+</style>
+	<link rel="stylesheet" href="css/navi.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+	$(function(){
+
+		$('#slide1').on('click',function(){
+		    $('#submenu1').addClass('moveani');
+		    $('#submenu2').removeClass('moveani');
+		    $('#submenu5').removeClass('moveani');
+		});
+		$('#slide1').on('mouseover',function(){
+		    $('#submenu1').addClass('moveani');
+		    $('#submenu2').removeClass('moveani');
+		    $('#submenu5').removeClass('moveani');
+		});
+		$('#slide2').on('mouseover',function(){
+		    $('#submenu1').removeClass('moveani');
+		    $('#submenu2').addClass('moveani');
+		    $('#submenu5').removeClass('moveani');
+		});
+		$('#slide5').on('click',function(){
+		    $('#submenu1').removeClass('moveani');
+		    $('#submenu2').removeClass('moveani');
+		    $('#submenu5').addClass('moveani');
+		});
+		
+	})
+	</script>
+</head>
+<body>
+<!-- Header section
+================================================== -->
+<script>
+function productLocationChange(param){
+	location.href = "/productList?keyword="+ encodeURI(param);
+}
+function contentsLocationChange(param){
+	location.href = "/contentsList?keyword="+ encodeURI(param);
+}
+function locationChange(){
+	location.href = "/cartList";
+}
+</script>
+<div id="left" class="XXsnipcss_extracted_selector_selectionXX" style="background-color: #fcf1e3;">
+  <div id="logo">
+    <a href="/">
+    
+     <img src="/images/logoxe.png">
+    <!-- 
+     <h1 style="text-transform: unset; font-family: 'Major Mono Display', monospace;"> XeniuM </h1> -->
+    </a>
+  </div>
+
+  <th:block th:if="${session.id == null}">
+		  <div style="font-size: 10px;">
+          <a>
+           we brew & bake <br> for your rest.
+          </a>
+          </div> </th:block>
+  <div class="slidemenulist" id="slidemenulist">
+    <ul>
+      <th:block th:if="${session.id != null}">
+		  <li>
+        <a class="slideMenu" onclick="locationChange()">
+          장바구니
+        </a>
+      </li>
+      </th:block>
+      <li>
+        <a class="slideMenu" id="slide1"  href="/aboutus">
+          ABOUT US
+        </a>
+       <!--  <ul id="submenu1" class="submenu">
+          <li>
+            <a href="#">
+              Who
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              What
+            </a>
+          </li>
+        </ul>  -->
+      </li>
+      <li>
+        <a class="slideMenu" id="slide2" onclick="productLocationChange('')">
+          SHOP
+        </a>
+        <ul id="submenu2" class="submenu">
+          <li>
+            <a onclick="productLocationChange('커피')">
+              coffee
+            </a>
+          </li>
+          <li>
+            <a onclick="productLocationChange('쿠키')">
+              cookie
+            </a>
+          </li>
+          <li>
+            <a onclick="productLocationChange('굿즈')">
+              goods
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a class="slideMenu" onclick="#">
+          CONTACT
+        </a>
+      </li>
+      <!-- <li>
+        <a class="slideMenu" onclick="#">
+          FAQ
+        </a>
+      </li> -->
+      <!-- <li>
+        <a class="slideMenu" onclick="contentsLocationChange('쿠키')">
+          COOKIE
+        </a>
+      </li> -->
+     <!--  <li>
+        <a href="#" id="slide5">
+          COMMUNITY
+        </a>
+        <ul id="submenu5" class="submenu">
+          <li>
+            <a href="#">
+              공지사항
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Q&A
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              FAQ
+            </a>
+          </li>
+        </ul>
+      </li> -->
+      <li id="log" class="xans-element- xans-layout xans-layout-statelogoff ">
+      	
+
+
+
+          <th:block th:if="${session.id == null}">
+        <span id="toggle" style="cursor:pointer">
+          	 <a href="/loginPage">
+          LOGIN
+        </a>
+        </span>
+    		<a href="/signupPage">
+          JOIN US
+            </a></th:block>
+
+          <th:block th:if="${session.id != null}">
+        <span id="toggle" style="cursor:pointer">
+          	 <a href="/logout">
+          LOGOUT
+        </a>
+        </span>
+    		<a href="/changeInfo">
+          MYPAGE
+            </a>></th:block>
+      </li>
+    </ul>
+  </div>
+  <!-- 검색바 -->
+  <form id="searchBarForm" name="" action="#" method="get" target="_self" enctype="multipart/form-data">
+    <input id="banner_action" name="banner_action" value="" type="hidden">
+    <div class="xans-element- xans-layout xans-layout-searchheader search-bar ">
+      <fieldset id="search_fieldset">
+        <div style="float:left">
+          <input id="keyword" name="keyword" fw-filter="" fw-label="검색어" fw-msg="" class="inputTypeText" placeholder="" onmousedown="SEARCH_BANNER.clickSearchForm(this)" value="" type="text">
+        </div>
+        <div style="float:right; cursor:pointer">
+          <a onclick="SEARCH_BANNER.submitSearchBanner(this); return false;">
+            SEARCH
+          </a>
+        </div>
+        <div style="clear:both">
+        </div>
+      </fieldset>
+    </div>
+  </form>
+</div>
+</body>
+</html>

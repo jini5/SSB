@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- Main CSS
+   ================================================== -->
+	<link rel="stylesheet" href="../css/style.css">
+	<script>
+		function productLocationChange(param){
+			location.href = "/productList?searchWord="+ encodeURI(param);
+		}
+		function contentsLocationChange(param){
+			location.href = "/contentsList?searchWord="+ encodeURI(param);
+		}
+</script>
+</head>
+<body>
+ <!-- iso section -->
+
+                  <ul id="isoindex" class="filter-wrapper clearfix" style=" position: fixed; z-index: 99;">
+                           <li><a href="/aboutus" class="selected opc-main-bg" style="color:white;">ABOUT US</a></li>
+                           <li><a  onclick="productLocationChange('')" class="opc-main-bg" style="color:white;">SHOP</a></li>
+                           <!-- <li><a  onclick="productLocationChange('쿠키')" class="opc-main-bg">COOKIESHOP</a></li>
+                           <li><a  onclick="productLocationChange('커피')" class="opc-main-bg">COFFEESHOP</a></li> -->
+                           <!-- <li><a  onclick="contentsLocationChange('커피')" class="opc-main-bg" >COFFEE</a></li>
+                           <li><a  onclick="contentsLocationChange('쿠키')" class="opc-main-bg" >COOKIE</a></li> -->
+                           <li><a href="#" class="opc-main-bg" style="color:white;" >CONTACT</a></li>
+
+
+                      <th:block th:if="${session.id == null}">
+                                <li><a href="/loginPage" class="opc-main-bg" style="color:white;">LOGIN</a></li>
+                                <li><a href="/signupPage" class="opc-main-bg" style="color:white;">SIGNUP</a></li>
+                            </th:block>
+                      <th:block th:if="${session.id != null}">
+                        <li><a href="/cartList" class="opc-main-bg" style="color:white;">CART</a></li>
+				         <li><a onclick="logout()" style="color:white;">LOGOUT</a></li>
+				         <li><a href="/changeInfo" style="color:white;">MYPAGE</a></li>
+                      </th:block>
+
+                   </ul>
+ <script>
+     function logout(){
+
+         $.ajax({
+             type : "POST",
+             url : "/logout", //요청 할 URL
+             success : function(data) {
+                 //통신이 정상적으로 되었을때 실행 할 내용
+
+                 if(data == 'success')    {
+                     alert('로그아웃 성공하였습니다.');
+                     location.href="/";
+                 }else{
+                     alert('이미 로그아웃 되어있습니다.');
+                 }
+             },
+             error : function(data) {
+                 alert('접속오류');
+             }
+         });
+
+         return true;
+
+     }
+
+ </script>
+</body>
+</html>
