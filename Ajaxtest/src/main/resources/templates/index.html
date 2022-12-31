@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+  <script src="https://code.jquery.com/jquery-3.6.2.js" integrity="sha256-pkn2CUZmheSeyssYw3vMp1+xyub4m+e+QK4sQskvuo4=" crossorigin="anonymous"></script>
+
+  <script>
+    $("button").click(function (){
+        $.ajax({
+            url:"/test",
+            data:{name:"jini"},
+            type:"GET",
+            success:function (response){
+                $("#result").html(response);
+            }
+        });
+
+    });
+
+  </script>
+</head>
+<body>
+  <button id="button">서버에게 값을 보냄</button>
+
+    <div>
+
+    </div>
+</body>
+</html>
