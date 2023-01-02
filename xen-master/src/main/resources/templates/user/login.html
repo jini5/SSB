@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<!--
+
+Template 2082 Pure Mix
+
+http://www.tooplate.com/view/2082-pure-mix
+
+-->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<!-- Site title
+   ================================================== -->
+	<title>Xenium</title>
+
+	<!-- Bootstrap CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!-- Animate CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/animate.min.css">
+
+	<!-- Font Icons CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/ionicons.min.css">
+
+	<!-- Main CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Google web font 
+   ================================================== -->	
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+
+<!-- Preloader section
+================================================== -->
+<div class="preloader">
+
+	<div class="sk-spinner sk-spinner-pulse"></div>
+
+</div>
+
+<head th:replace="/common/navi.html"></head>
+<head th:replace="/common/navileft.html"></head>
+
+
+<!-- Portfolio section
+================================================== -->
+<section id="portfolio"style="background-color: #fcf1e3;">
+   <div class="container">
+      <div class="row">
+
+         <div class="col-md-12 col-sm-12">
+            
+               <!-- iso section -->
+               <div class="iso-section wow fadeInUp" data-wow-delay="2.6s">
+				   <head th:replace="/common/iso.html"></head>
+               </div>
+          <section id="contact">
+   			<div class="container">
+               <div class="row">
+                 <div class="wow fadeInUp col-md-6 col-sm-12" data-wow-delay="1.6s">
+					<h1>LOGIN</h1>
+					<div class="contact-form">
+						<form id="contact-form" method="post" action="/login">
+						<a style="color:red;" id="warning"></a>
+							<input style="background:white;" name="id" id="id" type="text" class="form-control" placeholder="아이디" required>
+							<input style=" margin-bottom: 0;background:white;"name="pw" id="pw" type="password" class="form-control" placeholder="비밀번호" required>
+
+							<div class="contact-submit" style="width:100%;margin-top:20px;">
+								<input type="button"  onclick="loginOn()" class="form-control submit" value="회원로그인">
+							</div>
+							<a href="/loginPage">LOGIN</a> / <a href="/signupPage">SIGNUP</a>
+						</form>
+					</div>
+			</div>
+		</div></div></section>
+
+         </div>
+
+      </div>
+   </div>
+</section>
+
+
+<head th:replace="/common/footer.html"></head>
+<script>
+	function loginOn(){
+
+		var id=$("#id").val();
+		var pw=$("#pw").val();
+
+		if(id.length==0){
+			$("#warning").text("ID값이 비어있습니다.");
+			return false;
+		}
+
+		if(pw.length==0){
+			$("#warning").text("비밀번호 값이 비어있습니다.");
+			return false;
+		}
+
+		$.ajax({
+					type : "POST",
+					url : "/login", //요청 할 URL
+					data : {
+						'id':id,
+						'pw':pw
+					}, //넘길 파라미터
+					success : function(data) {
+						//통신이 정상적으로 되었을때 실행 할 내용
+						if(data != '')    {
+							alert('로그인 성공하였습니다.');
+							location.href="/";
+						}else{
+							$("#warning").text("아이디와 비밀번호를 확인해주세요.");
+						}
+					},
+				error : function(data) {
+			$("#warning").text("접속 도중 오류가 발생했습니다.");
+		}
+	});
+
+	return true;
+	}
+</script>
+
+<!-- Javascript 
+================================================== -->
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/isotope.js"></script>
+<script src="js/imagesloaded.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
+</html>

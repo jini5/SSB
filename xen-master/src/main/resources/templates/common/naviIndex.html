@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+	<!-- Main CSS
+   ================================================== -->
+	<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<!-- Navigation section
+================================================== -->
+<script>
+function productLocationChange(param){
+	location.href = "/productList?keyword="+ encodeURI(param);
+}
+function contentsLocationChange(param){
+	location.href = "/contentsList?keyword="+ encodeURI(param);
+}
+</script>
+<div class="nav-container" id="menuUp" style="z-index: 100;position: fixed;width: 100%;">
+   <nav class="nav-inner transparent">
+
+      <div class="navbar">
+         <div class="container">
+            <div class="row">
+
+              <div class="brand">
+                <a href="/" style="text-transform: unset; font-family: 'Major Mono Display', monospace;">
+     <img src="/images/logoxe.png">
+                </a>
+              </div>
+
+              <div class="navicon">
+                <div class="menu-container">
+
+                  <div class="circle dark inline">
+                    <i class="icon ion-navicon"></i>
+                  </div>
+
+                  <div class="list-menu">
+                    <i class="icon ion-close-round close-iframe"></i>
+                    <div class="intro-inner">
+                      <ul id="nav-menu">
+                        <li><a href="/">HOME</a></li>
+                        <li><a onclick="productLocationChange('')">SHOP</a></li>
+                        <li><a href="#">CONTACT</a></li>
+                          <th:block th:if="${session.id == null}">
+                       	<li><a href="/loginPage" class="opc-main-bg">LOGIN</a></li>
+                        <li><a href="/signupPage" class="opc-main-bg">SIGNUP</a></li>
+                          </th:block>>
+                          <th:block th:if="${session.id != null}">
+                        <li><a href="/logout">LOGOUT</a></li>
+                          </th:block>>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+         </div>
+      </div>
+
+   </nav>
+</div>
+</body>
+</html>

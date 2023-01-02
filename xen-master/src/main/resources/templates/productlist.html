@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<!-- Site title
+   ================================================== -->
+	<title>Xenium</title>
+
+	<!-- Bootstrap CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!-- Animate CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/animate.min.css">
+
+	<!-- Font Icons CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/ionicons.min.css">
+
+	<!-- Main CSS
+   ================================================== -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Google web font 
+   ================================================== -->	
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap');
+</style>
+	<style>
+	
+ 	#prodButton {
+  position: fixed;
+  bottom: 50px;
+  right: 2%;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #83413e;
+  color: white;
+  cursor: pointer;
+  border-color: #83413e;
+  box-shadow: 0 0 40px 40px #83413e inset, 0 0 0 0 #9c9c9c;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+	}
+ 	#topButton {
+  position: fixed;
+  bottom: 120px;
+  right: 2%;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #83413e;
+  color: white;
+  cursor: pointer;
+  border-color: #83413e;
+  box-shadow: 0 0 40px 40px #83413e inset, 0 0 0 0 #9c9c9c;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+	}
+	
+.added {
+  box-shadow: 0 0 10px 0 #9c9c9c inset, 0 0 10px 4px #9c9c9c;
+}
+.prodName{
+    padding-bottom: 7px;
+    padding-top: 7px;
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 25px;
+    font-weight: 200;
+}
+
+
+@media only screen and (max-device-width: 480px) {
+    	#prodButton { 
+        right: 10px;
+        }
+    	#topButton { 
+        right: 10px;
+        }
+	    .imgframe > img {
+	    height: 115px;}
+		.imgframe{
+		width: 130px;
+		padding-right: 15px;
+		}
+		.postName{
+		    height: 46%;
+		    font-size: 15px;
+		    padding-top: 15%;
+		    font-family: 'Nanum Myeongjo';
+		}
+		.details{
+		display:none;
+		}
+		.plusminus{
+		width:100%;
+		}
+		.blog-thumb{
+		display:inline-flex;
+		    width: 100%;
+		    padding-bottom:0px;
+		}
+		.explanation{
+		 font-size: 12px;font-family: 'Nanum Myeongjo', serif;
+		}
+		.jsProdEx{
+		font-size:12px;
+		}
+		.exphone{
+			display:block;
+			font-size: 11px;
+		}
+		.exspan{
+		    margin-top: 20px;
+		}
+		.bumper{
+			display:none;
+		}
+		hr{
+			margin-top:0px;
+			margin-bottom:0px;
+		}
+		#pInfo{
+		height: 175px;
+		}
+	}
+	@media (min-device-width: 481px) {
+		.exphone{
+			display:block;
+			font-size: 17px;
+		}
+		.postName{
+			display:none;
+		}
+		.jsProdEx{
+		font-size:18px;
+		}
+		.plusminus{
+				width:100%;
+				}
+		.imgframe > img {
+			    height: 260px;}
+		.explanation{
+		 font-size: 20px;font-family: 'Nanum Myeongjo', serif;
+		}
+		.proline{
+			display:none;
+		}
+		#pInfo{
+		height: 430px;
+		}
+		
+		
+	 }
+	 .btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-xl {
+  width: 60px;
+  height: 60px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+	</style>
+
+	
+</head>
+<body>
+
+
+<!-- Preloader section
+================================================== -->
+<div class="preloader">
+	<div class="sk-spinner sk-spinner-pulse"></div>
+</div>
+
+
+<head th:replace="/common/navi.html"></head>
+<head th:replace="/common/navileft.html"></head>
+
+
+<!-- Portfolio section
+================================================== -->
+<section id="portfolio"  style="background-color: #fcf1e3;">
+   <div class="container">
+      <div class="row">
+
+         <div class="col-md-12 col-sm-12">
+            
+               <!-- iso section -->
+               <div class="iso-section wow fadeInUp" data-wow-delay="2.6s">
+
+
+				   <head th:replace="/common/iso.html"></head>
+
+                        
+
+               </div>
+               <!-- Blog section
+				================================================== -->
+
+				<hr>
+				<section id="blog" style="padding-top: 0rem;padding-bottom: 0rem;">
+				   <div class="container">
+				      <div class="row">
+				      	<p class="exphone">이미지를 클릭하시면 상세 설명을 보실 수 있습니다.</p>
+
+							<div id="list">
+
+							</div>
+
+				
+				      </div>
+				    </div>
+				 </section>
+
+					 <div class="custom-pagination">
+					 <div id="paging">
+
+					 </div>
+					 </div>
+				 <div class="custom-pagination">
+
+
+<!-- 
+					<button type="button" id="prodButton" onclick="openPocket()"><i class="fa fa-shopping-cart"></i></button> -->
+					<button type="button" id="topButton" class="btn btn-danger btn-circle btn-xl"onclick="#"><i class="fa fa-arrow-up"></i></button>
+					<button type="button" id="prodButton" class="btn btn-danger btn-circle btn-xl"onclick="openPocket()"><i class="fa fa-shopping-cart"></i></button>
+
+                            </div>
+                            <section>
+								<div class="container">
+									<div class="row">
+
+									</div>
+								</div>		
+							</section> 
+                            </c:if>
+                            <c:if test="${not empty message}">
+                            	<h3 style="padding-top:10%;" id="message"></h3>
+                            </c:if>
+         		</div>
+
+      </div>
+   </div>
+</section>
+<!-- Modal -->
+<div id="productInfo" class="modal fade" role="dialog"style="top: 10%;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="prodName"></h4>
+      </div>
+      <div class="modal-body" id="prodInfo">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="pocketInfo" class="modal fade" role="dialog" style="top: 10%; font-family: 'Nanum Myeongjo', serif; ">
+  <div class="modal-dialog" >
+		
+    <!-- Modal content-->
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="pocketTotal"></h4>
+      </div>
+      <div class="modal-body" id="pocketCon" style="padding: 35px;">
+      </div>
+      <div class="modal-footer" style="border-top: 0px">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="pay()">구매하기</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<head th:replace="/common/footer.html"></head>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+        let pocket=[[ ${paramText} ]];
+
+		window.onload = () => {
+			findAllPost();
+            scrollTop(500);
+            for(let i=0;i<pocket.length;i++){
+                $("#prod"+pocket[i].id).text(pocket[i].amount);
+            }
+
+        }
+
+        function insertCart(ind,num){
+            $.ajax({
+                url: "/addCart",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify({pocket}),
+                type:"POST",
+                complete  : function(data) {
+                    if(data.responseText=='loginFail'){
+                        alert("로그인 이후에 장바구니담기/구매 가능합니다.");
+                        return true;
+                    }else if(data.responseText=='amount'){
+                        pocket[ind].amount=num;
+                        $("#prod"+pocket[ind].id).text(pocket[ind].amount);
+                        alert("쿠키 최대수량은 14개, 품목당 최대5개 입니다.\n 장바구니를 체크해주세요.");
+                        return true;
+                    }else{
+                        return false;
+                    }
+
+                }
+
+            })
+        }
+
+        function deleteProduct(ind){
+            if(confirm("장바구니에서 빼시겠습니까?")){
+                $('.btn-amount').text(0);
+                var ob=pocket.splice(ind,1);
+                var id=ob[0].id;
+                for(var i=0;i<pocket.length;i++){
+                    $("#prod"+pocket[i].id).text(pocket[i].amount);
+                }
+                openPocket();
+                $.ajax({
+                    url: "/deleteCart",
+                    data: {id},
+                    type:"POST",
+                }).done(function (fragment) {
+                    if(fragment=='success'){
+                        alert("제품을 장바구니에서 뺐습니다.");
+                    }else{
+                        alert("장바구니 빼기에서 실패했습니다.");
+                    }
+                });
+
+            }
+        }
+
+        function openPocket(){
+            var count=0;
+            var str="<table style='width:100%'>";
+            var total=0;
+            for(var i=0;i<pocket.length;i++){
+                if(pocket[i].amount!='0'){
+                    str+="<tr class='jsProdEx' style=''>";
+                    str+="<td class='jsProdEx' style='padding-right:10px;'>"+pocket[i].name+" ("+pocket[i].amount+"개) </td>  </td><td>가격 : "+(addComma(pocket[i].amount*pocket[i].price))+"원</td>";
+                    //str+="<td class='jsProdEx' style='padding-right:10px;'><button onclick='deleteProduct("+i+")'>x</button></td>";
+                    str+="<td class='jsProdEx' style='padding-right:10px;'><input style='background: darkgray;color: white;border:1px;width:20px;' type='button' onclick='deleteProduct("+i+")' value='x'></td>";
+                    str+="</tr>";
+                    total+=pocket[i].amount*pocket[i].price;
+                    count+=1;
+                }
+            }
+            str+="</table>";
+            if(count==0){
+                str+="선택한 상품이 아직 없습니다.";
+            }
+            var historyTotal=total;
+            historyTotal=addComma(historyTotal);
+            str+="<hr>";
+            str+="<p class='jsProdEx' style='text-align:right;'>제품가격:"+historyTotal+"원 + 배송비:3,500원</p><br>";
+            total+=3500;
+            total=addComma(total);
+
+            str+="<p style='font-size:20px;float:right;'>총 합계 : "+total+"원</p>";
+            $('#pocketCon').html(str);
+            $('#pocketTotal').html("<p>선택상품</p>");
+            $('#pocketInfo').modal('show');
+        }
+
+        function addComma(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+
+        function pay(){
+
+
+            $.ajax({
+                url: "/confirmBuying",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify({pocket}),
+                type:"POST",
+                complete  : function(data) {
+                    if(data.responseText=='loginFail'){
+                        alert("로그인 이후에 장바구니담기/구매 가능합니다.");
+                    }else if(data.responseText=='amount'){
+                        alert("쿠키 최소수량은 3개, 최대수량은 14개, 품목당 최대5개 입니다.\n 장바구니를 체크해주세요.");
+                    }else if(data.responseText=='avail'){
+                        alert("현재 판매중이 아닌 상품이 있습니다.\n 장바구니를 체크해주세요.");
+                    }else{
+
+
+                        $.ajax({
+                            url: "/confirmRest",
+                            dataType: "json",
+                            contentType: "application/json",
+                            data: JSON.stringify({
+                                pocket:pocket}),
+                            type:"POST",
+                            complete  : function(data) {
+                                if(data.responseText=="success"){
+
+                                    let total=0;
+
+                                    for(var i=0;i<pocket.length;i++){
+                                        total+=pocket[i].amount*pocket[i].price;
+                                    }
+                                    total+=3500;
+
+                                    var IMP = window.IMP;
+                                    IMP.init('imp62483870');
+                                    var money = $('input[name="cp_item"]:checked').val();
+                                    console.log(total);
+
+                                    IMP.request_pay({
+                                        pg: 'kakaopay',
+                                        merchant_uid: 'merchant_' + new Date().getTime(),
+                                        name: '주문명 : 지니엄제품',
+                                        amount: total,
+                                        buyer_email: 'iamport@siot.do',
+                                        buyer_name: '구매자이름',
+                                        buyer_tel: '010-1234-5678',
+                                        buyer_addr: '인천광역시 부평구',
+                                        buyer_postcode: '123-456'
+                                    }, function (rsp) {
+                                        console.log(rsp);
+                                        if (rsp.success) {
+                                            var msg = '결제가 완료되었습니다.';
+                                            msg += '고유ID : ' + rsp.imp_uid;
+                                            msg += '상점 거래ID : ' + rsp.merchant_uid;
+                                            msg += '결제 금액 : ' + rsp.paid_amount;
+                                            msg += '카드 승인번호 : ' + rsp.apply_num;
+
+                                            alert("구매 완료 하였습니다.");
+
+                                        } else {
+                                            var msg = '결제에 실패하였습니다.';
+                                            msg += '에러내용 : ' + rsp.error_msg;
+
+                                            alert(msg);
+                                        }
+                                        //document.location.href="/goPay"; //alert창 확인 후 이동할 url 설정
+                                    });
+                                    
+
+                                }else if(data.responseText=="failed"){
+                                    alert("구매에 실패하였습니다.");
+                                }else if(data.responseText=="noneProduct"){
+                                    alert("장바구니에 현재 판매하지 않는 제품이 있습니다.");
+                                }else{
+                                    var res=JSON.parse(data.responseText);
+                                    var str="해당 제품의 재고가 다음과 같습니다.\n";
+                                    for(var i=0;i<res.length;i++){
+                                        if(res[i].flag=="true"){
+                                            str+=res[i].name+"의 재고 : "+res[i].amount+"\n";
+                                        }
+                                    }
+                                    str+="해당 제품의 재고로 바꾸시겠습니까?\n";
+
+                                    if(confirm(str)){
+                                        pocket=res;
+                                        insertCart();
+                                    }else{
+                                        location.href = "/productList?keyword=";
+                                    }
+                                }
+                            }
+
+                        });
+
+                    }
+
+                }
+
+            });
+
+
+
+        }
+        function scrollTop(duration) {
+            let target = document.getElementById("topButton");
+
+            target.addEventListener('click', function() {
+                let currentY = window.pageYOffset;
+                let step = duration/currentY > 1 ? 10 : 100;
+                let timeStep = duration/currentY * step;
+                let intervalID = setInterval(scrollUp, timeStep);
+
+                function scrollUp(){
+                    currentY = window.pageYOffset;
+                    if(currentY === 0) {
+                        clearInterval(intervalID);
+                    } else {
+                        scrollBy( 0, -step );
+                    }
+                }
+            });
+        }
+
+        function checkLogin(){
+            $.ajax({
+                url: "/checkLogin",
+                dataType: "json",
+                contentType: "application/json",
+                type:"POST",
+                complete  : function(data) {
+                    if(data.responseText=='need'){
+                        alert("로그인하신 후 이용해주세요.");
+                        location.href = "/loginPage";
+                        return;
+                    }
+                }
+
+            })
+        }
+
+        function addProduct(name,id,price){
+            checkLogin();
+            $('#prodButton').css("box-shadow","0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db");
+            setTimeout(function () {
+                $('#prodButton').css("box-shadow","");
+            }, 100)
+
+            var flag=false;
+            var ind=-1;
+            for(var i=0;i<pocket.length;i++){
+                if(pocket[i].id==id){
+                    ind=i;
+                    flag=true;
+                }
+            }
+            if(flag){
+                selectAvailAmount(id,ind,'add');
+            }else{
+                var cte=$('#catemap'+id).val();
+                pocket.push({id:id,name:name,price:price,amount:0,cate:cte});
+                for(var i=0;i<pocket.length;i++){
+                    if(pocket[i].id==id){
+                        ind=i;
+                    }
+                }
+                selectAvailAmount(id,ind,'add');
+            }
+
+        }
+        function minusProduct(name,id,price){
+            checkLogin();
+            $('#prodButton').css("box-shadow","0 0 10px 0 red inset, 0 0 10px 4px #3498db");
+            setTimeout(function () {
+                $('#prodButton').css("box-shadow","");
+            }, 100)
+
+            var flag=false;
+            var ind=-1;
+            for(var i=0;i<pocket.length;i++){
+                if(pocket[i].id==id){
+                    ind=i;
+                    flag=true;
+                }
+            }
+            if(flag&&$("#prod"+id).text()>0){
+                selectAvailAmount(id,ind,'minus');
+            }else if($("#prod"+id).text()==0){
+                alert("수량은 0개 이하로 내려갈수 없습니다.");
+            }
+        }
+
+        function selectAvailAmount(id,ind,gubun) {
+            $.ajax({
+                url: "/selectAvailAmountCart",
+                data: {id:id},
+                type:"POST",
+            }).done(function (fragment) {
+                if(gubun=="add"){
+                    if(fragment>=(pocket[ind].amount+1)){
+                        var catemap=$("#catemap"+id).val();
+                        if(catemap=='쿠키'){
+                            if(pocket[ind].amount+1==6){
+                                alert("인당/품목 최대 수량은 5개입니다.");
+                                return;
+                            }
+                        }
+
+                        var org=pocket[ind].amount;
+                        pocket[ind].amount+=1;
+                        $("#prod"+id).text(pocket[ind].amount);
+                        insertCart(ind,org);
+
+                    }else{
+                        alert("최대수량입니다.");
+                    }
+
+                }else{
+                    if(fragment>=pocket[ind].amount){
+
+
+                        var org=pocket[ind].amount;
+                        pocket[ind].amount-=1;
+                        $("#prod"+id).text(pocket[ind].amount);
+                        insertCart(ind,org);
+
+                    }else{
+                        if(pocket[ind].amount<6){
+                            var org=pocket[ind].amount;
+                            pocket[ind].amount=fragment;
+                            $("#prod"+id).text(pocket[ind].amount);
+                            insertCart(ind,org);
+                            alert("남은수량이 없어 최대수량으로 대체합니다.");
+
+
+
+                        }else{
+                            pocket[ind].amount=5;
+                            $("#prod"+id).text(5);
+                        }
+                    }
+                }
+            });
+        }
+
+
+        function openInfoModal(name,id){
+
+            $('#prodName').html(name);
+            $('#productInfo').modal('show');
+            $('#prodInfo').html($('#prodInfo'+id).val());
+        }
+
+
+        // 게시글 리스트 조회
+		function findAllPost() {
+
+			const list = [[ ${product.list} ]];
+			if ( !list.length ) {
+				document.getElementById('list').innerHTML = '<td colspan="6"><div className="no_data_msg">검색된 결과가 없습니다.</div></td>';
+				drawPage();
+			}
+
+			const pagination = [[ ${product.pagination} ]];
+			const params = [[ ${product} ]];
+			let num = pagination.totalRecordCount - ((params.page - 1) * params.recordSize);
+			key=params.keyword;
+			drawList(list, num);
+			drawPage(pagination, params);
+		}
+
+
+		// 리스트 HTML draw
+		function drawList(list, num) {
+
+			let html = '';
+			list.forEach(row => {
+                let stays=row.status;
+
+                const pn = row.productName;
+                const rowid = row.id;
+                const price = row.price;
+
+                let chs;
+                if(stays=='판매대기'){
+                    chs='<p>판매 대기중입니다.</p>';
+                }else if(stays=='제품준비기간'){
+                    chs='<p>제품준비기간입니다.</p>';
+                }else {
+
+                    chs=' ' +
+                        '<span class="exspan" style="width: 100%;padding-right: 0px;">' +
+                        '<a style="padding: 10px 17px;font-size: 20px;margin: 0;"onclick="minusProduct(\''+pn+'\',\''+rowid+'\',\''+price+'\');" class="btn btn-default amobtn">-</a>' +
+                        '<span style="background-color: #fcf1e3;padding: 10px 10px;cursor: default;width:43px;font-size: 20px;margin: 0;border: 0;" class="btn-amount btn btn-default" ' +
+                        'id="prod'+rowid+'">0</span>' +
+                        '<a style="padding: 10px 17px;font-size: 20px;margin: 0;" onclick="addProduct(\''+pn+'\',\''+rowid+'\',\''+price+'\');" class="btn btn-default amobtn">+</a></span>';
+                }
+
+
+
+				html += `
+
+            <div class="wow fadeInUp col-md-3 col-sm-3" id="pInfo" data-wow-delay="1.0s" style="padding-left:0px;">
+           <div class="blog-thumb">
+
+            <a onclick="openInfoModal('${row.productName}','${row.id}')">
+            <div class="imgframe" style="cursor:pointer;">
+            ${row.thumb}
+            </div>
+            </a>
+            <div class="bumper" style="height:20px;"></div>
+            <div>
+            <input type="hidden" id="catemap${row.id}" value="${row.catename}">
+            <div class="postName" >${row.productName}</div>
+
+            `+ chs +
+                    `
+
+                 </div>
+                 <div class="post-format details">
+
+                  <p style="font-size: 15px;font-family: 'Nanum Myeongjo', serif;"><b>${row.price}원</b></p>
+                  <p style="font-family: 'Nanum Myeongjo', serif;">${row.summary}</p></div>
+
+<div class="post-format details" style="display:inline-flex;">
+                    <input type="hidden" id="prodInfo${row.id}" value='${row.content}'>
+                 </div>
+           </div>
+    </div>
+    <hr class="proline">
+
+
+
+        `;
+			})
+
+			document.getElementById('list').innerHTML = html;
+		}
+
+
+		// 페이지 HTML draw
+		function drawPage(pagination, params) {
+
+			if ( !pagination || !params ) {
+				document.querySelector('#paging').innerHTML = '';
+				throw new Error('Missing required parameters...');
+			}
+
+			let html = '';
+
+			// 첫 페이지, 이전 페이지
+			if (pagination.existPrevPage) {
+				html += `
+            <a href="javascript:void(0);" onclick="movePage(1)" class="page_bt first">첫 페이지</a>
+            <a href="javascript:void(0);" onclick="movePage(${pagination.startPage - 1})" class="page_bt prev">이전 페이지</a>
+        `;
+			}
+
+			// 페이지 번호
+			html += '<p>';
+			for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+				html += (i !== params.page)
+						? `<a href="javascript:void(0);" onclick="movePage(${i});">${i}</a>`
+						: `<span class="on">${i}</span>`
+			}
+			html += '</p>';
+
+			// 다음 페이지, 마지막 페이지
+			if (pagination.existNextPage) {
+				html += `
+            <a href="javascript:void(0);" onclick="movePage(${pagination.endPage + 1});" class="page_bt next">다음 페이지</a>
+            <a href="javascript:void(0);" onclick="movePage(${pagination.totalPageCount});" class="page_bt last">마지막 페이지</a>
+        `;
+			}
+
+			document.querySelector('#paging').innerHTML = html;
+		}
+
+
+		// 페이지 이동
+		function movePage(page) {
+			let queryParams;
+			let keyServer=[[ ${keyword} ]];
+
+			if(keyServer!=null){
+				queryParams = {
+					keyword:keyServer,
+					page: (page) ? page : 1,
+					recordSize: 10,
+					pageSize: 10
+				}
+			}else{
+				queryParams = {
+					page: (page) ? page : 1,
+					recordSize: 10,
+					pageSize: 10
+				}
+			}
+
+			location.href = location.pathname + '?' + new URLSearchParams(queryParams).toString();
+		}
+
+		/*]]>*/
+	</script>
+</th:block>
+<!-- Javascript 
+================================================== -->
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/isotope.js"></script>
+<script src="js/imagesloaded.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/custom.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+</body>
+</html>
