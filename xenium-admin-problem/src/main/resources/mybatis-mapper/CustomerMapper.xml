@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cafe.admin.mapper.CustomerMapper">
+
+    <select id="selectAdmin" parameterType="com.cafe.admin.dto.AdminDTO" resultType="com.cafe.admin.dto.AdminDTO">
+        SELECT
+            id,
+            password
+        FROM
+            admin
+        WHERE
+            id=#{id} and password=#{password}
+    </select>
+
+    <select id="selectAllCustomers" resultType="com.cafe.admin.dto.CustomerDTO">
+        SELECT
+            id,
+            pw,
+            name,
+            phone,
+            address,
+            email,
+            gender,
+            sns,
+            birth,
+            indate,
+            ismem
+        FROM
+            customer
+    </select>
+
+    <update id="customerStatus" parameterType="com.cafe.admin.dto.CustomerDTO">
+        UPDATE CUSTOMER set
+            ISMEM=#{ismem}
+        where ID=#{id}
+    </update>
+
+    <select id="selectOrderBook" resultType="com.cafe.admin.dto.OrderDTO">
+        SELECT
+            id,
+            userid,
+            name,
+            phone,
+            postcode,
+            address,
+            addressdetail,
+            indate
+        FROM
+            orderbook
+        ORDER BY INDATE DESC
+    </select>
+
+    <select id="selectOrderDetail" parameterType="com.cafe.admin.dto.OrderDTO" resultType="com.cafe.admin.dto.OrderDTO">
+        SELECT
+            ID
+            ,USERID
+            ,(SELECT PRODUCTNAME FROM PRODUCT WHERE ID=PRODUCTID) productName
+            ,AMOUNT
+            ,PRICE
+            ,INDATE
+        FROM ORDERDETAIL
+        WHERE ORDERID=#{id}
+        ORDER BY INDATE DESC
+    </select>
+
+</mapper>

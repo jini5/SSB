@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cafe.admin.mapper.ProductMapper">
+
+    <select id="selectProducts" resultType="com.cafe.admin.dto.ProductDTO">
+        SELECT
+            thumb,
+            id,
+            productName,
+            orderNum,
+            status,
+            amount,
+            price,
+            marketType,
+            indate
+        FROM
+            product
+    </select>
+
+    <select id="selectProduct" resultType="String">
+        SELECT
+            thumb,
+            id,
+            productName,
+            orderNum,
+            status,
+            amount,
+            price,
+            marketType,
+            indate
+        FROM
+            product
+        WHERE
+            id=#{id}
+    </select>
+
+    <delete id="deleteProducts" parameterType="com.cafe.admin.dto.ProductDTO">
+        DELETE
+            FROM
+                PRODUCT
+        WHERE
+            ID=#{id}
+    </delete>
+
+    <insert id="insertProducts" parameterType="com.cafe.admin.dto.ProductDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
+        INSERT INTO PRODUCT
+        (
+            PRODUCTNAME
+        ,THUMB
+        ,ORDERNUM
+        ,STATUS
+        ,AMOUNT
+        ,PRICE
+        ,CONTENT
+        ,MARKETTYPE
+        ,SUMMARY
+        )
+        VALUES
+            (
+            #{productName}
+            ,#{thumb}
+            ,#{orderNum}
+            ,#{status}
+            ,#{amount}
+            ,#{price}
+            ,#{content}
+            ,#{marketType}
+            ,#{summary}
+            )
+    </insert>
+
+
+    <update id="updateProducts" parameterType="com.cafe.admin.dto.ProductDTO">
+        UPDATE PRODUCT SET
+                           PRODUCTNAME=#{productName},
+                           THUMB=#{thumb},
+                           STATUS=#{status},
+                           ORDERNUM=#{orderNum},
+                           PRICE=#{price},
+                           AMOUNT=#{amount},
+                           SUMMARY=#{summary},
+                           MARKETTYPE=#{marketType},
+                           CONTENT=#{content}
+        WHERE ID=${id}
+    </update>
+
+    <insert id="insertCatemaps"  parameterType="com.cafe.admin.dto.ProductDTO">
+        INSERT INTO CATEMAP
+            (
+             CATEID
+             ,ETCID
+             ,ETCTABLE
+             )
+        VALUES
+            (
+             #{cateId}
+             ,#{id}
+             ,'PRODUCT'
+             )
+    </insert>
+
+    <delete id="deleteCatemaps" parameterType="com.cafe.admin.dto.ProductDTO">
+        DELETE FROM CATEMAP
+        WHERE ETCID=#{id}
+          AND ETCTABLE='PRODUCT'
+    </delete>
+
+
+    <select id="selectSellTimes" resultType="com.cafe.admin.dto.SellTimeDTO">
+        SELECT
+            id,
+            starttime,
+            endtime,
+            indate
+        FROM
+            selltime
+
+    </select>
+    <insert id="insertSellTimes" parameterType="com.cafe.admin.dto.SellTimeDTO">
+        INSERT INTO SELLTIME
+            (STARTTIME,ENDTIME)
+        VALUES
+            (#{startTime},#{endTime})
+    </insert>
+
+    <delete id="deleteSellTimes" parameterType="com.cafe.admin.dto.SellTimeDTO">
+        DELETE
+            FROM
+                SELLTIME
+        WHERE
+            id=#{id}
+    </delete>
+</mapper>

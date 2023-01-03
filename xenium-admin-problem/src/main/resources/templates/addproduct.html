@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>XENIUM ADMIN</title>
+    <meta name="description" content="">
+    <!-- favicon
+		============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/admin/favicon.ico">
+    <!-- Google Fonts
+		============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//bootstrap.min.css">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//font-awesome.min.css">
+	<!-- nalika Icon CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//nalika-icon.css">
+    <!-- owl.carousel CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//owl.carousel.css">
+    <link rel="stylesheet" href="../css/admin//owl.theme.css">
+    <link rel="stylesheet" href="../css/admin//owl.transitions.css">
+    <!-- animate CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//animate.css">
+    <!-- normalize CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//normalize.css">
+    <!-- meanmenu icon CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//meanmenu.min.css">
+    <!-- main CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//main.css">
+    <!-- morrisjs CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//morrisjs/morris.css">
+    <!-- mCustomScrollbar CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- metisMenu CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="../css/admin//metisMenu/metisMenu-vertical.css">
+    <!-- calendar CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="../css/admin//calendar/fullcalendar.print.min.css">
+    <!-- style CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin/style.css">
+    <!-- responsive CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//responsive.css">
+    <!-- modernizr JS
+		============================================ -->
+    <script src="../js/admin/vendor/modernizr-2.8.3.min.js"></script>
+    <script>
+    	function thumbImg(){
+    		
+    		var formData = new FormData($('#filedata')[0]);
+    		
+    		$.ajax({ 
+    			type: "POST", 
+    			enctype: 'multipart/form-data', // 필수 
+    			url: '/pictures',
+    			data: formData, // 필수 
+    			processData: false, // 필수 
+    			contentType: false, // 필수 
+    			cache: false, 
+    			success: function (result) { 
+
+    				$("#thumbexample").html(result);
+    				$("#thumb").val(result);
+    				
+    			}, error: function (e) {
+    				
+    			} 
+    			
+    		});
+
+    			
+    	}
+
+    	function subForm(){
+    		oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
+    		var content = $("#smartEditor").val();
+			var cateid=$("#catetype option:selected").val();
+			var status=$("#prestatus option:selected").val();
+			var productname = $("#preproductname").val();
+    		var price = $("#preprice").val();
+    		var amount = $("#preamount").val();
+    		var summary = $("#presummary").val();
+    		var markettype = $("#premarkettype").val();
+    		var ordernum = $("#preordernum").val();
+    		
+
+    		$("#cateid").val(cateid);
+    		$("#content").val(content);
+    		$("#status").val(status);
+    		$("#productname").val(productname);
+    		$("#price").val(price);
+    		$("#amount").val(amount);
+    		$("#summary").val(summary);
+    		$("#markettype").val(markettype);
+    		$("#ordernum").val(ordernum);
+    		
+    		if($("#productname").val().length<1||$("#price").val().length<1||$("#amount").val().length<1||$("#summary").val().length<1||$("#thumb").val().length<1){
+    			alert("빈칸없이 작성해주세요.");
+    			return;
+    		}
+
+            $.ajax({
+                url: "/products",
+                type:"POST",
+                data:
+                    {
+                        "content":content,
+                        "cateId":cateid,
+                        "status":status,
+                        "productName":productname,
+                        "price":price,
+                        "amount":amount,
+                        "orderNum":ordernum,
+                        "summary":summary,
+                        "marketType":markettype,
+                        "thumb":$("#thumb").val()
+
+                    },
+                success: function (data) {
+                   if(data=='success'){
+                       alert("제품등록 성공");
+                       location.href="/productList";
+                   }else{
+                       alert("제품등록 실패");
+                   }
+                }
+            });
+
+    	}
+    </script>
+</head>
+
+<body>
+
+
+<head th:replace="/common/navileft.html"></head>
+
+
+<!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:70px;">
+                    <div class="logo-pro">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-advance-area">
+            <div class="header-top-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="header-top-wraper">
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                        <div class="menu-switcher-pro">
+                                            <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+													<i class="icon nalika-menu-task"></i>
+												</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <head th:replace="/common/navimoba.html"></head>
+
+        </div>
+       <form id="conForm" method="post" action="/admin/regiProduct">
+          <input name="productname" id="productname" type="hidden" class="form-control"/>
+          <input name="status" id="status" type="hidden" class="form-control"/>
+          <input name="thumb" id="thumb" type="hidden" class="form-control"/>
+          <input name="price" id="price" type="hidden" class="form-control"/>
+          <input name="amount" id="amount" type="hidden" class="form-control"/>
+          <input name="summary" id="summary" type="hidden" class="form-control"/>
+          <input name="markettype" id="markettype" type="hidden" class="form-control"/>
+          <input name="cateid" id="cateid" type="hidden" class="form-control"/>
+          <input name="content" id="content" type="hidden" class="form-control"/>
+          <input name="ordernum" id="ordernum" type="hidden" class="form-control"/>
+       </form>
+         <div class="product-status mg-b-30">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sparkline12-list">
+                            <div class="sparkline12-hd">
+                                <div class="main-sparkline12-hd">
+                                    <h1 style="color:white;">제품등록</h1>
+                                </div>
+                            </div>
+                            <div class="sparkline12-graph">
+                                <div class="basic-login-form-ad">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="all-form-element-inner">
+                                                    <div class="form-group-inner">
+                                                    	 <div class="row" style="padding-top:18px;">
+                                                           <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                                            </div>
+                                                            <div id="thumbexample" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                                                <img src="../images/admin/cropper/2.jpg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="padding-top:18px;">
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                                                <label class="login2 pull-right pull-right-pro"  style="color:white;">제품사진</label>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                                            <form id="filedata" method="post" enctype="multipart/form-data">
+                                                                <input style="color:white;" id="filedata" name="filedata" type="file" onchange="thumbImg()" class="form-control" />
+                                                           	</form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="padding-top:28px;">
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                                                <label class="login2 pull-right pull-right-pro"  style="color:white;">제품명</label>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                                                <input style="color:white;"  name="preproductname" id="preproductname" type="text" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="padding-top:18px;">
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                                                <label class="login2 pull-right pull-right-pro"  style="color:white;">제품간략설명</label>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                                                <input style="color:white;"  name="presummary" id="presummary"  type="text" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="padding-top:18px;">
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                                                <label class="login2 pull-right pull-right-pro"  style="color:white;">제품노출순서</label>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                                                <input style="color:white;" value="" name="preordernum" id="preordernum"  type="text" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="padding-top:18px;">
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                                                <label class="login2 pull-right pull-right-pro"  style="color:white;">제품수량</label>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                                                <input style="color:white;"  name="preamount" id="preamount"  type="number" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="padding-top:18px;">
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                                                <label class="login2 pull-right pull-right-pro"  style="color:white;">제품가격</label>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                                                <input style="color:white;"  name="preprice" id="preprice"  type="number" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                       
+                                                        <div class="row" style="padding-top:18px;">
+                                                        	<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                                                <label class="login2 pull-right pull-right-pro"  style="color:white;">제품상태</label>
+                                                            </div>
+		                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				                                                <select class="select2_demo_3 form-control" name="prestatus" id="prestatus">
+																		<option value="판매대기">판매대기</option>
+																		<option value="판매가능">판매가능</option>
+																</select>
+				                                            </div>
+                                                        </div>
+                                                        <div class="row" style="padding-top:18px;">
+                                                        	<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                                                <label class="login2 pull-right pull-right-pro"  style="color:white;">판매설정</label>
+                                                            </div>
+		                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				                                                <select class="select2_demo_3 form-control" name="premarkettype" id="premarkettype">
+																		<option value="기간판매">기간판매</option>
+																		<option value="상시판매">상시판매</option>
+																</select>
+				                                            </div>
+                                                        </div>
+                                                        <div class="row" style="padding-top:18px;">
+                                                        	<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                                                <label class="login2 pull-right pull-right-pro"  style="color:white;">제품타입</label>
+                                                            </div>
+		                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				                                                <select class="select2_demo_3 form-control" name="catetype" id="catetype">
+
+																</select>
+				                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="row" style="padding-top:18px;">
+                                                        	<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                                                <label class="login2 pull-right pull-right-pro"  style="color:white;">제품상세설명</label>
+                                                            </div>
+		                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				                                                 
+				                                                 <div class="jsx-2303464893 editor"> 
+																	<div class="fr-box fr-basic fr-top" role="application"> 
+																		<div class="fr-wrapper show-placeholder" dir="auto" style="overflow: scroll;background:white;"> 
+																			<textarea name="content" id="smartEditor" style="width: 100%; height: 412px; background:white;"></textarea> 
+																		</div> 
+																	</div> 
+																</div>
+				                                            </div>
+                                                        </div>
+                                                       
+                                                    </div>
+                                                    <div class="form-group-inner">
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                       </div>
+                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                                               <button type="button" onclick="subForm()" class="btn btn-custon-four btn-success" style="padding: 1px 15px">제품등록하기</button>
+                                                       
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="footer-copy-right">
+                            <p>Copyright © 2021 XENIUM All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+	<script src="../se2/js/HuskyEZCreator.js"></script>
+    <!-- jquery
+		============================================ -->
+    <script src="../js/admin/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap JS
+		============================================ -->
+    <script src="../js/admin/bootstrap.min.js"></script>
+    <!-- wow JS
+		============================================ -->
+    <script src="../js/admin/wow.min.js"></script>
+    <!-- price-slider JS
+		============================================ -->
+    <script src="../js/admin/jquery-price-slider.js"></script>
+    <!-- meanmenu JS
+		============================================ -->
+    <script src="../js/admin/jquery.meanmenu.js"></script>
+    <!-- owl.carousel JS
+		============================================ -->
+    <script src="../js/admin/owl.carousel.min.js"></script>
+    <!-- sticky JS
+		============================================ -->
+    <script src="../js/admin/jquery.sticky.js"></script>
+    <!-- scrollUp JS
+		============================================ -->
+    <script src="../js/admin/jquery.scrollUp.min.js"></script>
+    <!-- mCustomScrollbar JS
+		============================================ -->
+    <script src="../js/admin/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../js/admin/scrollbar/mCustomScrollbar-active.js"></script>
+    <!-- metisMenu JS
+		============================================ -->
+    <script src="../js/admin/metisMenu/metisMenu.min.js"></script>
+    <script src="../js/admin/metisMenu/metisMenu-active.js"></script>
+    <!-- sparkline JS
+		============================================ -->
+    <script src="../js/admin/sparkline/jquery.sparkline.min.js"></script>
+    <script src="../js/admin/sparkline/jquery.charts-sparkline.js"></script>
+    <!-- calendar JS
+		============================================ -->
+    <script src="../js/admin/calendar/moment.min.js"></script>
+    <script src="../js/admin/calendar/fullcalendar.min.js"></script>
+    <script src="../js/admin/calendar/fullcalendar-active.js"></script>
+	<!-- float JS
+		============================================ -->
+    <script src="../js/admin/flot/jquery.flot.js"></script>
+    <script src="../js/admin/flot/jquery.flot.resize.js"></script>
+    <script src="../js/admin/flot/curvedLines.js"></script>
+    <script src="../js/admin/flot/flot-active.js"></script>
+    <!-- plugins JS
+		============================================ -->
+    <script src="../js/admin/plugins.js"></script>
+    <!-- main JS
+		============================================ -->
+    <script src="../js/admin/main.js"></script>
+    <script>
+
+var oEditors = []; 
+nhn.husky.EZCreator.createInIFrame({ 
+	oAppRef : oEditors, 
+	elPlaceHolder : "smartEditor", 
+	//저는 textarea의 id와 똑같이 적어줬습니다. 
+	sSkinURI : "../se2/SmartEditor2Skin.html", 
+	//경로를 꼭 맞춰주세요! 
+	fCreator : "createSEditor2", 
+	htParams : { 
+		// 툴바 사용 여부 (true:사용/ false:사용하지 않음) 
+		bUseToolbar : true,
+		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음) 
+		bUseVerticalResizer : false, 
+		// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음) 
+		bUseModeChanger : true } });
+
+    $.ajax({
+        url: "/categories",
+        dataType: "json",
+        success: function (data) {
+            let con='';
+            for(let i=0;i<data.length;i++){
+                con+= '<option value="'+data[i].id+'">'+data[i].cateName+'</option>';
+
+            }
+            $('#catetype').html(con);
+        }
+    });
+		</script>
+</body>
+
+</html>

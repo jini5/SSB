@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cafe.admin.mapper.CategoryMapper">
+
+    <select id="selectCategories" resultType="com.cafe.admin.dto.CategoryDTO">
+        SELECT
+            id,
+            catename,
+            catetype,
+            indate
+        FROM
+            category
+
+    </select>
+
+    <delete id="deleteCategories" parameterType="com.cafe.admin.dto.CategoryDTO">
+        DELETE FROM category
+        WHERE
+            id=#{id}
+    </delete>
+
+    <insert id="insertCategories" parameterType="com.cafe.admin.dto.CategoryDTO">
+        INSERT INTO category
+            (id,
+             catename,
+             catetype)
+        values
+            (#{id},
+             #{cateName},
+             'PRODUCT')
+    </insert>
+
+    <update id="updateCategories" parameterType="com.cafe.admin.dto.CategoryDTO">
+        UPDATE category SET
+                            catename=#{cateName}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteCatemaps" parameterType="com.cafe.admin.dto.CategoryDTO">
+        DELETE FROM CATEMAP
+        WHERE CATEID=#{id}
+          AND ETCTABLE='PRODUCT'
+    </delete>
+</mapper>

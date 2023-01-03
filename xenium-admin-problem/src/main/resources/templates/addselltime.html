@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>XENIUM ADMIN</title>
+    <meta name="description" content="">
+    <!-- favicon
+		============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/admin/favicon.ico">
+    <!-- Google Fonts
+		============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//bootstrap.min.css">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//font-awesome.min.css">
+	<!-- nalika Icon CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//nalika-icon.css">
+    <!-- owl.carousel CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//owl.carousel.css">
+    <link rel="stylesheet" href="../css/admin//owl.theme.css">
+    <link rel="stylesheet" href="../css/admin//owl.transitions.css">
+    <!-- animate CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//animate.css">
+    <!-- normalize CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//normalize.css">
+    <!-- meanmenu icon CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//meanmenu.min.css">
+    <!-- main CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//main.css">
+    <!-- morrisjs CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//morrisjs/morris.css">
+    <!-- mCustomScrollbar CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- metisMenu CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="../css/admin//metisMenu/metisMenu-vertical.css">
+    <!-- calendar CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="../css/admin//calendar/fullcalendar.print.min.css">
+    <!-- style CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin/style.css">
+    <!-- responsive CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//responsive.css">
+    <!-- modernizr JS
+		============================================ -->
+    <script src="../js/admin/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+
+<body>
+   
+
+
+    <head th:replace="/common/navileft.html"></head>
+
+    <!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:70px;">
+                    <div class="logo-pro">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-advance-area">
+            <div class="header-top-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="header-top-wraper">
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                        <div class="menu-switcher-pro">
+                                            <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+													<i class="icon nalika-menu-task"></i>
+												</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <head th:replace="/common/navimoba.html"></head>
+
+
+        </div>
+       
+         <div class="product-status mg-b-30">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sparkline12-list">
+                            <div class="sparkline12-hd">
+                                <div class="main-sparkline12-hd">
+                                    <h1 style="color:white;">판매시간설정(달력모양 이모티콘 클릭)</h1>
+                                </div>
+                            </div>
+                            <div class="sparkline12-graph">
+                                <div class="basic-login-form-ad">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="all-form-element-inner">
+                                                <form action="/admin/regiSelltime">
+                                                    <div class="form-group-inner">
+                                                    	
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                                                <label class="login2 pull-right pull-right-pro"  style="color:white;">판매시작시간</label>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                                                <input style="color:black;background-color: white;" id="starttime"  name="starttime" type="datetime-local" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                        	<div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                                                <label class="login2 pull-right pull-right-pro"  style="color:white;">판매끝시간</label>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                                                <input style="color:black;background-color: white;"  id="endtime"  name="endtime" type="datetime-local" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                       
+                                                    </div>
+                                                    <div class="form-group-inner">
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                       </div>
+                                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                                               <button type="button" onclick="insertSelltime()" class="btn btn-custon-four btn-success" style="padding: 1px 15px">판매시간 등록하기</button>
+                                                       
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="footer-copy-right">
+                            <p>Copyright © 2021 XENIUM All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jquery
+		============================================ -->
+    <script src="../js/admin/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap JS
+		============================================ -->
+    <script src="../js/admin/bootstrap.min.js"></script>
+    <!-- wow JS
+		============================================ -->
+    <script src="../js/admin/wow.min.js"></script>
+    <!-- price-slider JS
+		============================================ -->
+    <script src="../js/admin/jquery-price-slider.js"></script>
+    <!-- meanmenu JS
+		============================================ -->
+    <script src="../js/admin/jquery.meanmenu.js"></script>
+    <!-- owl.carousel JS
+		============================================ -->
+    <script src="../js/admin/owl.carousel.min.js"></script>
+    <!-- sticky JS
+		============================================ -->
+    <script src="../js/admin/jquery.sticky.js"></script>
+    <!-- scrollUp JS
+		============================================ -->
+    <script src="../js/admin/jquery.scrollUp.min.js"></script>
+    <!-- mCustomScrollbar JS
+		============================================ -->
+    <script src="../js/admin/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../js/admin/scrollbar/mCustomScrollbar-active.js"></script>
+    <!-- metisMenu JS
+		============================================ -->
+    <script src="../js/admin/metisMenu/metisMenu.min.js"></script>
+    <script src="../js/admin/metisMenu/metisMenu-active.js"></script>
+    <!-- sparkline JS
+		============================================ -->
+    <script src="../js/admin/sparkline/jquery.sparkline.min.js"></script>
+    <script src="../js/admin/sparkline/jquery.charts-sparkline.js"></script>
+    <!-- calendar JS
+		============================================ -->
+    <script src="../js/admin/calendar/moment.min.js"></script>
+    <script src="../js/admin/calendar/fullcalendar.min.js"></script>
+    <script src="../js/admin/calendar/fullcalendar-active.js"></script>
+	<!-- float JS
+		============================================ -->
+    <script src="../js/admin/flot/jquery.flot.js"></script>
+    <script src="../js/admin/flot/jquery.flot.resize.js"></script>
+    <script src="../js/admin/flot/curvedLines.js"></script>
+    <script src="../js/admin/flot/flot-active.js"></script>
+    <!-- plugins JS
+		============================================ -->
+    <script src="../js/admin/plugins.js"></script>
+    <!-- main JS
+		============================================ -->
+    <script src="../js/admin/main.js"></script>
+<script>
+
+    function insertSelltime(){
+        $.ajax({
+            url: "/selltimes",
+            type: "POST",
+            data:{"startTime":$("#starttime").val()
+                ,"endTime":$("#endtime").val()
+            },
+            success: function (data) {
+               if(data=='success'){
+                   alert("설정성공");
+                   location.href="/selltimeList";
+               }else{
+                   alert("설정실패");
+               }
+            }
+        });
+    }
+
+</script>
+</body>
+
+</html>

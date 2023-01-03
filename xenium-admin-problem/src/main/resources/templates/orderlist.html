@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>XENIUM ADMIN</title>
+    <meta name="description" content="">
+    <!-- favicon
+		============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/admin/favicon.ico">
+    <!-- Google Fonts
+		============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//bootstrap.min.css">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//font-awesome.min.css">
+	<!-- nalika Icon CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//nalika-icon.css">
+    <!-- owl.carousel CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//owl.carousel.css">
+    <link rel="stylesheet" href="../css/admin//owl.theme.css">
+    <link rel="stylesheet" href="../css/admin//owl.transitions.css">
+    <!-- animate CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//animate.css">
+    <!-- normalize CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//normalize.css">
+    <!-- meanmenu icon CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//meanmenu.min.css">
+    <!-- main CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//main.css">
+    <!-- morrisjs CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//morrisjs/morris.css">
+    <!-- mCustomScrollbar CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- metisMenu CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="../css/admin//metisMenu/metisMenu-vertical.css">
+    <!-- calendar CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="../css/admin//calendar/fullcalendar.print.min.css">
+    <!-- style CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin/style.css">
+    <!-- responsive CSS
+		============================================ -->
+    <link rel="stylesheet" href="../css/admin//responsive.css">
+    <!-- modernizr JS
+		============================================ -->
+    <script src="../js/admin/vendor/modernizr-2.8.3.min.js"></script>
+
+</head>
+
+<body>
+   
+
+
+    <head th:replace="/common/navileft.html"></head>
+    <!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:70px;">
+                    <div class="logo-pro">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-advance-area">
+            <div class="header-top-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="header-top-wraper">
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                        <div class="menu-switcher-pro">
+                                            <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+													<i class="icon nalika-menu-task"></i>
+												</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <head th:replace="/common/navimoba.html"></head>
+           
+        </div>
+       
+         <div class="product-status mg-b-30">
+            <div class="container-fluid">
+            	<div class="row">
+            		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="breadcome-list">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="breadcomb-wp">
+											<div class="breadcomb-icon">
+												<i class="icon nalika-home"></i>
+											</div>
+											<div class="breadcomb-ctn">
+												<h2>주문 리스트</h2>
+											</div>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            	</div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="product-status-wrap">
+
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>주문번호</th>
+                                    <th>주문고객ID</th>
+                                    <th>받는사람이름</th>
+                                    <th>연락처</th>
+                                    <th>주소</th>
+                                    <th>주소상세</th>
+                                    <th>주문일</th>
+                                    <th>확인</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>주문번호</th>
+                                    <th>주문고객ID</th>
+                                    <th>받는사람이름</th>
+                                    <th>연락처</th>
+                                    <th>주소</th>
+                                    <th>주소상세</th>
+                                    <th>주문일</th>
+                                    <th>확인</th>
+                                </tr>
+                                </tfoot>
+                                <tbody id="tbody">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="footer-copy-right">
+                            <p>Copyright © 2021 XENIUM All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugins -->
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- wow JS
+        ============================================ -->
+    <script src="../js/admin/wow.min.js"></script>
+    <!-- price-slider JS
+        ============================================ -->
+    <script src="../js/admin/jquery-price-slider.js"></script>
+    <!-- meanmenu JS
+        ============================================ -->
+    <script src="../js/admin/jquery.meanmenu.js"></script>
+    <!-- owl.carousel JS
+        ============================================ -->
+    <script src="../js/admin/owl.carousel.min.js"></script>
+    <!-- sticky JS
+        ============================================ -->
+    <script src="../js/admin/jquery.sticky.js"></script>
+    <!-- scrollUp JS
+        ============================================ -->
+    <script src="../js/admin/jquery.scrollUp.min.js"></script>
+    <!-- mCustomScrollbar JS
+        ============================================ -->
+    <script src="../js/admin/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../js/admin/scrollbar/mCustomScrollbar-active.js"></script>
+    <!-- metisMenu JS
+        ============================================ -->
+    <script src="../js/admin/metisMenu/metisMenu.min.js"></script>
+    <script src="../js/admin/metisMenu/metisMenu-active.js"></script>
+    <!-- sparkline JS
+        ============================================ -->
+    <script src="../js/admin/sparkline/jquery.sparkline.min.js"></script>
+    <script src="../js/admin/sparkline/jquery.charts-sparkline.js"></script>
+    <!-- calendar JS
+        ============================================ -->
+    <script src="../js/admin/calendar/moment.min.js"></script>
+    <script src="../js/admin/calendar/fullcalendar.min.js"></script>
+    <script src="../js/admin/calendar/fullcalendar-active.js"></script>
+    <!-- float JS
+        ============================================ -->
+    <script src="../js/admin/flot/jquery.flot.js"></script>
+    <script src="../js/admin/flot/jquery.flot.resize.js"></script>
+    <script src="../js/admin/flot/curvedLines.js"></script>
+    <script src="../js/admin/flot/flot-active.js"></script>
+    <!-- plugins JS
+        ============================================ -->
+    <script src="../js/admin/plugins.js"></script>
+    <!-- main JS
+        ============================================ -->
+    <script src="../js/admin/main.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script>
+        $(document).ready(function() {
+
+            init();
+
+        });
+
+        function init(){
+            $.ajax({
+                url: "/orders",
+                dataType: "json",
+                success: function (data) {
+                    let con='';
+                    for(let i=0;i<data.length;i++){
+                        con+='<tr>';
+                        con+='<td>'+data[i].id+'</td>';
+                        con+='<td>'+data[i].userId+'</td>';
+                        con+='<td>'+data[i].name+'</td>';
+                        con+='<td>'+data[i].phone+'</td>';
+                        con+='<td>'+data[i].address+'</td>';
+                        con+='<td>'+data[i].addressDetail+'</td>';
+                        con+='<td>'+data[i].indate+'</td>';
+                        con+='<td><a onclick="selectOrder(\''+data[i].id+'\',\'Y\')" className="btn btn-custon-four btn-success" style="padding: 1px 15px">확인</a></td>';
+                        con+='</tr>';
+                    }
+                    $('#tbody').html(con);
+                    $('#dataTable').DataTable();
+                }
+            });
+        }
+        function selectOrder(id){
+                $.ajax({
+                    url: "/order",
+                    data:{'id':id},
+                    success: function (data) {
+                        let con='';
+                        for(let i=0;i<data.length;i++) {
+                            con += '제품명: '+data[i].productName+', 수량: '+data[i].amount+', 가격 : '+data[i].price+'\n';
+                        }
+                        alert(con);
+                    }
+                });
+        }
+    </script>
+</body>
+
+</html>
