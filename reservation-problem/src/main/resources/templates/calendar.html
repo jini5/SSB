@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+ <!-- Required meta tags -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/style.css">
+    <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    
+    <link href='assets/vendor/full-calendar/js/main.css' rel='stylesheet' />
+    <link href='assets/vendor/daterangepicker/jquery.datetimepicker.min.css' rel='stylesheet' />
+    
+    <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <style>
+		@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:wght@700&display=swap');
+	</style>
+
+	<script th:inline="javascript">
+
+
+	  var strDt;
+	  var endDt;
+	  var selectedRoom;
+      var oEditors = []; 
+	  var calendar;
+	  var calendarEl;
+	  var updateEvent;
+
+	  var place = [[${place}]];
+	  var id = [[${id}]];
+
+
+	  document.addEventListener('DOMContentLoaded', function() {
+
+		  $.ajax({
+			  url:'/schedules/rmId/'+id,
+			  type:'GET',
+			  success:function(data){
+				  var savedEvents=data;
+				  var transEvents=[];
+
+				  for(var i=0;i<savedEvents.length;i++){
+					  var allDayTrans=savedEvents[i].allDay;
+
+					  if(allDayTrans==1){
+						  allDayTrans=true;
+					  }else{
+						  allDayTrans=false;
+					  }
+
+					  var eClass={
+						  id:savedEvents[i].cnNo,
+						  title:savedEvents[i].title,
+						  start:moment(savedEvents[i].startDt,'YYYY/MM/DD HH:mm').toDate(),
+						  end:moment(savedEvents[i].endDt,'YYYY/MM/DD HH:mm').toDate(),
+						  allDay:allDayTrans,
+						  extendedProps: {
+							  reservePerson:savedEvents[i].usrNm,
+							  reservePersonId:savedEvents[i].usrId,
+							  reserveContent: savedEvents[i].contents,
+							  reserveRoom:savedEvents[i].rmId,
+							  reservePriority:savedEvents[i].priority
+						  }
+					  };
+
+					  transEvents.push(eClass);
+				  }
+
+
+
+
+
+				  calendarEl = document.getElementById('calendar');
+				  calendar = new FullCalendar.Calendar(calendarEl, {
+
+					  headerToolbar: {
+						  left: 'prev,next today',
+						  center: 'title',
+						  right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+					  },
+					  forceEventDuration:true,
+					  weekNumbers: true,
+					  navLinks: true, // can click day/week names to navigate views
+					  selectable: true,
+					  selectMirror: true,
+					  eventTimeFormat: { hour12: true, hour: '2-digit', minute: '2-digit' },
+					  select: function(date) {
+
+						  initModal();
+						  //스케쥴 저장 모달창 열기
+						  var modal = $("#schedule-add");
+						  modal.modal();
+						  $("#reserveFrom").val(moment(date.start).format("YYYY/MM/DD HH:mm"));
+
+						  if(date.allDay){
+							  //기간 선택의 경우, 다음날로 넘어가지 않기위해 30분을 마이너스한다.
+							  var time = moment.duration("00:30:00");
+							  var date = moment(date.end);
+							  date.subtract(time);
+							  $("#reserveTo").val(date.format("YYYY/MM/DD HH:mm"));
+						  }else {
+							  //일일 선택, 시간상 선택의 경우는 시간 마이너스를 하지 않는다.
+							  $("#reserveTo").val(moment(date.end).format("YYYY/MM/DD HH:mm"));
+						  }
+
+						  strDt=$("#reserveFrom").val();
+						  endDt=$("#reserveTo").val();
+
+						  calendar.unselect();
+
+					  },
+					  eventClick: function(arg) {
+						  /* if (confirm('Are you sure you want to delete this event?')) {
+                            arg.event.remove()
+                          } */
+						  /*  var modal = $("#schedule-edit");
+                           modal.modal(); */
+						  setModal(arg);
+					  },
+					  locale:"ko",
+
+					  events: transEvents
+				  });
+
+				  calendar.render();
+
+				  jQuery("#reserveFrom").datetimepicker({
+					  validateOnBlur: false,
+					  datepicker:false,
+					  formatTime:"h:i a",
+					  lang:'kr',
+					  step: 30
+				  });
+
+				  jQuery("#reserveTo").datetimepicker({
+					  validateOnBlur: false,
+					  datepicker:false,
+					  formatTime:"h:i a",
+					  lang:'kr',
+					  step: 30
+				  });
+
+				  jQuery("#reserveFromEdit").datetimepicker({
+					  validateOnBlur: false,
+					  datepicker:false,
+					  formatTime:"h:i a",
+					  lang:'kr',
+					  step: 30
+				  });
+
+				  jQuery("#reserveToEdit").datetimepicker({
+					  validateOnBlur: false,
+					  datepicker:false,
+					  formatTime:"h:i a",
+					  lang:'kr',
+					  step: 30
+				  });
+
+
+				  $('#reserveDelete').on('click',function(){
+					  if(confirm('예약을 취소하시겠습니까?')){
+
+						  deleteSchedule($('#reserveContentEdit').val());
+					  }
+
+				  });
+
+				  $('input[id=allday]').change(function() {
+					  if ($(this).is(':checked')) {
+						  $("#reserveFrom").val(moment(strDt).format("YYYY/MM/DD 00:00"));
+						  $("#reserveTo").val(moment(endDt).format("YYYY/MM/DD 23:30"));
+						  $('#reserveFrom').attr("disabled",true);
+						  $('#reserveTo').attr("disabled",true);
+						  $('#reserveFrom').attr("background-color","gray");
+						  $('#reserveTo').attr("background-color","gray");
+					  } else {
+						  $("#reserveFrom").val(moment(strDt).format("YYYY/MM/DD 00:00"));
+						  $("#reserveTo").val(moment(endDt).format("YYYY/MM/DD 23:30"));
+						  $('#reserveFrom').attr("disabled",false);
+						  $('#reserveTo').attr("disabled",false);
+						  $('#reserveFrom').attr("background-color","white");
+						  $('#reserveTo').attr("background-color","white");
+					  }
+				  });
+
+				  $('input[id=alldayEdit]').change(function() {
+					  if ($(this).is(':checked')) {
+						  $("#reserveFromEdit").val(moment(strDt).format("YYYY/MM/DD 00:00"));
+						  $("#reserveToEdit").val(moment(endDt).format("YYYY/MM/DD 23:30"));
+						  $('#reserveFromEdit').attr("disabled",true);
+						  $('#reserveToEdit').attr("disabled",true);
+						  $('#reserveFromEdit').attr("background-color","gray");
+						  $('#reserveToEdit').attr("background-color","gray");
+					  } else {
+						  $("#reserveFromEdit").val(moment(strDt).format("YYYY/MM/DD 00:00"));
+						  $("#reserveToEdit").val(moment(endDt).format("YYYY/MM/DD 23:30"));
+						  $('#reserveFromEdit').attr("disabled",false);
+						  $('#reserveToEdit').attr("disabled",false);
+						  $('#reserveFromEdit').attr("background-color","white");
+						  $('#reserveToEdit').attr("background-color","white");
+					  }
+				  });
+
+				  nhn.husky.EZCreator.createInIFrame({
+
+					  oAppRef : oEditors,
+					  elPlaceHolder : "smartEditor",
+					  //저는 textarea의 id와 똑같이 적어줬습니다.
+					  sSkinURI : "assets/vendor/editor/SmartEditor2Skin.html",
+					  //경로를 꼭 맞춰주세요!
+					  fCreator : "createSEditor2",
+					  htParams : {
+						  // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+						  bUseToolbar : false,
+						  // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+						  bUseVerticalResizer : false,
+						  // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+						  bUseModeChanger : false },
+					  fOnAppLoad :function (){
+						  $('.class_smarteditor2').css("width","100%").css("height","300px");
+						  $('.class_smarteditor2').contents().find("#se2_iframe").css("width","100%").css("height","300px");
+
+					  }
+
+				  });
+
+				  nhn.husky.EZCreator.createInIFrame({
+
+					  oAppRef : oEditors,
+					  elPlaceHolder : "smartEditorEdit",
+					  //저는 textarea의 id와 똑같이 적어줬습니다.
+					  sSkinURI : "assets/vendor/editor/SmartEditor2Skin.html",
+					  //경로를 꼭 맞춰주세요!
+					  fCreator : "createSEditor2",
+					  htParams : {
+						  // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+						  bUseToolbar : false,
+						  // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+						  bUseVerticalResizer : false,
+						  // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+						  bUseModeChanger : false },
+					  fOnAppLoad :function (){
+						  $('.class_smarteditor2').css("width","100%").css("height","300px");
+						  $('.class_smarteditor2').contents().find("#se2_iframe").css("width","100%").css("height","300px");
+
+					  }
+
+				  });
+
+				  //모달창 팝업, 오픈 시
+				  $("#schedule-add").on('shown.bs.modal', function(){
+					  $(".class_smarteditor2").contents().find("#se2_tool").css("display","block");
+					  oEditors.getById["smartEditor"].exec("CHANGE_EDITING_MODE",["WYSIWYG"]);
+					  oEditors.getById["smartEditor"].exec("RESET_TOORTBAR");
+				  });
+				  //모달창 팝업, 오픈 시
+				  $("#schedule-edit").on('shown.bs.modal', function(){
+					  $(".class_smarteditor2").contents().find("#se2_tool").css("display","block");
+					  oEditors.getById["smartEditorEdit"].exec("CHANGE_EDITING_MODE",["WYSIWYG"]);
+					  oEditors.getById["smartEditorEdit"].exec("RESET_TOORTBAR");
+				  });
+
+				  $("#reserveSave").on('click', function(){
+
+					  if(confirm("예약을 진행하시겠습니까?")){
+						  saveSchedule();
+					  }else{
+
+					  }
+				  });
+				  $("#reserveUpdate").on('click', function(){
+
+					  if(confirm("수정을 진행하시겠습니까?")){
+						  updateModelSchedule();
+					  }else{
+
+					  }
+				  });
+
+
+
+			  }
+
+
+		  });
+
+
+	      	 
+	  	});
+
+	  	function saveSchedule(){
+	  		
+	  		var reservePerson=$('#reservePerson').val();
+	  		var reserveFrom=$('#reserveFrom').val();
+	  		var reserveTo= $('#reserveTo').val();
+	  		var reservePriority=$('#reservePriority option:selected').val();
+	  		var reserveRoom=$('#reserveRoom').val();
+	  		var reserveTitle=$('#reserveTitle').val();
+	  		if(reserveTitle===null || typeof reserveTitle == "undefined"  || reserveTitle == ""){
+	  			alert("회의제목을 입력해주세요.");
+	  			return;
+	  		}
+	  		var reserveContent=oEditors.getById["smartEditor"].getIR();
+	  		//var reserveContent=$('#smartEditor').val();
+	  		var allDay=$('input[id=allday]').is(':checked');
+	  		
+
+	  		var param={
+	  				"title":reserveTitle,
+	  				"reserveStart":reserveFrom,
+	  				"reserveEnd":reserveTo,
+	  				"reserveAllday":allDay,
+	  				"priority":reservePriority,
+	  				"contentDetail":reserveContent,
+	  				"roomId":reserveRoom,
+				    "usrId":reservePerson,
+					"grId":'1'
+	  		}
+
+	  		insertSchedule(param);
+	  		
+          	var modal = $("#schedule-add");
+	  		modal.modal('toggle');
+	  		initModal();
+	  	}
+	  	
+	  	function updateModelSchedule(){
+
+
+	  		var reserveId=$('#reserveSnEdit').val();
+	  		var reservePerson=$('#reservePersonEdit').val();
+	  		var reserveFrom=$('#reserveFromEdit').val();
+	  		var reserveTo= $('#reserveToEdit').val();
+	  		var reservePriority=$('#reservePriorityEdit option:selected').val();
+	  		var reserveRoom=$('#reserveRoomEdit').val();
+	  		var reserveTitle=$('#reserveTitleEdit').val();
+	  		if(reserveTitle===null || typeof reserveTitle == "undefined"  || reserveTitle == ""){
+	  			alert("회의제목을 입력해주세요.");
+	  			return;
+	  		}
+	  		var reserveContent=oEditors.getById["smartEditorEdit"].getIR();
+	  		//var reserveContent=$('#smartEditorEdit').val();
+	  		var allDay=$('input[id=alldayEdit]').is(':checked');
+	  		
+	  		var param={
+	  				'id':reserveId,
+	  				'title':reserveTitle,
+	  				'reserveStart':reserveFrom,
+	  				'reserveEnd':reserveTo,
+	  				'reserveAllday':allDay,
+	  				'priority':reservePriority,
+	  				'contentDetail':reserveContent,
+					'usrId':reservePerson,
+					'grId':'1',
+					'roomId':reserveRoom
+	  		};
+	  		
+	  		updateSchedule(param);
+	  		initEditModal();
+            var modal = $("#schedule-edit");
+	  	    modal.modal('toggle');
+	  	}
+	  	
+	  	function setModal(arg){
+      		oEditors.getById["smartEditorEdit"].exec("SET_IR", [""]);
+
+	  		//$('#smartEditorEdit').val('');
+		  	$('#alldayEdit').prop("checked",arg.event.allDay);
+	      	$('#reserveSnEdit').val(arg.event.id);
+	      	$('#reservePersonNmEdit').val(arg.event.extendedProps.reservePerson);
+	      	$('#reservePersonEdit').val(arg.event.extendedProps.reservePersonId);
+
+	      	if(arg.event.allDay){
+	      		$('#reserveFromEdit').val(moment(arg.event.start).format("YYYY/MM/DD 00:00"));
+		      	$('#reserveToEdit').val(moment(arg.event.end).format("YYYY/MM/DD 23:30"));
+		      	$('#reserveFromEdit').attr("disabled",true);
+		      	$('#reserveToEdit').attr("disabled",true);
+	      	}else{
+		      	$('#reserveFromEdit').val(moment(arg.event.start).format("YYYY/MM/DD HH:mm"));
+		      	$('#reserveToEdit').val(moment(arg.event.end).format("YYYY/MM/DD HH:mm"));
+	      		$('#reserveFromEdit').attr("disabled",false);
+		      	$('#reserveToEdit').attr("disabled",false);
+	      	}
+
+	      	$('#reserveTitleEdit').val(arg.event.title);
+	      	$('#reserveRoomEdit').val(arg.event.extendedProps.reserveRoom);
+	      	$('#reserveContentEdit').val(arg.event.id);
+	      	$('#reservePriorityEdit').val(arg.event.extendedProps.reservePriority).attr('selected','selected');
+
+	      	oEditors.getById["smartEditorEdit"].exec("PASTE_HTML", [arg.event.extendedProps.reserveContent]); //내용밀어넣기
+	      	//oEditors[0].exec("UPDATE_CONTENTS_FIELD", [arg.event.extendedProps.reserveContent]); //내용밀어넣기
+
+			var usrId = [[${session.Account.usrId}]];
+	      	updateEvent=arg.event;
+	      	if(arg.event.extendedProps.reservePersonId==usrId){
+	      		var str='';
+	      		str+='<button type="button" class="btn btn-dark" id="reserveUpdate" name="reserveUpdate">수정하고 닫기</button>';
+	      		str+='<button type="button" class="btn btn-warning" id="reserveDelete" name="reserveDelete">예약취소</button>';
+	      		$("#ownerFunc").html(str);
+	      		$('#reserveDelete').on('click',function(){
+		        	if(confirm('예약을 취소하시겠습니까?')){
+
+			        	deleteSchedule($('#reserveContentEdit').val());
+		        	}
+		        	
+		        });
+
+				$("#reserveUpdate").on('click', function(){
+	  	    		
+		      		if(confirm("수정을 진행하시겠습니까?")){
+		      			updateModelSchedule();
+		      		}else{
+		      			
+		      		}
+		      	});
+	      		
+	      	}else{
+	      		$("#ownerFunc").html('');
+	      	}
+	      	
+	      	
+	      	var modal = $("#schedule-edit");
+	  		modal.modal();
+	  	}
+
+      	function initModal(){
+
+            $('#allday').prop("checked",false);
+	      	$('#reserveFrom').attr("disabled",false);
+	      	$('#reserveTo').attr("disabled",false);
+      		$('#reserveFrom').val('');
+      		$('#reserveTo').val('');
+      		$('#reserveTitle').val('');
+      		$('#reserveContent').val('');
+      		$('#reservePriority').val("ni").attr('selected','selected');
+      		oEditors.getById["smartEditor"].exec("SET_IR", [""]);
+      		//$('#smartEditor').val('');
+      		
+      	}
+      	
+      	function initEditModal(){
+
+            $('#alldayEdit').prop("checked",false);
+	      	$('#reserveFromEdit').attr("disabled",false);
+	      	$('#reserveToEdit').attr("disabled",false);
+      		$('#reserveFromEdit').val('');
+      		$('#reserveToEdit').val('');
+      		$('#reserveTitleEdit').val('');
+      		$('#reserveRoomEdit').val('');
+      		$('#reservePriorityEdit').val("ni").attr('selected','selected');
+      		oEditors.getById["smartEditorEdit"].exec("SET_IR", [""]);
+      		//$('#smartEditorEdit').val('');
+      		
+      	}
+
+      	function insertSchedule(param){
+      		 $.ajax({
+      		        url: "/schedules",
+      		        data: param,
+      		        type:"POST",
+      		        success : function(data) {
+      		        	if(data=='success'){
+
+   		        		calendar.removeAllEvents();
+
+   	   		        	selectSchedule();
+
+   	   		    		}else{
+
+   	   		        	alert("기존 예약 시간과 겹칩니다.");
+   	   		        }
+      		        },
+      		    })
+      	}
+      	
+      	function updateSchedule(param){
+      		 $.ajax({
+      		        url: "/schedules",
+      		        data: param,
+      		        type:"PUT",
+      		        success : function(data) {
+      		        	if(data=='success'){
+   		        		calendar.removeAllEvents();
+   	   		        	selectSchedule();
+   	   		    	}else{
+   	   		        	alert("기존 예약 시간과 겹칩니다.");
+   	   		        }
+      		        },
+      		    })
+      	}
+         	
+      	function deleteSchedule(param){
+      		$.ajax({
+   		        url: "/schedules/"+param,
+   		        type:"DELETE",
+   		        success : function(data) {
+   		        	if(data=='success'){
+   		        		alert("예약을 취소 하였습니다.");
+		        		calendar.removeAllEvents();
+	   		        	selectSchedule();
+	   		        	var modal = $("#schedule-edit");
+	   			  		modal.modal('toggle');
+	   		    	}else{
+	   		        	alert("예약 취소에 실패했습니다.");
+	   		        }
+   		        },
+   		    })
+      	}
+      	
+      	function selectSchedule() {
+
+			$.ajax({
+				url: '/schedules/rmId/' + id,
+				type: 'GET',
+				success: function (data) {
+					var savedEvents = data;
+					var transEvents = [];
+
+					for (var i = 0; i < savedEvents.length; i++) {
+						var allDayTrans = savedEvents[i].allDay;
+
+						if (allDayTrans == 1) {
+							allDayTrans = true;
+						} else {
+							allDayTrans = false;
+						}
+
+						var eClass = {
+							id: savedEvents[i].cnNo,
+							title: savedEvents[i].title,
+							start: moment(savedEvents[i].startDt, 'YYYY/MM/DD HH:mm').toDate(),
+							end: moment(savedEvents[i].endDt, 'YYYY/MM/DD HH:mm').toDate(),
+							allDay: allDayTrans,
+							extendedProps: {
+								reservePerson: savedEvents[i].usrNm,
+								reservePersonId: savedEvents[i].usrId,
+								reserveContent: savedEvents[i].contents,
+								reserveRoom: savedEvents[i].rmId,
+								reservePriority: savedEvents[i].priority
+							}
+						};
+
+						calendar.addEvent(eClass);
+					}
+				}
+			});
+		}
+      	
+	</script>
+</head>
+<meta charset="utf-8">
+<body>
+  <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+
+
+		<head th:replace="/common/header.html"></head>
+		<head th:replace="/common/sidebar.html"></head>
+        
+        <!-- ============================================================== -->
+        <!-- wrapper  -->
+        <!-- ============================================================== -->
+        <div class="dashboard-wrapper">
+            <div class="container-fluid  dashboard-content">
+                <!-- ============================================================== -->
+                <!-- pageheader -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title" style="font-family: 'Noto Sans KR', sans-serif;" th:text="예약스케쥴"></h2>
+                            <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+                            <div class="page-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/mapPage" class="breadcrumb-link">종합강의장</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">예약스케쥴</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end pageheader -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- simple calendar -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id='calendar'></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Add Modal -->
+				<div class="modal fade" id="schedule-add">
+				    <div class="modal-dialog">
+				        <div class="modal-content">
+				            <!-- Modal Header -->
+				            <div class="modal-header">
+				                <h3 class="modal-title">회의실 예약하기</h3>
+				                <button type="button" class="close" data-dismiss="modal">&times;</button>
+				            </div>
+				            <!-- Modal body -->
+				            <div class="modal-body">
+				                <form>
+				                	<input type="hidden" name="reservePlace" id="reservePlace">
+				                	<input type="hidden" name="reserveContent" id="reserveContent">
+				                    <div class="form-group" style="display:flex;margin-bottom: 5px;">
+				                        <div class="col-md-3" style="text-align: center; line-height:30px;">
+				                        예약자
+				                        </div>
+				                        <div class="col-md-9">
+				                        <input type="text" class="form-control" id="reservePersonNm" name="reservePersonNm" th:value="${session.Account.usrNm}" disabled>
+				                        <input type="hidden" id="reservePerson" name="reservePerson" th:value="${session.Account.usrId}">
+				                        </div>
+				                    </div>
+				                    <div class="form-group" style="display:flex;margin-bottom: 5px;">
+				                        <div class="col-md-3" style="text-align: center; line-height:30px;">
+				                        예약기간
+				                        </div>
+				                        <div class="col-md-9">
+				                        <input type="text" id="reserveFrom" name="reserveFrom" style="width:120px;"> ~ 
+				                        <input type="text" id="reserveTo" name="reserveTo" style="width:120px;"><b style="margin-left: 5px;"> 종일</b><input type="checkbox" id="allday" style="margin-left: 5px;">
+				                        </div>
+				                    </div>
+				                    <div class="form-group" style="display:flex;margin-bottom: 5px;">
+				                        <div class="col-md-3" style="text-align: center; line-height:30px;">
+				                        회의중요도
+				                        </div>
+				                        <div class="col-md-9">
+				                        	<select class="form-control" style="color:black;" name="reservePriority" id="reservePriority">
+											    <option value="ni" selected>낮음</option>
+											    <option value="i">중간</option>
+											    <option value="vi">높음</option>
+											</select>
+				                        </div>
+				                    </div>
+				                    <div class="form-group" style="display:flex;margin-bottom: 5px;">
+				                        <div class="col-md-3" style="text-align: center; line-height:30px;">
+				                        회의실
+				                        </div>
+				                        <div class="col-md-9">
+				                        <input type="text" class="form-control" id="reserveRoomNm" name="reserveRoomNm" th:value="${place}" disabled>
+				                        <input type="hidden" class="form-control" id="reserveRoom" name="reserveRoom" th:value="${id}">
+				                        </div>
+				                    </div>
+				                    <div class="form-group" style="display:flex;margin-bottom: 5px;">
+				                        <div class="col-md-3" style="text-align: center; line-height:30px;">
+				                        회의제목
+				                        </div>
+				                        <div class="col-md-9">
+				                        <input type="text" class="form-control" id="reserveTitle" name="reserveTitle">
+				                        </div>
+				                    </div>
+				                    <div class="col-md-3" style="text-align: center; line-height:30px;">
+				                        회의내용
+				                        </div>
+										<div class="col-md-12" style=" height: 300px;">
+				                                                 <div class="jsx-2303464893 editor" style=" height: 300px;"> 
+																	<div class="fr-box fr-basic fr-top" role="application" style=" height: 300px;"> 
+																		<div class="fr-wrapper show-placeholder" style="overflow: scroll;background:white; height: 300px;"> 
+																			<textarea id="smartEditor" style="width: 100%; height: 300px;"></textarea> 
+																		</div> 
+																	</div> 
+																</div>
+				                                            </div>
+				                </form>
+				            </div>
+				            <!-- Modal footer -->
+				            <div class="modal-footer">
+				                <button type="button" class="btn btn-dark" id="reserveSave" name="reserveSave">저장하고 닫기</button>
+				                <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+
+				<!-- Edit Modal -->
+				<div class="modal fade" id="schedule-edit">
+				    <div class="modal-dialog">
+				        <div class="modal-content">
+				            <!-- Modal Header -->
+				            <div class="modal-header">
+				                <h3 class="modal-title">회의실 예약내용</h3>
+				                <button type="button" class="close" data-dismiss="modal">&times;</button>
+				            </div>
+				            <!-- Modal body -->
+				            <div class="modal-body">
+				                <form>
+				                	<input type="hidden" name="reserveSnEdit" id="reserveSnEdit">
+				                	<input type="hidden" name="reservePlaceEdit" id="reservePlaceEdit">
+				                	<input type="hidden" name="reserveContentEdit" id="reserveContentEdit">
+				                    <div class="form-group" style="display:flex;margin-bottom: 5px;">
+				                        <div class="col-md-3" style="text-align: center; line-height:30px;">
+				                        예약자
+				                        </div>
+				                        <div class="col-md-9">
+				                        <input type="text" class="form-control" id="reservePersonNmEdit" name="reservePersonNmEdit" disabled>
+				                        <input type="hidden" id="reservePersonEdit" name="reservePersonEdit">
+				                        </div>
+				                    </div>
+				                    <div class="form-group" style="display:flex;margin-bottom: 5px;">
+				                        <div class="col-md-3" style="text-align: center; line-height:30px;">
+				                        예약기간
+				                        </div>
+				                        <div class="col-md-9">
+				                        <input type="text" id="reserveFromEdit" name="reserveFromEdit" style="width:120px;"> ~ 
+				                        <input type="text" id="reserveToEdit" name="reserveToEdit" style="width:120px;"><b style="margin-left: 5px;"> 종일</b><input type="checkbox" id="alldayEdit" style="margin-left: 5px;">
+				                        </div>
+				                    </div>
+				                    <div class="form-group" style="display:flex;margin-bottom: 5px;">
+				                        <div class="col-md-3" style="text-align: center; line-height:30px;">
+				                        회의중요도
+				                        </div>
+				                        <div class="col-md-9">
+				                        	<select class="form-control" style="color:black;" name="reservePriorityEdit" id="reservePriorityEdit">
+											    <option value="ni" selected>낮음</option>
+											    <option value="i">중간</option>
+											    <option value="vi">높음</option>
+											</select>
+				                        </div>
+				                    </div>
+				                    <div class="form-group" style="display:flex;margin-bottom: 5px;">
+				                        <div class="col-md-3" style="text-align: center; line-height:30px;">
+				                        회의실
+				                        </div>
+				                        <div class="col-md-9">
+				                        <input type="text" class="form-control" id="reserveRoomNmEdit" name="reserveRoomNmEdit" th:value="${place}" disabled>
+				                        <input type="hidden" class="form-control" id="reserveRoomEdit" name="reserveRoomEdit" th:value="${id}">
+				                        </div>
+				                    </div>
+				                    <div class="form-group" style="display:flex;margin-bottom: 5px;">
+				                        <div class="col-md-3" style="text-align: center; line-height:30px;">
+				                        회의제목
+				                        </div>
+				                        <div class="col-md-9">
+				                        <input type="text" class="form-control" id="reserveTitleEdit" name="reserveTitleEdit">
+				                        </div>
+				                    </div>
+				                    <div class="col-md-3" style="text-align: center; line-height:30px;">
+				                        회의내용
+				                        </div>
+										<div class="col-md-12" style=" height: 300px;">
+				                                                 <div class="jsx-2303464893 editor" style=" height: 300px;"> 
+																	<div class="fr-box fr-basic fr-top" role="application" style=" height: 300px;"> 
+																		<div class="fr-wrapper show-placeholder" style="overflow: scroll;background:white; height: 300px;"> 
+																			<textarea id="smartEditorEdit" style="width: 100%; height: 300px;"></textarea> 
+																		</div> 
+																	</div> 
+																</div>
+				                                            </div>
+				                </form>
+				            </div>
+				            <!-- Modal footer -->
+				            <div class="modal-footer">
+				                <div id="ownerFunc">
+					                <button type="button" class="btn btn-dark" id="reserveUpdate" name="reserveUpdate">수정하고 닫기</button>
+					                <button type="button" class="btn btn-warning" id="reserveDelete" name="reserveDelete">예약취소</button>
+					            </div>
+				                <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+                <!-- ============================================================== -->
+                <!-- end simple calendar -->
+                <!-- ============================================================== -->
+            </div>
+        </div>
+
+		<head th:replace="/common/footer.html"></head>
+        
+    </div>
+    <!-- ============================================================== -->
+    <!-- end main wrapper -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <script src='assets/vendor/full-calendar/js/moment.js'></script>
+    <script src='assets/vendor/full-calendar/js/main.js'></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    
+    
+    <script src='assets/vendor/daterangepicker/jquery.datetimepicker.full.min.js'></script>
+    <script src="assets/vendor/editor/js/HuskyEZCreator.js"></script>
+ 
+    <!--
+    <script src='assets/vendor/full-calendar/js/moment.min.js'></script>
+    <script src='assets/vendor/full-calendar/js/fullcalendar.js'></script>
+    <script src='assets/vendor/full-calendar/js/jquery-ui.min.js'></script>
+    <script src="assets/libs/js/main-js.js"></script>
+    <script src='assets/vendor/full-calendar/js/locales-all.js'></script>
+    <script src='assets/vendor/full-calendar/js/locales/ko.js'></script>
+    <script src='assets/vendor/full-calendar/js/calendar.js'></script>-->
+</body>
+</html>
+
+

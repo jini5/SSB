@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!--<link rel="stylesheet" href="../css/font-awesome.min.css">-->
+	<!-- Main CSS
+   ================================================== -->
+	<!--<link rel="stylesheet" href="../css/style.css">-->
+
+</head>
+<body>
+<!-- ============================================================== -->
+        <!-- left sidebar -->
+        <!-- ============================================================== -->
+        <div class="nav-left-sidebar sidebar-dark">
+            <div class="menu-list">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav flex-column">
+                            <li class="nav-divider">
+                                메뉴
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>종합강의실<span class="badge badge-success">6</span></a>
+                                <div id="submenu-1" class="collapse submenu" style="">
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+<script>
+
+    function page(ts) {
+        var id = $(ts).attr('data-id');
+        var t = $(ts).attr('data-nm');
+        if (confirm(t + " 예약을 진행 하시겠습니까?")) {
+            goPost(t, id);
+        }
+    };
+
+    function goPost(place,id){
+        let obj;
+        let idObj;
+        let f = document.createElement('form');
+
+        f.setAttribute('method', 'get');
+        f.setAttribute('action', '/goCalendar');
+
+        obj = document.createElement('input');
+        obj.setAttribute('type', 'text');
+        obj.setAttribute('name', 'place');
+        obj.setAttribute('value', place);
+        f.appendChild(obj);
+
+        idObj = document.createElement('input');
+        idObj.setAttribute('type', 'text');
+        idObj.setAttribute('name', 'id');
+        idObj.setAttribute('value', id);
+        f.appendChild(idObj);
+
+        document.body.appendChild(f);
+
+        f.submit();
+    }
+
+    $(function(){
+
+
+        $.ajax({
+            url:'/rooms/grId/1',
+            success:function(data){
+
+                let cont='';
+
+                for(let i=0;i<data.length;i++){
+
+                    cont+='<li className="nav-item">';
+                    cont+='<a onclick="page(this)" className="nav-link room-items" data-id="'+data[i].roomId+'" data-nm="'+data[i].roomName+'">'+data[i].roomName+'</a>';
+                    cont+='</li>';
+
+                }
+
+                $('#submenu-1').html(cont);
+
+
+            }
+
+
+        });
+    })
+
+</script>
+        <!-- ============================================================== -->
+        <!-- end left sidebar -->
+        <!-- ============================================================== -->
+</body>
+</html>

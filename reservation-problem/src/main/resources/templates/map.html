@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+ <!-- Required meta tags -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/style.css">
+    <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link href='assets/vendor/full-calendar/js/main.css' rel='stylesheet' />
+    <link href='assets/vendor/daterangepicker/jquery.datetimepicker.min.css' rel='stylesheet' />
+    
+    <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <style>
+		@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:wght@700&display=swap');
+	</style>
+	<script>
+	
+	window.onresize = updateCanvas;
+	var canvas;
+    var ctx;
+	var heightRatio = 0.5;
+	
+	var map = [
+	    {x: 30, y: 30, w: 1056, h: 500, draw:false, id:'01'},
+	    {x: 30, y: 50, w: 100, h: 210, draw:true, text:'비품실', space:'#b0b0b0',fill:"#b0b0b0", avail:false, id:'02', isSmall:true},
+	    {x: 131, y: 50, w: 100, h: 180, draw:true, text:'청소도구실', space:'#b0b0b0',fill:"#b0b0b0", avail:false, id:'03', isSmall:true},
+	    {x: 232, y: 50, w: 200, h: 110, draw:true, text:'방송실', space:'#b0b0b0',fill:"#b0b0b0", avail:false, id:'04', isSmall:false},
+	    {x: 292, y: 161, w: 140, h: 110, draw:true, text:'방송제어실', space:'#b0b0b0',fill:"#b0b0b0", avail:false, id:'05', isSmall:false},
+	    {x: 232, y: 161, w: 59, h: 110, draw:true, text:'화장실1', space:'#b0b0b0',fill:"#b0b0b0", avail:false, id:'06', isSmall:true},
+	    {x: 433, y: 50, w: 180, h: 110, draw:true, text:'대회의장', space:'#ff8c8c',fill:"#90ff8c", avail:true, id:'1', isSmall:false},
+	    {x: 614, y: 50, w: 119, h: 110, draw:true, text:'교원실', space:'white',fill:"#b0b0b0", avail:false, id:'08', isSmall:false},
+	    {x: 734, y: 50, w: 80, h: 220, draw:true, text:'강의실1', space:'white',fill:"#b0b0b0", avail:false, id:'09', isSmall:true},
+	    {x: 815, y: 50, w: 70, h: 140, draw:true, text:'강의실2', space:'white',fill:"#b0b0b0", avail:false, id:'10', isSmall:true},
+	    {x: 815, y: 191, w: 70, h: 80, draw:true, text:'회의실4', space:'#ff8c8c',fill:"#90ff8c", avail:true, id:'5', isSmall:true}, //********
+	    {x: 886, y: 50, w: 200, h: 220, draw:true, text:'대강의장1', space:'white',fill:"#b0b0b0", avail:false, id:'12', isSmall:false},
+	    {x: 786, y: 320, w: 300, h: 190, draw:true, text:'대강의장2', space:'white',fill:"#b0b0b0", avail:false, id:'13', isSmall:false},
+	    {x: 625, y: 320, w: 160, h: 190, draw:true, text:'대강의장3', space:'white',fill:"#b0b0b0", avail:false, id:'14', isSmall:false},
+	    {x: 525, y: 320, w: 99, h: 190, draw:true, text:'휴게실', space:'white',fill:"#b0b0b0", avail:false, id:'15', isSmall:false},
+	    {x: 435, y: 349, w: 89, h: 80, draw:true, text:'회의실3', space:'#ff8c8c',fill:"#90ff8c", avail:true, id:'4', isSmall:true},//********
+	    {x: 435, y: 430, w: 89, h: 80, draw:true, text:'교육실1', space:'white',fill:"#b0b0b0", avail:false, id:'17', isSmall:true},
+	    {x: 235, y: 380, w: 89, h: 130, draw:true, text:'교육실3', space:'white',fill:"#b0b0b0", avail:false, id:'18', isSmall:true},
+	    {x: 325, y: 380, w: 109, h: 130, draw:true, text:'교육실2', space:'white',fill:"#b0b0b0", avail:false, id:'19', isSmall:true},
+	    {x: 235, y: 340, w: 89, h: 39, draw:true, text:'회의실1', space:'#ff8c8c',fill:"#90ff8c", avail:true, id:'2', isSmall:true},//********
+	    {x: 325, y: 340, w: 109, h: 39, draw:true, text:'회의실2', space:'#ff8c8c',fill:"#90ff8c", avail:true, id:'3', isSmall:true},//********
+	    {x: 30, y: 330, w: 204, h: 180, draw:true, text:'교육장', space:'white',fill:"#b0b0b0", avail:false, id:'22', isSmall:false},
+	    {x: 30, y: 289, w: 50, h: 40, draw:true, text:'전산', space:'white',fill:"#b0b0b0", avail:false, isSmall:true},
+	    {x: 485, y: 161, w: 40, h: 40, draw:true, text:'엘베', space:'white',fill:"#b0b0b0", avail:false, isSmall:true},
+	    {x: 526, y: 161, w: 40, h: 40, draw:true, text:'엘베', space:'white',fill:"#b0b0b0", avail:false, isSmall:true},
+	    {x: 567, y: 161, w: 40, h: 40, draw:true, text:'엘베', space:'white',fill:"#b0b0b0", avail:false, isSmall:true},
+	    {x: 608, y: 161, w: 40, h: 40, draw:true, text:'엘베', space:'white',fill:"#b0b0b0", avail:false, isSmall:true},
+	    {x: 608, y: 161, w: 40, h: 40, draw:true, text:'엘베', space:'white',fill:"#b0b0b0", avail:false, isSmall:true},
+	    {x: 649, y: 161, w: 40, h: 60, draw:true, text:'계단', space:'white',fill:"#b0b0b0", avail:false, isSmall:true}
+	];
+	
+	var hover = false, id;
+	
+	$(function(){
+		var _i, _b;
+			canvas = document.getElementById("canvas");
+			ctx = canvas.getContext("2d");
+
+			//canvas.height = canvas.width * heightRatio;	
+			// Render everything
+			renderMap();
+			canvas.onmousemove = function(e) {
+			    // Get the current mouse position
+			    var r = canvas.getBoundingClientRect(),
+			        x = e.clientX - r.left, y = e.clientY - r.top;
+			    hover = false;
+			
+			    ctx.clearRect(0, 0, canvas.width, canvas.height);
+			
+			    for(var i = map.length - 1, b; b = map[i]; i--) {
+			        if(x >= b.x && x <= b.x + b.w &&
+			           y >= b.y && y <= b.y + b.h) {
+			            // The mouse honestly hits the rect
+			            hover = true;
+			            id = i;
+			            break;
+			        }
+			    }
+			    // Draw the rectangles by Z (ASC)
+			    renderMap();
+			}
+			
+			canvas.addEventListener('mousedown', function(e) {
+				var r = canvas.getBoundingClientRect(),
+		        x = e.clientX - r.left, y = e.clientY - r.top;
+			    click = false;
+			
+			    for(var i = map.length - 1, b; b = map[i]; i--) {
+			        if(x >= b.x && x <= b.x + b.w &&
+			           y >= b.y && y <= b.y + b.h && b.avail) {
+			            // The mouse honestly hits the rect
+			            var t=map[i].text;
+			            var id=map[i].id;
+			            
+			            if(confirm(t+" 예약을 진행 하시겠습니까?")){
+			            	goPost(t,id);
+			            }
+			            
+			            break;
+			        }
+			    }
+			})
+	})	
+	
+	function goPost(place,id){
+		 	let obj;
+		 	let idObj;
+		    let f = document.createElement('form');
+		    
+		    f.setAttribute('method', 'get');
+		    f.setAttribute('action', '/goCalendar');
+		   
+		    obj = document.createElement('input');
+		    obj.setAttribute('type', 'text');
+		    obj.setAttribute('name', 'place');
+		    obj.setAttribute('value', place);
+		    f.appendChild(obj);
+		    
+		    idObj = document.createElement('input');
+		    idObj.setAttribute('type', 'text');
+		    idObj.setAttribute('name', 'id');
+		    idObj.setAttribute('value', id);
+		    f.appendChild(idObj);
+		    
+		    document.body.appendChild(f);
+
+		    f.submit();
+	}
+
+	function drawText(){
+		var _i, _b;
+		
+		for(_i = 0; _b = map[_i]; _i ++) {
+	    	if(_b.draw){
+	    		ctx.font = "15px Arial";
+	    		ctx.fillStyle = "black";
+	    		var adjWidth=map[_i].x+map[_i].w/3;
+	    		if(_b.isSmall){
+	    			adjWidth=map[_i].x+3;
+	    		}
+	    		
+	    		ctx.fillText(_b.text, adjWidth, map[_i].y+map[_i].h/2);
+	    	}
+		}
+		
+	}
+	
+	function drawBorder(){
+		var _i, _b;
+			for(_i = 0; _b = map[_i]; _i ++) {
+				ctx.fillStyle='#c9c9c9';
+				ctx.fillRect(_b.x - (1), _b.y - (1), _b.w + (1 * 2), _b.h + (1 * 2));
+			}
+	}
+	
+	function renderMap() {
+		var _i, _b;
+			var cs = getComputedStyle(canvas);
+		    var width = parseInt(cs.getPropertyValue('width'), 10);
+		    var height = parseInt(cs.getPropertyValue('height'), 10);
+		    
+		    canvas.width = width;
+		    canvas.height = height;
+		    
+		    drawBorder();
+		    
+		    for(_i = 0; _b = map[_i]; _i ++) {
+		    	if(_b.draw){
+			       ctx.fillStyle = (hover && id === _i) ? _b.fill : _b.space;
+			       ctx.fillRect(_b.x, _b.y, _b.w, _b.h);
+		    	}
+		    }
+		    
+		    drawText();
+			    
+	}
+	
+	function updateCanvas() {
+
+	    var cs = getComputedStyle(canvas);
+	    var width = parseInt(cs.getPropertyValue('width'), 10);
+	    var height = parseInt(cs.getPropertyValue('height'), 10);
+	    
+	    canvas.width = width;
+	    canvas.height = height;
+	    
+	    renderMap();
+	}
+	</script>
+</head>
+<meta charset="utf-8">
+<body>
+  <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+
+
+        <head th:replace="/common/header.html"></head>
+        <head th:replace="/common/sidebar.html"></head>
+        
+        <!-- ============================================================== -->
+        <!-- wrapper  -->
+        <!-- ============================================================== -->
+        
+        <div class="dashboard-wrapper">
+            <div class="container-fluid  dashboard-content">
+            <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title" style="font-family: 'Noto Sans KR', sans-serif;">예약장소 선택</h2>
+                            <div class="page-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">종합강의실</a></li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             	<div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <canvas id="canvas" style="width:100%; height:550px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <head th:replace="/common/footer.html"></head>
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- end main wrapper -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <script src='assets/vendor/full-calendar/js/moment.js'></script>
+    <script src='assets/vendor/full-calendar/js/main.js'></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+
+</body>
+</html>
+
+
