@@ -4,6 +4,8 @@ import com.example.jpatest01.dto.ScheduleRequest;
 import com.example.jpatest01.dto.ScheduleResponse;
 import com.example.jpatest01.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +16,6 @@ import java.util.List;
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
-
 
     @GetMapping("/schedules")
     public List<ScheduleResponse> scheduleList(HttpSession session){
