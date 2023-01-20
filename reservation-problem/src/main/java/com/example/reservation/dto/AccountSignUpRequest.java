@@ -1,6 +1,7 @@
 package com.example.reservation.dto;
 
 import com.example.reservation.entity.Account;
+import io.jsonwebtoken.Claims;
 import lombok.*;
 
 @Getter
@@ -22,6 +23,10 @@ public class AccountSignUpRequest {
         this.usrPw = usrPw;
         this.usrNm = usrNm;
         this.usrType = usrType;
+    }
+
+    public AccountSignUpRequest(Claims claims){
+        this.usrId = claims.get("id",String.class);
     }
 
     public Account toEntity() {
