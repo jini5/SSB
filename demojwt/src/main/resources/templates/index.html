@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script>
+
+		let token;
+
+		$(function() {
+
+			$("#signupButton").click(function(){
+
+				let email=$("#signupEmail").val();
+				let password=$("#signupPassword").val();
+
+				$.ajax({
+					url:"sign-up",
+					data:{"email":email,"password":password},
+					type:"POST",
+					success:function(data){
+							alert(JSON.stringify(data));
+					}
+				});
+			});
+
+			$("#loginButton").click(function(){
+
+				let email=$("#loginEmail").val();
+				let password=$("#loginPassword").val();
+
+				$.ajax({
+					url:"sign-in",
+					data:{"email":email,"password":password},
+					type:"POST",
+					success:function(data){
+						alert(JSON.stringify(data));
+						token=data;
+					}
+				});
+			});
+
+			$("#testButton").click(function(){
+
+				$.ajax({
+					url:"hello",
+					type:"GET"
+					,beforeSend: function (xhr) {
+						xhr.setRequestHeader("Content-type","application/json");
+						xhr.setRequestHeader("Authorization","Bearer " + token);
+					},
+					success:function(data){
+						alert(JSON.stringify(data));
+
+					}
+				});
+			});
+			$("#testAdminButton").click(function(){
+
+				$.ajax({
+					url:"helloAdmin",
+					type:"GET"
+					,beforeSend: function (xhr) {
+						xhr.setRequestHeader("Content-type","application/json");
+						xhr.setRequestHeader("Authorization","Bearer " + token);
+					},
+					success:function(data){
+						alert(JSON.stringify(data));
+
+					}
+				});
+			});
+			$("#logout").click(function(){
+
+				$.ajax({
+					url:"logout",
+					type:"POST",
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("Content-type","application/json");
+						xhr.setRequestHeader("Authorization","Bearer " + token);
+					},
+					success:function(data){
+						alert(JSON.stringify(data));
+
+					}
+				});
+			});
+
+
+		});
+
+
+	</script>
+</head>
+<body>
+
+<h1>회원가입요청</h1>
+
+<input type="text" name="email" id="signupEmail">
+<input type="password" name="password" id="signupPassword">
+<input type="button" value="회원가입요청" id="signupButton">
+
+
+<h1>회원로그인요청</h1>
+
+<input type="text" name="email" id="loginEmail">
+<input type="password" name="password" id="loginPassword">
+<input type="button" value="회원로그인요청" id="loginButton">
+
+
+<h1>테스트요청</h1>
+
+<input type="button" value="테스트요청" id="testButton">
+
+
+<h1>테스트요청</h1>
+
+<input type="button" value="테스트요청" id="testAdminButton">
+
+
+<h1>로그아웃</h1>
+<input type="button" value="로그아웃" id="logout">
+
+
+</body>
+</html>
